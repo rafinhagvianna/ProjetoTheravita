@@ -1,0 +1,19 @@
+# Atualizar meu repositório local
+git pull origin master
+
+# Faço as alterações necessárias no código
+
+# Verifico o que foi modificado
+git status (opcional)
+
+# Caso precise de mais detalhes
+git diff (opcional)
+
+# Adiciono os arquivos para commitar
+git add --all
+
+# Faço a mensagem do commit
+git commit -m "Aqui eu digo o que eu fiz"
+
+# Envio os commits para o repositório remoto
+git push origin master
