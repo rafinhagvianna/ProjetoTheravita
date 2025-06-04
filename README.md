@@ -1,7 +1,6 @@
 # Sistema de Gestão para Empresa Farmacêutica
 
 ### Integrantes:
-<br>
 
 - Gabriel Bachega 
 - Gabriel Oliveira Mendes Silva
