@@ -1,6 +1,6 @@
 # Sistema de Gestão para Empresa Farmacêutica
 
-# INTEGRANTES:
+### INTEGRANTES:
 <br>
 
 - Gabriel Bachega 
