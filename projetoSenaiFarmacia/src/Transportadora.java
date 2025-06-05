@@ -5,6 +5,7 @@ import Enums.Regiao;
 import Validators.CnpjValidator;
 
 public class Transportadora {
+
     private String nome;
     private int id;
     private String cnpj;
@@ -47,7 +48,7 @@ public class Transportadora {
         this.cnpj = cnpj;
     }
 
-    public void getRegioes() {
+    public void getRegiao() {
         for (Regiao r : regioes) {
             System.out.println(r);
         }
@@ -59,5 +60,5 @@ public class Transportadora {
 
     public boolean atendeRegiao(Regiao regiaoBuscada){
         return this.regioes.contains(regiaoBuscada);
-    }
+    };
 }
