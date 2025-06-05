@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Enums.Regiao;
+import Validators.CnpjValidator;
 
 public class Transportadora {
 
