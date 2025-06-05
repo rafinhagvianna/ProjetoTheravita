@@ -101,16 +101,32 @@ public class Main {
         System.out.println("| 14 - Registrar entrada                    |");
         System.out.println("| 15 - Registrar saída                      |");
         System.out.println("| 16 - Visualizar saldo atual               |");
-        System.out.println("| 17 - Estimar lucro mensal                 |");
-        System.out.println("| 18 - Estimar lucro anual                  |");
+        System.out.println("| 17 - Verificar lucro mensal               |");
+        System.out.println("| 18 - Verificar lucro anual                |");
         System.out.println("| 19 - Gerar relatório                      |");
         System.out.println("---------------------------------------------");
         System.out.println();
         int opcaoFuncionarioCaixa = scanner.nextInt();
-        Produto produto = new Produto();
+        Caixa caixa = new Caixa();
 
         switch (opcaoFuncionarioCaixa) {
-            case 1:
+            case 16:
+                System.out.println("Saldo atual da conta = " + caixa.getSaldo());
+                break;
+
+            case 17:
+                System.out.printf("Mes = ");
+                int mes = scanner.nextInt();
+                System.out.println();
+                System.out.printf("Ano = ");
+                int ano = scanner.nextInt();
+                caixa.lucroMensal(mes, ano);
+                break;
+
+            case 18:
+                System.out.printf("Ano = ");
+                ano = scanner.nextInt();
+                caixa.lucroAnual(ano);
         }
     }
 
@@ -123,7 +139,7 @@ public class Main {
         System.out.println("| 23 - Visualizar total                     |");
         System.out.println("---------------------------------------------");
         System.out.println();
-        int opcaoFuncionarioTransportadora= scanner.nextInt();
+        int opcaoFuncionarioTransportadora = scanner.nextInt();
         Transportadora transportadora = new Transportadora();
 
         switch (opcaoFuncionarioTransportadora) {
@@ -131,7 +147,7 @@ public class Main {
         }
     }
 
-    public static void apresentarMenuGestao(Scanner scanner){
+    public static void apresentarMenuGestao(Scanner scanner) {
         System.out.println("Escolha uma das opções: ");
         System.out.println("_____________________________________________");
         System.out.println("| 24 - Consultar negócios em andamento      |");
