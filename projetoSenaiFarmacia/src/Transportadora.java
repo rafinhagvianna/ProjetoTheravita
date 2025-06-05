@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 import Enums.Regiao;
 
@@ -6,17 +7,17 @@ public class Transportadora {
 
     private String nome;
     private int id;
-    private int cnpj;
-    private ArrayList<Regiao> regiao;
+    private String cnpj;
+    private List<Regiao> regiao;
 
-    public Transportadora(){
-
-    }
-
-    public Transportadora(String nome, int id, int cnpj) {
+    public Transportadora(String nome, int id, String cnpj) {
+        if (!CnpjValidator.isValid(cnpj)) {
+            throw new IllegalArgumentException("CNPJ inválido para a transportadora " + nome + ": " + cnpj);
+        }
         this.nome = nome;
         this.id = id;
         this.cnpj = cnpj;
+        this.regiao = new ArrayList<>();
     }
 
     public String getNome() {
@@ -35,20 +36,25 @@ public class Transportadora {
         this.id = id;
     }
 
-    public int getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(int cnpj) {
+    public void setCnpj(String cnpj) {
+        if (!CnpjValidator.isValid(cnpj)) {
+            throw new IllegalArgumentException("CNPJ inválido: " + cnpj);
+        }
         this.cnpj = cnpj;
     }
 
-    public ArrayList<Regiao> getRegiao() {
-        return regiao;
+    public void getRegiao() {
+        for (Regiao r : regiao) {
+            System.out.println(r);
+        }
     }
 
-    public void setRegiao(ArrayList<Regiao> regiao) {
-        this.regiao = regiao;
+    public void setRegiao(Regiao regiao) {
+        this.regiao.add(regiao);
     }
 
     public boolean atendeRegiao(Regiao regiao){
