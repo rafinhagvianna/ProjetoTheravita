@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Caixa {
     private double saldo;
     private ArrayList<Venda> entrada;
     private ArrayList<Compra> saida;
+    private LocalDate hoje = LocalDate.now();
 
     public Caixa(double saldo, ArrayList<Venda> entrada, ArrayList<Compra> saida) {
         this.saldo = saldo;
@@ -33,5 +35,60 @@ public class Caixa {
 
     public void setSaida(ArrayList<Compra> saida) {
         this.saida = saida;
+    }
+    public double totalCaixa() {
+        double totalEntradas = 0;
+        double totalSaidas = 0;
+
+        for (Venda v : entrada) {
+            totalEntradas += v.getTotal();
+        }
+
+        for (Compra c : saida) {
+            totalSaidas += c.getTotal();
+        }
+
+        saldo = totalEntradas - totalSaidas;
+        return saldo;
+    }
+
+
+    public double lucroMensal(int mes, int ano) {
+        double totalEntradas = 0;
+        double totalSaidas = 0;
+
+        for (Venda v : entrada) {
+            if (v.getData().getMonthValue() == mes && v.getData().getYear() == ano) {
+                totalEntradas += v.getTotal();
+            }
+        }
+
+        for (Compra c : saida) {
+            if (c.getData().getMonthValue() == mes && c.getData().getYear() == ano) {
+                totalSaidas += c.getTotal();
+            }
+        }
+
+        return totalEntradas - totalSaidas;
+    }
+
+
+    public double lucroAnual(int ano) {
+        double totalEntradas = 0;
+        double totalSaidas = 0;
+
+        for (Venda v : entrada) {
+            if (v.getData().getYear() == ano) {
+                totalEntradas += v.getTotal();
+            }
+        }
+
+        for (Compra c : saida) {
+            if (c.getData().getYear() == ano) {
+                totalSaidas += c.getTotal();
+            }
+        }
+
+        return totalEntradas - totalSaidas;
     }
 }
