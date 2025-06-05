@@ -88,7 +88,6 @@ public class Salario {
         }
     }
 
-
     public double calculaSalario(){
         double aliquota;
         double IR;
@@ -115,7 +114,6 @@ public class Salario {
 
         return totalSalario;
     }
-
 
     public double calcularBonificacao(double lucroAnual, double nFuncionarios){
         
