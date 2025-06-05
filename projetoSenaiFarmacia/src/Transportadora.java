@@ -58,8 +58,10 @@ public class Transportadora {
         this.regiao.add(regiao);
     }
 
-    public boolean atendeRegiao(Regiao regiao){
+    public boolean atendeRegiao(Regiao regiao) {
 
         return true;
-    };
+    }
+
+    ;
 }

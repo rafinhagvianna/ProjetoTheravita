@@ -1,7 +1,12 @@
+import Enums.Setores;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    static ArrayList<Funcionario> funcionarios = new ArrayList<>();
+    static ArrayList<Setor> setores = new ArrayList<>();
+    static ArrayList<Produto> produtos = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("Bem vindo ao programa!");
@@ -55,123 +60,208 @@ public class Main {
     }
 
     public static void apresentarMenuFuncionarios(Scanner scanner) {
-        System.out.println("Escolha uma das opções: ");
-        System.out.println("-----------------------------------------");
-        System.out.println("| 1 - Cadastrar funcionário             |");
-        System.out.println("| 2 - Listar funcionários (por setor)   |");
-        System.out.println("| 3 - Excluir funcionário               |");
-        System.out.println("| 4 - Visualizar total de funcionários  |");
-        System.out.println("-----------------------------------------");
-        System.out.println();
-        int opcaoFuncionarioUsuario = scanner.nextInt();
-        Funcionario funcionario = new Funcionario();
+        int opcaoUsuarioFuncionario;
+        do {
+            System.out.println("Escolha uma das opções: ");
+            System.out.println("-----------------------------------------");
+            System.out.println("| 1 - Cadastrar funcionário             |");
+            System.out.println("| 2 - Listar funcionários (por setor)   |");
+            System.out.println("| 3 - Excluir funcionário               |");
+            System.out.println("| 4 - Visualizar total de funcionários  |");
+            System.out.println("| 0 - Sair                              |");
+            System.out.println("-----------------------------------------");
+            System.out.println();
+            opcaoUsuarioFuncionario = scanner.nextInt();
 
-        switch (opcaoFuncionarioUsuario) {
-            case 1:
-        }
+            switch (opcaoUsuarioFuncionario) {
+                case 1:
+                    System.out.printf("Nome = ");
+                    String nome = scanner.next();
+                    System.out.printf("CPF = ");
+                    int cpf = scanner.nextInt();
+                    System.out.printf("Gênero = ");
+                    String genero = scanner.next();
+                    System.out.printf("Setor = ");
+                    Setor selecionado = new Setor();
+                    for (Setor set : setores) {
+                        if (set.getNome().equals(Setores.FINANCEIRO)) {
+                            selecionado = set;
+                        }
+                    }
+                    Funcionario funcionario = new Funcionario(nome, cpf, genero, selecionado, null);
+                    System.out.println("Salário = ");
+                    double salarioFuncionario = scanner.nextDouble();
+                    Salario salario = new Salario(salarioFuncionario, funcionario);
+                    funcionario.setSalario(salario);
+                    funcionarios.add(funcionario);
+
+                    break;
+
+                case 2:
+                    break;
+                case 3:
+                    for (Funcionario func : funcionarios) {
+                        System.out.println("Deseja excluir esse funcionário? true or false");
+                        System.out.println();
+                        boolean excluirFuncionario = scanner.nextBoolean();
+                        if (excluirFuncionario) {
+                            funcionarios.remove(func);
+                        }
+                    }
+                    break;
+
+                case 4:
+                    int totalFuncionarios = 0;
+                    for (Funcionario func : funcionarios) {
+                        totalFuncionarios++;
+                    }
+                    System.out.println("Total de funcionários = " + totalFuncionarios);
+                    break;
+                case 0:
+                    System.out.println("Retornando ao menu principal.");
+                    break;
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+            }
+        } while (opcaoUsuarioFuncionario != 0);
     }
 
     public static void apresentarMenuSalariosBeneficios(Scanner scanner) {
-        System.out.println("Escolha uma das opções: ");
-        System.out.println("-------------------------------------------");
-        System.out.println("| 5 - Apresentar salário bruto          |");
-        System.out.println("| 6 - Calcular salário líquido          |");
-        System.out.println("| 7 - Consultar valores dos benefícios  |");
-        System.out.println("| 8 - Atualizar valores dos benefícios  |");
-        System.out.println("| 9 - Exibir demonstrativo salarial     |");
-        System.out.println("------------------------------------------");
-        System.out.println();
-        int opcaoFuncionarioSalario = scanner.nextInt();
-        Salario salario = new Salario();
+        int opcaoUsuarioSalario;
+        do {
+            System.out.println("Escolha uma das opções: ");
+            System.out.println("-------------------------------------------");
+            System.out.println("| 1 - Apresentar salário bruto          |");
+            System.out.println("| 2 - Calcular salário líquido          |");
+            System.out.println("| 3 - Consultar valores dos benefícios  |");
+            System.out.println("| 4 - Atualizar valores dos benefícios  |");
+            System.out.println("| 5 - Exibir demonstrativo salarial     |");
+            System.out.println("| 0 - Sair                              |");
+            System.out.println("------------------------------------------");
+            System.out.println();
+            opcaoUsuarioSalario = scanner.nextInt();
 
-        switch (opcaoFuncionarioSalario) {
-            case 1:
+            switch (opcaoUsuarioSalario) {
+                case 1:
+
+            }
         }
+        while (opcaoUsuarioSalario != 0);
     }
 
     public static void apresentarMenuProduto(Scanner scanner) {
-        System.out.println("Escolha uma das opções: ");
-        System.out.println("---------------------------------------------");
-        System.out.println("| 10 - Cadastrar  produto                    |");
-        System.out.println("| 11 - Listar produtos                       |");
-        System.out.println("| 12 - Atualizar produtos                    |");
-        System.out.println("| 13 - Verificar disponibilidade do produto  |");
-        System.out.println("---------------------------------------------");
-        System.out.println();
-        int opcaoFuncionarioProduto = scanner.nextInt();
-        Produto produto = new Produto();
+        int opcaoUsuarioProduto;
+        do {
+            System.out.println("Escolha uma das opções: ");
+            System.out.println("---------------------------------------------");
+            System.out.println("| 1 - Cadastrar  produto                    |");
+            System.out.println("| 2 - Listar produtos                       |");
+            System.out.println("| 3 - Atualizar produtos                    |");
+            System.out.println("| 4 - Verificar disponibilidade do produto  |");
+            System.out.println("| 0  - Sair                                 |");
+            System.out.println("---------------------------------------------");
+            System.out.println();
+            opcaoUsuarioProduto = scanner.nextInt();
 
-        switch (opcaoFuncionarioProduto) {
-            case 1:
-        }
+            switch (opcaoUsuarioProduto) {
+                case 1:
+                    System.out.printf("Descrição = ");
+                    String descricao = scanner.nextLine();
+                    System.out.printf("Valor de venda = ");
+                    double valorVenda = scanner.nextDouble();
+                    System.out.printf("Valor de compra = ");
+                    double valorCompra = scanner.nextDouble();
+                    Produto produto = new Produto(descricao, valorVenda, valorCompra);
+                    produtos.add(produto);
+                    break;
+
+                case 2:
+                    for (Produto prod : produtos) {
+                        System.out.println(prod);
+                        System.out.println();
+                    }
+            }
+        } while (opcaoUsuarioProduto != 0);
+
     }
 
     public static void apresentarMenuCaixa(Scanner scanner) {
-        System.out.println("Escolha uma das opções: ");
-        System.out.println("______________________________________________");
-        System.out.println("| 14 - Registrar entrada                    |");
-        System.out.println("| 15 - Registrar saída                      |");
-        System.out.println("| 16 - Visualizar saldo atual               |");
-        System.out.println("| 17 - Verificar lucro mensal               |");
-        System.out.println("| 18 - Verificar lucro anual                |");
-        System.out.println("| 19 - Gerar relatório                      |");
-        System.out.println("---------------------------------------------");
-        System.out.println();
-        int opcaoFuncionarioCaixa = scanner.nextInt();
-        Caixa caixa = new Caixa();
+        int opcaoUsuarioCaixa;
 
-        switch (opcaoFuncionarioCaixa) {
-            case 16:
-                System.out.println("Saldo atual da conta = " + caixa.getSaldo());
-                break;
+        do {
+            System.out.println("Escolha uma das opções: ");
+            System.out.println("______________________________________________");
+            System.out.println("| 1 - Registrar entrada                    |");
+            System.out.println("| 2 - Registrar saída                      |");
+            System.out.println("| 3 - Visualizar saldo atual               |");
+            System.out.println("| 4 - Verificar lucro mensal               |");
+            System.out.println("| 5 - Verificar lucro anual                |");
+            System.out.println("| 6 - Gerar relatório                      |");
+            System.out.println("| 0 - Sair                                 |");
+            System.out.println("---------------------------------------------");
+            System.out.println();
+            opcaoUsuarioCaixa = scanner.nextInt();
+            Caixa caixa = new Caixa();
 
-            case 17:
-                System.out.printf("Mes = ");
-                int mes = scanner.nextInt();
-                System.out.println();
-                System.out.printf("Ano = ");
-                int ano = scanner.nextInt();
-                caixa.lucroMensal(mes, ano);
-                break;
+            switch (opcaoUsuarioCaixa) {
+                case 16:
+                    System.out.println("Saldo atual da conta = " + caixa.getSaldo());
+                    break;
 
-            case 18:
-                System.out.printf("Ano = ");
-                ano = scanner.nextInt();
-                caixa.lucroAnual(ano);
-        }
+                case 17:
+                    System.out.printf("Mes = ");
+                    int mes = scanner.nextInt();
+                    System.out.println();
+                    System.out.printf("Ano = ");
+                    int ano = scanner.nextInt();
+                    caixa.lucroMensal(mes, ano);
+                    break;
+
+                case 18:
+                    System.out.printf("Ano = ");
+                    ano = scanner.nextInt();
+                    caixa.lucroAnual(ano);
+            }
+        } while (opcaoUsuarioCaixa != 0);
     }
 
     public static void apresentarMenuTransportadoras(Scanner scanner) {
-        System.out.println("Escolha uma das opções: ");
-        System.out.println("______________________________________________");
-        System.out.println("| 20 - Cadastrar                            |");
-        System.out.println("| 21 - Listar                               |");
-        System.out.println("| 22 - Atualizar                            |");
-        System.out.println("| 23 - Visualizar total                     |");
-        System.out.println("---------------------------------------------");
-        System.out.println();
-        int opcaoFuncionarioTransportadora = scanner.nextInt();
-        Transportadora transportadora = new Transportadora();
+        int opcaoUsuarioTransportadoras;
+        do {
+            System.out.println("Escolha uma das opções: ");
+            System.out.println("______________________________________________");
+            System.out.println("| 1 - Cadastrar                            |");
+            System.out.println("| 2 - Listar                               |");
+            System.out.println("| 3 - Atualizar                            |");
+            System.out.println("| 4 - Visualizar total                     |");
+            System.out.println("| 0 - Sair                                 |");
+            System.out.println("---------------------------------------------");
+            System.out.println();
+            opcaoUsuarioTransportadoras = scanner.nextInt();
 
-        switch (opcaoFuncionarioTransportadora) {
-            case 1:
-        }
+            switch (opcaoUsuarioTransportadoras) {
+                case 1:
+                    System.out.printf("Nome = ");
+                    String nome = scanner.nextLine();
+            }
+        } while (opcaoUsuarioTransportadoras != 0);
     }
 
     public static void apresentarMenuGestao(Scanner scanner) {
-        System.out.println("Escolha uma das opções: ");
-        System.out.println("_____________________________________________");
-        System.out.println("| 24 - Consultar negócios em andamento      |");
-        System.out.println("| 25 - Atualizar status                     |");
-        System.out.println("---------------------------------------------");
-        System.out.println();
-        int opcaoFuncionarioGestao = scanner.nextInt();
-        Funcionario funcionario = new Funcionario();
+        int opcaoUsuarioGestao;
+        do {
+            System.out.println("Escolha uma das opções: ");
+            System.out.println("_____________________________________________");
+            System.out.println("| 1 - Consultar negócios em andamento      |");
+            System.out.println("| 2 - Atualizar status                     |");
+            System.out.println("| 0 - Sair                                 |");
+            System.out.println("---------------------------------------------");
+            System.out.println();
+            opcaoUsuarioGestao = scanner.nextInt();
 
-        switch (opcaoFuncionarioGestao) {
-            case 1:
-        }
+            switch (opcaoUsuarioGestao) {
+                case 1:
+            }
+        } while (opcaoUsuarioGestao != 0);
     }
-
-
 }
