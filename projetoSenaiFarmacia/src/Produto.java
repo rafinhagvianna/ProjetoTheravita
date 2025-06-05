@@ -55,11 +55,4 @@ public class Produto {
                 ", Valor de compra = R$" + valorCompra +
                 ", Estoque = " + (estoqueProduto != null ? estoqueProduto.getEstoque() : "N/A");
     }
-
-    public static void main(String[] args) {
-        Produto produto = new Produto("Produto 1", 100.00, 100.00);
-        Produto produto2 = new Produto("Produto 2", 200.00, 200.00);
-
-        Estoque.getCatalogo();
-    }
 }
