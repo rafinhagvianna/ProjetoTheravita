@@ -1,28 +1,53 @@
 import java.util.ArrayList;
+import Enums.Setores;
 
 public class Setor {
-    private String nome;
+    private String id;
+    private Setores nome;
     private ArrayList<Funcionario> funcionarios;
 
+    private static int proxId = 1;
+
     public Setor() {
-
+        this.id = "SET"+proxId;
+        proxId++;
     }
-
-    public Setor(String nome, ArrayList<Funcionario> funcionarios) {
+    
+    public Setor(Setores nome, ArrayList<Funcionario> funcionarios) {
+        this.id = "SET"+proxId;
+        proxId++;
         this.nome = nome;
         this.funcionarios = funcionarios;
     }
 
-    public String getNome() {
+    public String getId(){
+        return id;
+    }
+
+    public Setores getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(Setores nome) {
         this.nome = nome;
     }
 
     public ArrayList<Funcionario> getFuncionarios() {
         return funcionarios;
+    }
+
+    public int funcionariosAtivos(){
+        return funcionarios.size();
+    }
+
+    public static int totalFuncionarios(ArrayList<Setor> setores){
+        int total = 0;
+
+        for(Setor setor : setores){
+            total += setor.funcionariosAtivos();
+        }
+
+        return total;
     }
 
 }

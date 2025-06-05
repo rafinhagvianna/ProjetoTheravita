@@ -1,0 +1,11 @@
+package Enums;
+
+public enum Setores {
+    GERENTE_FILIAL,
+    ATENDIMENTO_CLIENTE,
+    GESTAO_PESSOAS,
+    FINANCEIRO,
+    VENDAS,
+    ALMOXARIFADO,
+    TRANSPORTADORAS;
+}
