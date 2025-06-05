@@ -9,37 +9,48 @@ public class Main {
     }
 
     public static void apresentarMenu() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println();
-        System.out.println("ESCOLHA UMA DAS OPÇÕES: ");
-        System.out.println();
-        System.out.println("FUNCIONÁRIOS - (F)");
-        System.out.println("SALÁRIO E BENEFÍCIOS - (S)");
-        System.out.println("PRODUTO - (P)");
-        System.out.println("CAIXA - (C)");
-        System.out.println("TRANSPORTADORAS - (T)");
-        System.out.println("GESTÃO DE NEGÓCIOS - (G)");
-        System.out.println();
+        char opcaoInicialUsuario;
+        do{
+            Scanner scanner = new Scanner(System.in);
+            System.out.println();
+            System.out.println("ESCOLHA UMA DAS OPÇÕES: ");
+            System.out.println();
+            System.out.println("FUNCIONÁRIOS - (F)");
+            System.out.println("SALÁRIO E BENEFÍCIOS - (S)");
+            System.out.println("PRODUTO - (P)");
+            System.out.println("CAIXA - (C)");
+            System.out.println("TRANSPORTADORAS - (T)");
+            System.out.println("GESTÃO DE NEGÓCIOS - (G)");
+            System.out.println();
+            System.out.println("SAIR - (E)");
+            System.out.println();
 
-        char opcaoInicialUsuario = scanner.next().charAt(0);
-        opcaoInicialUsuario = Character.toUpperCase(opcaoInicialUsuario);
+            opcaoInicialUsuario = scanner.next().toUpperCase().charAt(0);
 
-        switch (opcaoInicialUsuario) {
-            case 'F':
-                apresentarMenuFuncionarios(scanner);
-                break;
-            case 'S':
-                apresentarMenuSalariosBeneficios(scanner);
-                break;
-            case 'P':
-                apresentarMenuProduto(scanner);
-                break;
-            case 'C':
-                apresentarMenuCaixa(scanner);
-                break;
-            case 'T':
-                apresentarMenuTransportadoras(scanner);
-        }
+            switch (opcaoInicialUsuario) {
+                case 'F':
+                    apresentarMenuFuncionarios(scanner);
+                    break;
+                case 'S':
+                    apresentarMenuSalariosBeneficios(scanner);
+                    break;
+                case 'P':
+                    apresentarMenuProduto(scanner);
+                    break;
+                case 'C':
+                    apresentarMenuCaixa(scanner);
+                    break;
+                case 'T':
+                    apresentarMenuTransportadoras(scanner);
+                    break;
+                case 'E':
+                    apresentarMenuTransportadoras(scanner);
+                    break;
+                default:
+                    System.out.println("\nOpção inválida!\n");
+                    break;
+            }
+        }while(opcaoInicialUsuario != 'E');
 
     }
 
