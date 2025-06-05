@@ -1,3 +1,5 @@
+package Validators;
+
 public class CnpjValidator {
     public static boolean isValid(String cnpj) {
         // 1. Remove caracteres não numéricos do CNPJ
