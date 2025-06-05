@@ -9,7 +9,7 @@ public class Transportadora {
     private int cnpj;
     private ArrayList<Regiao> regiao;
 
-    public Transportadora(){
+    public Transportadora() {
 
     }
 
@@ -51,8 +51,10 @@ public class Transportadora {
         this.regiao = regiao;
     }
 
-    public boolean atendeRegiao(Regiao regiao){
+    public boolean atendeRegiao(Regiao regiao) {
 
         return true;
-    };
+    }
+
+    ;
 }
