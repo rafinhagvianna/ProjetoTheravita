@@ -2,15 +2,15 @@ import java.util.ArrayList;
 
 public class Setor {
     private String nome;
-    private ArrayList<Funcionario> qtdFuncionarios;
+    private ArrayList<Funcionario> funcionarios;
 
     public Setor() {
 
     }
 
-    public Setor(String nome, ArrayList<Funcionario> qtdFuncionarios) {
+    public Setor(String nome, ArrayList<Funcionario> funcionarios) {
         this.nome = nome;
-        this.qtdFuncionarios = qtdFuncionarios;
+        this.funcionarios = funcionarios;
     }
 
     public String getNome() {
@@ -21,8 +21,8 @@ public class Setor {
         this.nome = nome;
     }
 
-    public ArrayList<Funcionario> getQtdFuncionarios() {
-        return qtdFuncionarios;
+    public ArrayList<Funcionario> getFuncionarios() {
+        return funcionarios;
     }
 
 }

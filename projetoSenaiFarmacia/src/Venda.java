@@ -18,10 +18,10 @@ public class Venda extends Transacoes {
     }
 
     public double calculaTotal(){
-
+        return 0;
     }
 
-    public static emAberto(ArrayList<Venda> vendas){
+    public static void emAberto(ArrayList<Venda> vendas){
 
     }
 }

@@ -38,10 +38,10 @@ public class Estoque {
     }
 
     public int verificarMinimo() {
-
+        return 0;
     }
-
+    
     public int verificarVenda(int qtd) {
-
+        return 0;
     }
 }
