@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Enums.Setores;
@@ -123,8 +124,8 @@ public class Salario {
     }
 
     public double calcularBonificacao(Caixa caixa, ArrayList<Setor> setores){
-        
-        double lucroAnual = 200000;//caixa.lucroAnual();
+        int anoAtual = LocalDate.now().getYear();
+        double lucroAnual = caixa.lucroAnual(anoAtual);
         double nFuncionarios = Setor.totalFuncionarios(setores);
 
         double bonificacao = (lucroAnual * 0.2) / nFuncionarios;
