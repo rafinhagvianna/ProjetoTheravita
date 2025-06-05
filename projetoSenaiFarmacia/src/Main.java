@@ -1,7 +1,12 @@
+import Enums.Setores;
+
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    static ArrayList<Funcionario> funcionarios = new ArrayList<>();
+    static ArrayList<Setor> setores = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("Bem vindo ao programa!");
@@ -53,10 +58,35 @@ public class Main {
         System.out.println("-----------------------------------------");
         System.out.println();
         int opcaoFuncionarioUsuario = scanner.nextInt();
-        Funcionario funcionario = new Funcionario();
 
         switch (opcaoFuncionarioUsuario) {
             case 1:
+                System.out.printf("Nome = ");
+                String nome = scanner.next();
+                System.out.printf("CPF = ");
+                int cpf = scanner.nextInt();
+                System.out.printf("Gênero = ");
+                String genero = scanner.next();
+                System.out.printf("Setor = ");
+                Setor selecionado = new Setor();
+                for (Setor set : setores) {
+                    if (set.getNome() == Setores.FINANCEIRO) {
+                        selecionado = set;
+                    }
+                }
+                Funcionario funcionario = new Funcionario(nome, cpf, genero, selecionado, null);
+                System.out.println("Salário = ");
+                double salarioFuncionario = scanner.nextDouble();
+                Salario salario = new Salario(salarioFuncionario, funcionario);
+                funcionario.setSalario(salario);
+                funcionarios.add(funcionario);
+
+                break;
+
+            case 2:
+                for(Funcionario func : funcionarios) {
+                    System.out.println(func);
+                }
         }
     }
 
