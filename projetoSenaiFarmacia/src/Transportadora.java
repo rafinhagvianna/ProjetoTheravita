@@ -3,10 +3,15 @@ import java.util.ArrayList;
 import Enums.Regiao;
 
 public class Transportadora {
+
     private String nome;
     private int id;
     private int cnpj;
     private ArrayList<Regiao> regiao;
+
+    public Transportadora(){
+
+    }
 
     public Transportadora(String nome, int id, int cnpj) {
         this.nome = nome;
@@ -47,6 +52,7 @@ public class Transportadora {
     }
 
     public boolean atendeRegiao(Regiao regiao){
+
         return true;
     };
 }
