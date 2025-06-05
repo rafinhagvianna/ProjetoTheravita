@@ -5,11 +5,10 @@ import Enums.Regiao;
 import Validators.CnpjValidator;
 
 public class Transportadora {
-
     private String nome;
     private int id;
     private String cnpj;
-    private List<Regiao> regiao;
+    private List<Regiao> regioes;
 
     public Transportadora(String nome, int id, String cnpj) {
         if (!CnpjValidator.isValid(cnpj)) {
@@ -18,7 +17,7 @@ public class Transportadora {
         this.nome = nome;
         this.id = id;
         this.cnpj = cnpj;
-        this.regiao = new ArrayList<>();
+        this.regioes = new ArrayList<>();
     }
 
     public String getNome() {
@@ -48,18 +47,17 @@ public class Transportadora {
         this.cnpj = cnpj;
     }
 
-    public void getRegiao() {
-        for (Regiao r : regiao) {
+    public void getRegioes() {
+        for (Regiao r : regioes) {
             System.out.println(r);
         }
     }
 
     public void setRegiao(Regiao regiao) {
-        this.regiao.add(regiao);
+        this.regioes.add(regiao);
     }
 
-    public boolean atendeRegiao(Regiao regiao){
-
-        return true;
-    };
+    public boolean atendeRegiao(Regiao regiaoBuscada){
+        return this.regioes.contains(regiaoBuscada);
+    }
 }
