@@ -1,19 +1,23 @@
 public class Funcionario {
     private String nome;
     private int cpf;
-    private int id;
+    private String id;
     private String genero;
     private Setor setor;
     private Salario salario;
 
+    private static int proxId = 1;
+
     public Funcionario() {
-
+        this.id = "FUN"+proxId;
+        proxId++;
     }
-
-    public Funcionario(String nome, int cpf, int id, String genero, Setor setor, Salario salario) {
+    
+    public Funcionario(String nome, int cpf, String genero, Setor setor, Salario salario) {
+        this.id = "FUN"+proxId;
+        proxId++;
         this.nome = nome;
         this.cpf = cpf;
-        this.id = id;
         this.genero = genero;
         this.setor = setor;
         this.salario = salario;
@@ -35,12 +39,8 @@ public class Funcionario {
         this.cpf = cpf;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getGenero() {
@@ -65,5 +65,17 @@ public class Funcionario {
 
     public void setSalario(Salario salario) {
         this.salario = salario;
+    }
+
+    
+    public void dadosFuncionario(){
+        System.out.println("Funcionário: "+ nome);
+        System.out.println("Setor: "+ setor.getNome());
+        System.out.println("Salario base: "+ salario.getSalario());
+        System.out.println("Salario final: "+ salario.calculaSalario());
+        System.out.println("Beneficios");
+        System.out.println(" - Plano de saúde: "+ salario.getSaude());
+        System.out.println(" - Plano odontológico: "+ salario.getOdonto());
+        System.out.println(" - Vale refeição/alimentação: "+ salario.getValeRefAliment());
     }
 }

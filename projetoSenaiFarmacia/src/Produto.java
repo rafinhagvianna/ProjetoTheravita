@@ -1,18 +1,22 @@
 public class Produto {
+    private static int idBase = 1;
     private String descricao;
     private int id;
     private double valorVenda;
     private double valorCompra;
+    private Estoque estoqueProduto;
 
     public Produto() {
 
     }
 
-    public Produto(String descricao, int id, double valorVenda, double valorCompra) {
+    public Produto(String descricao, double valorVenda, double valorCompra) {
         this.descricao = descricao;
-        this.id = id;
+        this.id = idBase;
         this.valorVenda = valorVenda;
         this.valorCompra = valorCompra;
+        idBase++;
+        this.estoqueProduto = new Estoque(0, 5, this);
     }
 
     public String getDescricao() {
@@ -25,10 +29,6 @@ public class Produto {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public double getValorVenda() {
@@ -45,5 +45,14 @@ public class Produto {
 
     public void setValorCompra(double valorCompra) {
         this.valorCompra = valorCompra;
+    }
+
+    @Override
+    public String toString() {
+        return  "Nome do produto = " + descricao +
+                ", id = " + id +
+                ", Valor de venda = R$" + valorVenda +
+                ", Valor de compra = R$" + valorCompra +
+                ", Estoque = " + (estoqueProduto != null ? estoqueProduto.getEstoque() : "N/A");
     }
 }
