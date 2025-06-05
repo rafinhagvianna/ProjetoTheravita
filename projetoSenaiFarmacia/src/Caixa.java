@@ -7,6 +7,7 @@ public class Caixa {
     private ArrayList<Compra> saida;
     private LocalDate hoje = LocalDate.now();
 
+  
     public Caixa(double saldo, ArrayList<Venda> entrada, ArrayList<Compra> saida) {
         this.saldo = saldo;
         this.entrada = entrada;
