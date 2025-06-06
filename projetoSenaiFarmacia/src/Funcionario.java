@@ -1,4 +1,4 @@
-import Validators.CpfValidator;
+import Validators.FuncionarioValidator;
 
 public class Funcionario {
     private String nome;
@@ -15,9 +15,9 @@ public class Funcionario {
         proxId++;
     }
     
-    public Funcionario(String nome, String cpf, String genero, Setor setor, Salario salario) {
-        if (!CpfValidator.isValid(cpf)) {
-            throw new IllegalArgumentException("CPF inválido para a transportadora " + nome + ": " + cpf);
+    public Funcionario(String nome, String cpf, String genero, Setor setor, Salario salario) throws FuncionarioException  {
+        if (!FuncionarioValidator.isValidCpf(cpf)) {
+            throw new FuncionarioException();
         }
         this.id = "FUN"+proxId;
         proxId++;
@@ -40,8 +40,12 @@ public class Funcionario {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCpf(String cpf) throws FuncionarioException {
+        if (FuncionarioValidator.isValidCpf(cpf)) {
+            this.cpf = cpf;
+        } else {
+            throw new FuncionarioException();
+        }
     }
 
     public String getId() {
