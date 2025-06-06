@@ -683,7 +683,6 @@ public class Main {
         
     }
     
-
     public static Produto buscarProdutoPorId(int id){
         for(Produto produto : produtos){
             if (produto.getId() == id) {
@@ -692,8 +691,6 @@ public class Main {
         }
         return null;
     }
-
-
 
     public static void apresentarMenuTransportadoras(Scanner scanner, ArrayList<Transportadora> transportadoras) {
         int opcaoUsuarioTransportadoras;
@@ -738,7 +735,6 @@ public class Main {
             }
         } while (opcaoUsuarioTransportadoras != 0);
     }
-
 
     public static void apresentarMenuGestao(Scanner scanner) {
         int opcaoUsuarioGestao;
