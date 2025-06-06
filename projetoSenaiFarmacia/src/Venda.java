@@ -11,10 +11,10 @@ public class Venda extends Transacoes {
     }
 
     public Venda(double valor, LocalDate data) {
-        super("TX" + proxId++, new ArrayList<Produto>(), valor, data, null, new ArrayList<Status>(), valor);
+        super("TX" + proxId++, new ArrayList<Itens>(), valor, data, null, new ArrayList<Status>(), valor);
     }
 
-    public Venda(String id, ArrayList<Produto> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
+    public Venda(String id, ArrayList<Itens> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
         super(id, produtos, total, data, funcionario, status, valor);
     }
 
