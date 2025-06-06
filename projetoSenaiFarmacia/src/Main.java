@@ -224,7 +224,7 @@ public class Main {
         do {
             System.out.println("Escolha uma das opções: ");
             System.out.println("---------------------------------------------");
-            System.out.println("| 1 - Cadastrar  produto                    |");
+            System.out.println("| 1 - Cadastrar produto                     |");
             System.out.println("| 2 - Listar produtos                       |");
             System.out.println("| 3 - Atualizar produtos                    |");
             System.out.println("| 4 - Verificar disponibilidade do produto  |");
@@ -234,59 +234,20 @@ public class Main {
 
             switch (opcaoUsuarioProduto) {
                 case 1:
-                    scanner.nextLine();
-                    System.out.print("Descrição = ");
-                    String descricao = scanner.nextLine();
-                    System.out.print("Valor de venda = ");
-                    double valorVenda = scanner.nextDouble();
-                    System.out.print("Valor de compra = ");
-                    double valorCompra = scanner.nextDouble();
-                    Produto produto = new Produto(descricao, valorVenda, valorCompra);
-                    produtos.add(produto);
+                    GenProduto.cadastraProduto(produtos);
                     break;
 
                 case 2:
-                    for (Produto prod : produtos) {
-                        System.out.println(prod);
-                    }
+                    GenProduto.listarProdutos(produtos);
+                    scanner.nextLine();
                     break;
 
                 case 3:
-                    System.out.print("Informe a descrição do produto a ser atualizado: ");
-                    scanner.nextLine();
-                    String descricaoProduto = scanner.nextLine();
-                    Produto produtoAtualizar = null;
-                    for (Produto prod : produtos) {
-                        if (prod.getDescricao().equalsIgnoreCase(descricaoProduto)) {
-                            produtoAtualizar = prod;
-                            break;
-                        }
-                    }
-                    if (produtoAtualizar != null) {
-                        System.out.print("Novo valor de venda: ");
-                        double novoValorVenda = scanner.nextDouble();
-                        produtoAtualizar.setValorVenda(novoValorVenda);
-                        System.out.println("Produto atualizado com sucesso!");
-                    } else {
-                        System.out.println("Produto não encontrado!");
-                    }
+                    GenProduto.atualizarProduto(produtos);
                     break;
 
                 case 4:
-                    System.out.print("Informe a descrição do produto para verificar disponibilidade: ");
-                    scanner.nextLine();
-                    String produtoDescricao = scanner.nextLine();
-                    boolean encontrado = false;
-                    for (Produto prod : produtos) {
-                        if (prod.getDescricao().equalsIgnoreCase(produtoDescricao)) {
-                            System.out.println("Produto disponível: " + prod);
-                            encontrado = true;
-                            break;
-                        }
-                    }
-                    if (!encontrado) {
-                        System.out.println("Produto não encontrado!");
-                    }
+                    GenProduto.diponibilidadeProduto(produtos);
                     break;
 
                 case 0:
@@ -298,6 +259,7 @@ public class Main {
             }
         } while (opcaoUsuarioProduto != 0);
     }
+
 
     public static void apresentarMenuCaixa(Scanner scanner) {
         int opcaoUsuarioCaixa;
