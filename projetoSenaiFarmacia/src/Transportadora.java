@@ -1,17 +1,25 @@
 import java.util.ArrayList;
+import java.util.List;
 
 import Enums.Regiao;
+import Validators.CnpjValidator;
 
 public class Transportadora {
+    private static int idBase = 1;
     private String nome;
     private int id;
-    private int cnpj;
-    private ArrayList<Regiao> regiao;
+    private String cnpj;
+    private List<Regiao> regioes;
 
-    public Transportadora(String nome, int id, int cnpj) {
+    public Transportadora(String nome, String cnpj) {
+        if (!CnpjValidator.isValid(cnpj)) {
+            throw new IllegalArgumentException("CNPJ inválido para a transportadora " + nome + ": " + cnpj);
+        }
         this.nome = nome;
-        this.id = id;
+        this.id = idBase;
         this.cnpj = cnpj;
+        idBase++;
+        this.regioes = new ArrayList<>();
     }
 
     public String getNome() {
@@ -26,27 +34,28 @@ public class Transportadora {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(int cnpj) {
+    public void setCnpj(String cnpj) {
+        if (!CnpjValidator.isValid(cnpj)) {
+            throw new IllegalArgumentException("CNPJ inválido: " + cnpj);
+        }
         this.cnpj = cnpj;
     }
 
-    public ArrayList<Regiao> getRegiao() {
-        return regiao;
+    public void getRegiao() {
+        for (Regiao r : regioes) {
+            System.out.println(r);
+        }
     }
 
-    public void setRegiao(ArrayList<Regiao> regiao) {
-        this.regiao = regiao;
+    public void setRegiao(Regiao regiao) {
+        this.regioes.add(regiao);
     }
 
-    public boolean atendeRegiao(Regiao regiao){
-        return true;
+    public boolean atendeRegiao(Regiao regiaoBuscada){
+        return this.regioes.contains(regiaoBuscada);
     };
 }
