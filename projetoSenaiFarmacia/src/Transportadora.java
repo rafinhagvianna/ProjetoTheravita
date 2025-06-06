@@ -5,19 +5,20 @@ import Enums.Regiao;
 import Validators.CnpjValidator;
 
 public class Transportadora {
-
+    private static int idBase = 1;
     private String nome;
     private int id;
     private String cnpj;
     private List<Regiao> regioes;
 
-    public Transportadora(String nome, int id, String cnpj) {
+    public Transportadora(String nome, String cnpj) {
         if (!CnpjValidator.isValid(cnpj)) {
             throw new IllegalArgumentException("CNPJ inválido para a transportadora " + nome + ": " + cnpj);
         }
         this.nome = nome;
-        this.id = id;
+        this.id = idBase;
         this.cnpj = cnpj;
+        idBase++;
         this.regioes = new ArrayList<>();
     }
 
@@ -31,10 +32,6 @@ public class Transportadora {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCnpj() {

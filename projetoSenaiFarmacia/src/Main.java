@@ -500,7 +500,7 @@ public class Main {
 
 
                     try {
-                        Transportadora novaTransportadora = new Transportadora(nome, id, cnpj);
+                        Transportadora novaTransportadora = new Transportadora(nome, cnpj);
                         transportadoras.add(novaTransportadora);
                         System.out.println("Transportadora cadastrada com sucesso!");
                     } catch (IllegalArgumentException e) {
