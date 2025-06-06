@@ -516,6 +516,48 @@ public class Main {
         } while (opcaoUsuarioCaixa != 0);
     }
 
+    public static Venda realizarVenda(Scanner scanner){
+        int prod, quantidade;    
+        Venda venda = new Venda();
+        ArrayList<Itens> itens = new ArrayList<>();
+
+        System.out.println("Iniciando nova venda...");
+        
+        
+        do{
+            System.out.println("Insira o id do produto ou 0 para parar: ");
+            prod = scanner.nextInt();
+            
+            if (prod != 0 ) {
+                Produto produto = buscarProdutoPorId(prod);
+            
+                System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
+                quantidade = scanner.nextInt();
+
+                if (quantidade != 0 ) {
+                    Itens item = new Itens(quantidade, produto);
+                    itens.add(item);
+                }
+            }
+        }while(false);
+
+        
+
+
+
+        return venda;
+    }
+    public static Produto buscarProdutoPorId(int id){
+        for(Produto produto : produtos){
+            if (produto.getId() == id) {
+                return produto;
+            }
+        }
+        return null;
+    }
+
+
+
     public static void apresentarMenuTransportadoras(Scanner scanner, ArrayList<Transportadora> transportadoras) {
         int opcaoUsuarioTransportadoras;
 
