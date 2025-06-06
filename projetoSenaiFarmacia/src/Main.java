@@ -335,7 +335,7 @@ public class Main {
         do {
             System.out.println("Escolha uma das opções: ");
             System.out.println("---------------------------------------------");
-            System.out.println("| 1 - Cadastrar  produto                    |");
+            System.out.println("| 1 - Cadastrar produto                     |");
             System.out.println("| 2 - Listar produtos                       |");
             System.out.println("| 3 - Atualizar produtos                    |");
             System.out.println("| 4 - Verificar disponibilidade do produto  |");
@@ -352,13 +352,23 @@ public class Main {
                     double valorVenda = scanner.nextDouble();
                     System.out.print("Valor de compra = ");
                     double valorCompra = scanner.nextDouble();
-                    Produto produto = new Produto(descricao, valorVenda, valorCompra);
-                    produtos.add(produto);
+                    try {
+                        Produto produto = new Produto(descricao, valorVenda, valorCompra);
+                        produtos.add(produto);
+                        System.out.println("Produto cadastrado com sucesso!");
+                        System.out.println();
+                    }catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case 2:
+                    if(produtos.isEmpty()) {
+                        System.out.println("Nenhum produto foi cadastrado.");
+                    }
                     for (Produto prod : produtos) {
                         System.out.println(prod);
+                        System.out.println();
                     }
                     break;
 
@@ -366,9 +376,11 @@ public class Main {
                     System.out.print("Informe a descrição do produto a ser atualizado: ");
                     scanner.nextLine();
                     String descricaoProduto = scanner.nextLine();
+                    System.out.print("Informe o id do produto para verificar disponibilidade: ");
+                    int procurarId = scanner.nextInt();
                     Produto produtoAtualizar = null;
                     for (Produto prod : produtos) {
-                        if (prod.getDescricao().equalsIgnoreCase(descricaoProduto)) {
+                        if (prod.getDescricao().equalsIgnoreCase(descricaoProduto) && procurarId == prod.getId()) {
                             produtoAtualizar = prod;
                             break;
                         }
@@ -379,6 +391,7 @@ public class Main {
                         produtoAtualizar.setValorVenda(novoValorVenda);
                         System.out.println("Produto atualizado com sucesso!");
                     } else {
+                        System.out.println("Descrição ou ID digitado incorretamente.");
                         System.out.println("Produto não encontrado!");
                     }
                     break;
@@ -538,7 +551,7 @@ public class Main {
 
 
                     try {
-                        Transportadora novaTransportadora = new Transportadora(nome, id, cnpj);
+                        Transportadora novaTransportadora = new Transportadora(nome, cnpj);
                         transportadoras.add(novaTransportadora);
                         System.out.println("Transportadora cadastrada com sucesso!");
                     } catch (IllegalArgumentException e) {

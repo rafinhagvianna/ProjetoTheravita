@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Produto {
     private static int idBase = 1;
     private String descricao;
@@ -5,6 +8,7 @@ public class Produto {
     private double valorVenda;
     private double valorCompra;
     private Estoque estoqueProduto;
+    private static List<Produto> catalogo = new ArrayList<>();
 
     public Produto() {
 
@@ -17,6 +21,7 @@ public class Produto {
         this.valorCompra = valorCompra;
         idBase++;
         this.estoqueProduto = new Estoque(0, 5, this);
+        catalogo.add(this);
     }
 
     public String getDescricao() {
@@ -54,5 +59,11 @@ public class Produto {
                 ", Valor de venda = R$" + valorVenda +
                 ", Valor de compra = R$" + valorCompra +
                 ", Estoque = " + (estoqueProduto != null ? estoqueProduto.getEstoque() : "N/A");
+    }
+
+    public static void getCatalogo() {
+        for (Produto produto : catalogo) {
+            System.out.println(produto);
+        }
     }
 }
