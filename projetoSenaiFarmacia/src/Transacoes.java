@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public abstract class Transacoes {
     private String id;
-    private ArrayList<Produto> produtos;
+    private ArrayList<Itens> produtos;
     private double total;
     private LocalDate data;
     private Funcionario funcionario;
@@ -19,7 +19,7 @@ public abstract class Transacoes {
         proxId++;
     }
 
-    public Transacoes(String id, ArrayList<Produto> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
+    public Transacoes(String id, ArrayList<Itens> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
 
         this.id = id;
 
@@ -40,11 +40,11 @@ public abstract class Transacoes {
         return id;
     }
 
-    public ArrayList<Produto> getProdutos() {
+    public ArrayList<Itens> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(ArrayList<Produto> produtos) {
+    public void setProdutos(ArrayList<Itens> produtos) {
         this.produtos = produtos;
     }
 
