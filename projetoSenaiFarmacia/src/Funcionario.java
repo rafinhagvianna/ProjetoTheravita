@@ -2,7 +2,7 @@ import Validators.CpfValidator;
 
 public class Funcionario {
     private String nome;
-    private int cpf;
+    private String cpf;
     private String id;
     private String genero;
     private Setor setor;
@@ -15,7 +15,7 @@ public class Funcionario {
         proxId++;
     }
     
-    public Funcionario(String nome, int cpf, String genero, Setor setor, Salario salario) {
+    public Funcionario(String nome, String cpf, String genero, Setor setor, Salario salario) {
         if (!CpfValidator.isValid(cpf)) {
             throw new IllegalArgumentException("CPF inválido para a transportadora " + nome + ": " + cpf);
         }
@@ -36,11 +36,11 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -77,6 +77,7 @@ public class Funcionario {
         System.out.println("Funcionário: "+ nome);
         System.out.println("Setor: "+ setor.getNome());
         System.out.println("Salario base: "+ salario.getSalario());
+        System.out.println("Descontos (IR e INSS): R$ " + (salario.getSalario() - salario.calculaSalario()));
         System.out.println("Salario final: "+ salario.calculaSalario());
         System.out.println("Beneficios");
         System.out.println(" - Plano de saúde: "+ salario.getSaude());

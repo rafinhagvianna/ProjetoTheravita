@@ -8,6 +8,16 @@ public class Main {
     static ArrayList<Setor> setores = new ArrayList<>();
     static ArrayList<Produto> produtos = new ArrayList<>();
     static ArrayList<Transportadora> transportadoras = new ArrayList<>();
+    static Caixa caixa = new Caixa();
+
+    static {
+        setores.add(new Setor(Setores.ALMOXARIFADO));
+        setores.add(new Setor(Setores.ATENDIMENTO_CLIENTE));
+        setores.add(new Setor(Setores.FINANCEIRO));
+        setores.add(new Setor(Setores.GERENTE_FILIAL));
+        setores.add(new Setor(Setores.GESTAO_PESSOAS));
+        setores.add(new Setor(Setores.VENDAS));
+    }
 
     public static void main(String[] args) {
         System.out.println("Bem vindo ao programa!");
@@ -67,8 +77,9 @@ public class Main {
             System.out.println("-----------------------------------------");
             System.out.println("| 1 - Cadastrar funcionário             |");
             System.out.println("| 2 - Listar funcionários (por setor)   |");
-            System.out.println("| 3 - Excluir funcionário               |");
-            System.out.println("| 4 - Visualizar total de funcionários  |");
+            System.out.println("| 3 - Editar funcionário                |");
+            System.out.println("| 4 - Excluir funcionário               |");
+            System.out.println("| 5 - Visualizar total de funcionários  |");
             System.out.println("| 0 - Sair                              |");
             System.out.println("-----------------------------------------");
             System.out.println();
@@ -80,7 +91,7 @@ public class Main {
                     System.out.print("Nome = ");
                     String nome = scanner.next();
                     System.out.print("CPF = ");
-                    int cpf = scanner.nextInt();
+                    String cpf = scanner.next();
                     System.out.print("Gênero = ");
                     String genero = scanner.next();
 
@@ -113,33 +124,80 @@ public class Main {
 
                 case 2:
 
-                    System.out.print("Informe o nome do setor para listar os funcionários: ");
-                    String nomeSetor = scanner.next();
-                    boolean encontrouSetor = false;
+                    System.out.println("Escolha o setor para o funcionário:");
+                    for (int i = 0; i < setores.size(); i++) {
+                        System.out.println((i + 1) + " - " + setores.get(i).getNome());
+                    }
+                    setorEscolhido = scanner.nextInt();
+                    setorSelecionado = setores.get(setorEscolhido - 1);
 
-                    for (Setor set : setores) {
-                        if (set.getNome().toString().equalsIgnoreCase(nomeSetor)) {
-                            System.out.println("Funcionários do setor " + set.getNome() + ":");
-                            for (Funcionario func : set.getFuncionarios()) {
-                                System.out.println(func.getNome() + " - " + func.getId());
-                            }
-                            encontrouSetor = true;
-                            break;
-                        }
+                    System.out.println("Funcionários do setor " + setorSelecionado.getNome() + ":");
+                    for (Funcionario func : setorSelecionado.getFuncionarios()) {
+                        System.out.println(func.getNome() + " - " + func.getId());
                     }
-                    if (!encontrouSetor) {
-                        System.out.println("Setor não encontrado!");
-                    }
+
                     break;
 
                 case 3:
+                    System.out.print("Informe o ID do funcionário: ");
+                    String idFuncionario = scanner.next();
+                    Funcionario funcionarioEditar = buscarFuncionarioPorId(idFuncionario, funcionarios);
+                    int opc; 
+                    if (funcionarioEditar != null) {
+                        do{
+                            System.out.print("Qual dado deseja modificar? \n 1- Nome\n2 - CPF\n3 - Genero\n4 - Setor\n5 - Salário\n0 - Sair");
+                            opc = scanner.nextInt();
+
+                            switch (opc) {
+                                case 1:
+                                    System.out.print("Insira o novo nome = ");
+                                    funcionarioEditar.setNome(scanner.next());
+                                    break;
+                                case 2:
+                                    System.out.print("Insira o novo CPF = ");
+                                    funcionarioEditar.setCpf(scanner.next());
+                                    break;
+                                case 3:     
+                                    System.out.print("Insira o novo gênero = ");
+                                    funcionarioEditar.setGenero(scanner.next());
+                                    break;
+                                case 4:
+                                    System.out.println("Escolha o setor para o funcionário:");
+                                    for (int i = 0; i < setores.size(); i++) {
+                                        System.out.println((i + 1) + " - " + setores.get(i).getNome());
+                                    }
+                                    setorEscolhido = scanner.nextInt();
+                                    funcionarioEditar.setSetor(setores.get(setorEscolhido - 1));
+                                    break;
+                                case 5:
+                                    System.out.print("Insira o novo salário base = ");
+                                    funcionarioEditar.getSalario().setSalario(scanner.nextDouble());
+                                    break;
+
+                                case 0:
+                                break;
+                            
+                                default:
+                                    System.out.println("Opção inválida");
+                                    break;
+                            }
+                        }while (opc != 0);
+                    }else {
+                        System.out.println("Funcionário não encontrado !");
+                    }
+                    break;
+
+                case 4:
 
                     System.out.print("Informe o CPF do funcionário a ser removido: ");
-                    int cpfExcluir = scanner.nextInt();
+                    String cpfExcluir = scanner.next();
                     Funcionario funcRemover = null;
-
+                    System.out.println("Teste1");
                     for (Funcionario func : funcionarios) {
-                        if (func.getCpf() == cpfExcluir) {
+
+                        System.out.println(func.getCpf() +"=="+ cpfExcluir);
+                        if (func.getCpf().equals(cpfExcluir)) {
+                            System.out.println("Teste2");
                             funcRemover = func;
                             break;
                         }
@@ -149,11 +207,12 @@ public class Main {
                         funcRemover.getSetor().getFuncionarios().remove(funcRemover);
                         System.out.println("Funcionário removido com sucesso!");
                     } else {
+                        System.out.println("Teste3");
                         System.out.println("Funcionário com CPF " + cpfExcluir + " não encontrado.");
                     }
                     break;
 
-                case 4:
+                case 5:
 
                     int totalFuncionarios = Setor.totalFuncionarios(setores);
                     System.out.println("Total de funcionários cadastrados: " + totalFuncionarios);
@@ -175,12 +234,12 @@ public class Main {
         do {
             System.out.println("Escolha uma das opções: ");
             System.out.println("-------------------------------------------");
-            System.out.println("| 1 - Apresentar salário bruto          |");
-            System.out.println("| 2 - Calcular salário líquido          |");
-            System.out.println("| 3 - Consultar valores dos benefícios  |");
-            System.out.println("| 4 - Atualizar valores dos benefícios  |");
-            System.out.println("| 5 - Exibir demonstrativo salarial     |");
-            System.out.println("| 0 - Sair                              |");
+            System.out.println("| 1 - Apresentar salário bruto            |");
+            System.out.println("| 2 - Calcular salário líquido            |");
+            System.out.println("| 3 - Consultar valores dos benefícios    |");
+            System.out.println("| 4 - Exibir demonstrativo salarial       |");
+            System.out.println("| 5 - Valor da bonificação p/ funcionário |");
+            System.out.println("| 0 - Sair                                |");
             System.out.println("-------------------------------------------");
             System.out.println();
 
@@ -235,42 +294,23 @@ public class Main {
 
                     System.out.print("Informe o ID do funcionário: ");
                     idFuncionario = scanner.next();
-                    Funcionario funcionarioAtualizar = buscarFuncionarioPorId(idFuncionario, funcionarios);
+                    Funcionario funcionarioDemonstrativo = buscarFuncionarioPorId(idFuncionario, funcionarios);
 
-                    if (funcionarioAtualizar != null && funcionarioAtualizar.getSalario() != null) {
-
-                        Salario salarioAtualizado = funcionarioAtualizar.getSalario();
-                        salarioAtualizado.defineBeneficios();
-                        System.out.println("Benefícios atualizados para " + funcionarioAtualizar.getNome() + ":");
-                        System.out.println(" - Plano de saúde: R$ " + salarioAtualizado.getSaude());
-                        System.out.println(" - Vale refeição/alimentação: R$ " + salarioAtualizado.getValeRefAliment());
-                        System.out.println(" - Plano odontológico: R$ " + salarioAtualizado.getOdonto());
+                    if (funcionarioDemonstrativo != null) {
+                        funcionarioDemonstrativo.dadosFuncionario();
                     } else {
-                        System.out.println("Funcionário ou salário não encontrado.");
+                        System.out.println("Funcionário não encontrado.");
                     }
                     break;
 
                 case 5:
-
-                    System.out.print("Informe o ID do funcionário: ");
-                    idFuncionario = scanner.next();
-                    Funcionario funcionarioDemonstrativo = buscarFuncionarioPorId(idFuncionario, funcionarios);
-
-                    if (funcionarioDemonstrativo != null && funcionarioDemonstrativo.getSalario() != null) {
-                        Salario salarioFuncionarioDemo = funcionarioDemonstrativo.getSalario();
-                        System.out.println("Demonstrativo de " + funcionarioDemonstrativo.getNome() + ":");
-                        System.out.println("Salário Bruto: R$ " + salarioFuncionarioDemo.getSalario());
-                        System.out.println("Descontos (IR e INSS): R$ " + (salarioFuncionarioDemo.getSalario() - salarioFuncionarioDemo.calculaSalario()));
-                        System.out.println("Salário Líquido: R$ " + salarioFuncionarioDemo.calculaSalario());
-                        System.out.println("Benefícios:");
-                        System.out.println(" - Plano de saúde: R$ " + salarioFuncionarioDemo.getSaude());
-                        System.out.println(" - Vale refeição/alimentação: R$ " + salarioFuncionarioDemo.getValeRefAliment());
-                        System.out.println(" - Plano odontológico: R$ " + salarioFuncionarioDemo.getOdonto());
-                    } else {
-                        System.out.println("Funcionário ou salário não encontrado.");
+                    if (caixa != null && setores != null) {
+                        System.out.println("\nBonificação por funcionário: "+ Salario.calcularBonificacao(caixa, setores));
+                    }else {
+                        System.out.println("Não há registro de caixa ou setor");
                     }
                     break;
-
+                
                 case 0:
                     System.out.println("Retornando ao menu principal.");
                     break;
@@ -280,7 +320,6 @@ public class Main {
             }
         } while (opcaoUsuarioSalario != 0);
     }
-
 
     public static Funcionario buscarFuncionarioPorId(String id, ArrayList<Funcionario> funcionarios) {
         for (Funcionario funcionario : funcionarios) {
@@ -373,7 +412,6 @@ public class Main {
 
     public static void apresentarMenuCaixa(Scanner scanner) {
         int opcaoUsuarioCaixa;
-        Caixa caixa = new Caixa();
 
         do {
             System.out.println("Escolha uma das opções: ");
