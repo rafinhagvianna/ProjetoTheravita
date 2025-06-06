@@ -1,4 +1,6 @@
 import Enums.Setores;
+import Enums.Status;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -8,6 +10,7 @@ public class Main {
     static ArrayList<Setor> setores = new ArrayList<>();
     static ArrayList<Produto> produtos = new ArrayList<>();
     static ArrayList<Transportadora> transportadoras = new ArrayList<>();
+    static ArrayList<Transacoes> transacoes = new ArrayList<>();
     static Caixa caixa = new Caixa();
 
     static {
@@ -26,19 +29,20 @@ public class Main {
 
     public static void apresentarMenu() {
         char opcaoInicialUsuario;
-        do{
+        do {
             Scanner scanner = new Scanner(System.in);
-            System.out.println();
-            System.out.println("ESCOLHA UMA DAS OPÇÕES: ");
-            System.out.println();
-            System.out.println("FUNCIONÁRIOS - (F)");
-            System.out.println("SALÁRIO E BENEFÍCIOS - (S)");
-            System.out.println("PRODUTO - (P)");
-            System.out.println("CAIXA - (C)");
-            System.out.println("TRANSPORTADORAS - (T)");
-            System.out.println("GESTÃO DE NEGÓCIOS - (G)");
-            System.out.println();
-            System.out.println("SAIR - (E)");
+            System.out.println("------------------------------");
+            System.out.println("| ESCOLHA UMA DAS OPÇÕES:    |");
+            System.out.println("-----------------------------|");
+            System.out.println("| FUNCIONÁRIOS - (F)         |");
+            System.out.println("| SALÁRIO E BENEFÍCIOS - (S) |");
+            System.out.println("| PRODUTO - (P)              |");
+            System.out.println("| CAIXA - (C)                |");
+            System.out.println("| TRANSPORTADORAS - (T)      |");
+            System.out.println("| GESTÃO DE NEGÓCIOS - (G)   |");
+            System.out.println("------------------------------");
+            System.out.println("| SAIR - (E)                 |");
+            System.out.println("-----------------------------");
             System.out.println();
 
             opcaoInicialUsuario = scanner.next().toUpperCase().charAt(0);
@@ -59,6 +63,9 @@ public class Main {
                 case 'T':
                     apresentarMenuTransportadoras(scanner, transportadoras);
                     break;
+
+                case 'G':
+                    apresentarMenuGestao(scanner, transacoes);
                 case 'E':
 
                     break;
@@ -66,7 +73,7 @@ public class Main {
                     System.out.println("\nOpção inválida!\n");
                     break;
             }
-        }while(opcaoInicialUsuario != 'E');
+        } while (opcaoInicialUsuario != 'E');
 
     }
 
@@ -142,9 +149,9 @@ public class Main {
                     System.out.print("Informe o ID do funcionário: ");
                     String idFuncionario = scanner.next();
                     Funcionario funcionarioEditar = buscarFuncionarioPorId(idFuncionario, funcionarios);
-                    int opc; 
+                    int opc;
                     if (funcionarioEditar != null) {
-                        do{
+                        do {
                             System.out.print("Qual dado deseja modificar? \n 1- Nome\n2 - CPF\n3 - Genero\n4 - Setor\n5 - Salário\n0 - Sair");
                             opc = scanner.nextInt();
 
@@ -157,7 +164,7 @@ public class Main {
                                     System.out.print("Insira o novo CPF = ");
                                     funcionarioEditar.setCpf(scanner.next());
                                     break;
-                                case 3:     
+                                case 3:
                                     System.out.print("Insira o novo gênero = ");
                                     funcionarioEditar.setGenero(scanner.next());
                                     break;
@@ -175,14 +182,14 @@ public class Main {
                                     break;
 
                                 case 0:
-                                break;
-                            
+                                    break;
+
                                 default:
                                     System.out.println("Opção inválida");
                                     break;
                             }
-                        }while (opc != 0);
-                    }else {
+                        } while (opc != 0);
+                    } else {
                         System.out.println("Funcionário não encontrado !");
                     }
                     break;
@@ -195,7 +202,7 @@ public class Main {
                     System.out.println("Teste1");
                     for (Funcionario func : funcionarios) {
 
-                        System.out.println(func.getCpf() +"=="+ cpfExcluir);
+                        System.out.println(func.getCpf() + "==" + cpfExcluir);
                         if (func.getCpf().equals(cpfExcluir)) {
                             System.out.println("Teste2");
                             funcRemover = func;
@@ -305,12 +312,12 @@ public class Main {
 
                 case 5:
                     if (caixa != null && setores != null) {
-                        System.out.println("\nBonificação por funcionário: "+ Salario.calcularBonificacao(caixa, setores));
-                    }else {
+                        System.out.println("\nBonificação por funcionário: " + Salario.calcularBonificacao(caixa, setores));
+                    } else {
                         System.out.println("Não há registro de caixa ou setor");
                     }
                     break;
-                
+
                 case 0:
                     System.out.println("Retornando ao menu principal.");
                     break;
@@ -357,18 +364,17 @@ public class Main {
                         produtos.add(produto);
                         System.out.println("Produto cadastrado com sucesso!");
                         System.out.println();
-                    }catch (IllegalArgumentException e){
+                    } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
 
                 case 2:
-                    if(produtos.isEmpty()) {
+                    if (produtos.isEmpty()) {
                         System.out.println("Nenhum produto foi cadastrado.");
                     }
                     for (Produto prod : produtos) {
-                        System.out.println(prod);
-                        System.out.println();
+                        Produto.getCatalogo();
                     }
                     break;
 
@@ -620,21 +626,72 @@ public class Main {
         } while (opcaoUsuarioTransportadoras != 0);
     }
 
-    public static void apresentarMenuGestao(Scanner scanner) {
+
+    public static void apresentarMenuGestao(Scanner scanner, ArrayList<Transacoes> transacoes) {
         int opcaoUsuarioGestao;
         do {
             System.out.println("Escolha uma das opções: ");
             System.out.println("_____________________________________________");
-            System.out.println("| 1 - Consultar negócios em andamento      |");
+            System.out.println("| 1 - Consultar transações em andamento    |");
             System.out.println("| 2 - Atualizar status                     |");
             System.out.println("| 0 - Sair                                 |");
             System.out.println("---------------------------------------------");
             System.out.println();
             opcaoUsuarioGestao = scanner.nextInt();
+            scanner.nextLine();
 
             switch (opcaoUsuarioGestao) {
                 case 1:
+
+                    if (transacoes.isEmpty()) {
+                        System.out.println("Não há transações em andamento.");
+                    } else {
+                        System.out.println("Transações em andamento:");
+                        for (Transacoes transacao : transacoes) {
+
+                            if (transacao.getStatus().contains(Status.ABERTO)) {
+                                System.out.println("ID: " + transacao.getId() + ", Valor: " + transacao.getValor() + ", Status: " + transacao.getStatus());
+                            }
+                        }
+                    }
+                    break;
+
+                case 2:
+
+                    System.out.print("Digite o ID da transação que deseja atualizar o status: ");
+                    String idTransacao = scanner.nextLine();
+
+                    Transacoes transacaoEncontrada = null;
+                    for (Transacoes transacao : transacoes) {
+                        if (transacao.getId().equals(idTransacao)) {
+                            transacaoEncontrada = transacao;
+                            break;
+                        }
+                    }
+
+                    if (transacaoEncontrada != null) {
+                        System.out.print("Digite o novo status da transação (Exemplo: Concluído, Cancelado): ");
+                        String novoStatus = scanner.nextLine();
+
+
+                        ArrayList<Status> statusAtualizado = new ArrayList<>();
+                        statusAtualizado.add(Status.valueOf(novoStatus.toUpperCase()));
+                        transacaoEncontrada.setStatus(statusAtualizado);
+                        System.out.println("Status da transação atualizado com sucesso!");
+                    } else {
+                        System.out.println("Transação com ID " + idTransacao + " não encontrada.");
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Saindo do menu de gestão.");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida, tente novamente.");
+                    break;
             }
         } while (opcaoUsuarioGestao != 0);
     }
 }
+
