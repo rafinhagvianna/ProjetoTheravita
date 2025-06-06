@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Estoque {
-    private static List<Estoque> catalogo = new ArrayList<>();
+
     private Produto produto;
     private int estoque;
     private int minimo;
@@ -15,7 +15,6 @@ public class Estoque {
         this.estoque = estoque;
         this.minimo = minimo;
         this.produto = produto;
-        catalogo.add(this);
     }
 
     public Produto getProduto() {
@@ -51,15 +50,4 @@ public class Estoque {
             return true;
         }
     }
-
-    public static void getCatalogo() {
-        for (Estoque estoque : catalogo) {
-            System.out.println(estoque.produto);
-        }
-    }
-
-    public int verificarVenda(int qtd) {
-        return 0;
-    }
-
 }

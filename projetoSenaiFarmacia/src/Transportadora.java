@@ -5,19 +5,21 @@ import Enums.Regiao;
 import Validators.CnpjValidator;
 
 public class Transportadora {
-
+    private static int idBase = 1;
     private String nome;
     private int id;
     private String cnpj;
     private List<Regiao> regioes;
+    private static List<Transportadora> transportadoras = new ArrayList<>();
 
-    public Transportadora(String nome, int id, String cnpj) {
+    public Transportadora(String nome, String cnpj) {
         if (!CnpjValidator.isValid(cnpj)) {
             throw new IllegalArgumentException("CNPJ inválido para a transportadora " + nome + ": " + cnpj);
         }
         this.nome = nome;
-        this.id = id;
+        this.id = idBase;
         this.cnpj = cnpj;
+        idBase++;
         this.regioes = new ArrayList<>();
     }
 
@@ -31,10 +33,6 @@ public class Transportadora {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCnpj() {
@@ -60,5 +58,24 @@ public class Transportadora {
 
     public boolean atendeRegiao(Regiao regiaoBuscada){
         return this.regioes.contains(regiaoBuscada);
-    };
+    }
+
+    @Override
+    public String toString() {
+        return "Transportadora: " +
+                "Nome = " + nome +
+                ", id = " + id +
+                ", cnpj = " + cnpj +
+                ", Regiões atendidas =" + regioes;
+    }
+
+    public static void getTransportadoras() {
+        if (transportadoras == null) {
+            System.out.println("Não há transportadoras cadastradas.");
+        }
+
+        for (Transportadora t : transportadoras) {
+            System.out.println(t);
+        }
+    }
 }
