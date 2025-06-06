@@ -35,6 +35,6 @@ public class Venda extends Transacoes {
     }
 
     public static void emAberto(ArrayList<Venda> vendas) {
-
+        
     }
 }
