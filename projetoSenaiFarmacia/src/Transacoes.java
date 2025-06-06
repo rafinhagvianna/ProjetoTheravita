@@ -11,7 +11,7 @@ public abstract class Transacoes {
     private Funcionario funcionario;
     private Status status;
     private double valor;
-    protected static int proxId = 1;
+    private static int proxId = 1;
 
     public Transacoes() {
         this.id = "TX"+proxId;
