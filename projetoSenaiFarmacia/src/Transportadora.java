@@ -10,15 +10,17 @@ public class Transportadora {
     private int id;
     private String cnpj;
     private List<Regiao> regioes;
+    private double taxa;
     private static List<Transportadora> transportadoras = new ArrayList<>();
 
-    public Transportadora(String nome, String cnpj) {
+    public Transportadora(String nome, String cnpj, double taxa) {
         if (!CnpjValidator.isValid(cnpj)) {
             throw new IllegalArgumentException("CNPJ inválido para a transportadora " + nome + ": " + cnpj);
         }
         this.nome = nome;
         this.id = idBase;
         this.cnpj = cnpj;
+        this.taxa = taxa;
         idBase++;
         this.regioes = new ArrayList<>();
     }
@@ -33,6 +35,9 @@ public class Transportadora {
 
     public int getId() {
         return id;
+    }
+    public double getTaxa() {
+        return taxa;
     }
 
     public String getCnpj() {
@@ -54,6 +59,10 @@ public class Transportadora {
 
     public void setRegiao(Regiao regiao) {
         this.regioes.add(regiao);
+    }
+
+    public void setTaxa(double taxa){
+        this.taxa = taxa;
     }
 
     public boolean atendeRegiao(Regiao regiaoBuscada){

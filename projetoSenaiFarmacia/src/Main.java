@@ -1,7 +1,10 @@
+import Enums.Regiao;
 import Enums.Setores;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.ObjectInputFilter.Status;
 import java.time.LocalDate;
 
 public class Main {
@@ -316,35 +319,19 @@ public class Main {
 
             switch (opcaoUsuarioCaixa) {
                 case 1:
-                    System.out.println("Digite o valor da venda: ");
-                    double valorVenda = scanner.nextDouble();
-                    scanner.nextLine();
 
-                    System.out.println("Digite a data da venda (AAAA-MM-DD): ");
-                    String dataVenda = scanner.nextLine();
-
-
-                    Venda novaVenda = new Venda(valorVenda, LocalDate.parse(dataVenda));
+                    Venda novaVenda = realizarVenda(scanner);
                     caixa.getEntrada().add(novaVenda);
                     System.out.println("Venda registrada com sucesso!");
+                    
                     break;
 
                 case 2:
-                    System.out.println("Digite o valor da compra: ");
-                    double valorCompra = scanner.nextDouble();
-                    scanner.nextLine();
-
-                    System.out.println("Digite a data da compra (AAAA-MM-DD): ");
-                    String dataCompra = scanner.nextLine();
-
-
-                    Compra novaCompra = new Compra();
-                    novaCompra.setValor(valorCompra);
-                    novaCompra.setData(LocalDate.parse(dataCompra));
-
-
+            
+                    Compra novaCompra = realizarCompra(scanner);
                     caixa.getSaida().add(novaCompra);
                     System.out.println("Compra registrada com sucesso!");
+
                     break;
 
                 case 3:
@@ -393,6 +380,198 @@ public class Main {
         } while (opcaoUsuarioCaixa != 0);
     }
 
+    public static Venda realizarVenda(Scanner scanner){
+        int prod, quantidade;    
+        Venda venda = new Venda();
+        Funcionario funcionarioVenda = null;
+        Regiao regiao;
+        Transportadora transportadora = null;
+        ArrayList<Itens> itens = new ArrayList<>();
+
+        System.out.println("Iniciando nova venda...");
+        
+        
+        do{
+            System.out.println("Insira o id do produto ou 0 para parar: ");
+            prod = scanner.nextInt();
+            
+            if (prod != 0 ) {
+                Produto produto = buscarProdutoPorId(prod);
+            
+                System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
+                quantidade = scanner.nextInt();
+
+                if (quantidade != 0 ) {
+                    Itens item = new Itens(quantidade, produto);
+                    itens.add(item);
+                }
+            }
+        }while(false);
+
+        if (itens.size() > 0) {
+            venda.setProdutos(itens);
+
+            do {
+                System.out.print("Informe o ID do funcionário: ");
+                String idFuncionario = scanner.next();
+                funcionarioVenda = buscarFuncionarioPorId(idFuncionario, funcionarios);
+
+                if (funcionarioVenda != null) {
+                    venda.setFuncionario(funcionarioVenda);
+                }else {
+                    System.out.println("\nFuncionário não encontrado !\n");
+                }
+            } while (funcionarioVenda == null);
+            
+
+            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+            String dataVenda = scanner.nextLine();
+            LocalDate dtVenda = LocalDate.parse(dataVenda);
+            if (dataVenda.equals("HJ")) {
+                dtVenda = LocalDate.now();
+            }else {
+                dtVenda = LocalDate.parse(dataVenda);
+            }
+            venda.setData(dtVenda);
+
+            if (dtVenda.isAfter(LocalDate.now())) {
+                venda.setStatus(Enums.Status.ABERTO);
+            }else {
+                venda.setStatus(Enums.Status.FECHADO);;
+            }
+
+            do{
+                System.out.println("Escolha a região de entrega da venda:");
+                Regiao[] regioes = Regiao.values();
+                for (int i = 0; i < regioes.length; i++) {
+                    System.out.println((i + 1) + " - " + regioes[i]);
+                }
+                int regiaoEscolhida = scanner.nextInt();
+                try{
+                    regiao = regioes[regiaoEscolhida - 1];
+                }catch (ArrayIndexOutOfBoundsException | InputMismatchException e){
+                    System.out.println("Opção inválida! Tente novamente.");
+                    scanner.nextLine();
+                    regiao = null;
+                }
+            }while(regiao != null);
+
+            do {
+                System.out.println("Escolha a transportadora para a venda:");
+                for (int i = 0; i < transportadoras.size(); i++) {
+                    System.out.println((i + 1) + " - " + setores.get(i).getNome());
+                }
+                int transportadoraEscolhida = scanner.nextInt();
+
+                try{
+                    transportadora = transportadoras.get(transportadoraEscolhida);
+                }catch (ArrayIndexOutOfBoundsException | InputMismatchException e){
+                    System.out.println("Opção inválida! Tente novamente.");
+                    scanner.nextLine();
+                    transportadora = null;
+                }
+
+                
+                if (!transportadora.atendeRegiao(regiao) && transportadora != null ) {
+                    System.out.println("Transportadora não atende região definida!");
+                    transportadora = null;
+                }
+            } while (transportadora == null);
+
+            venda.setTransportadora(transportadora);
+
+            venda.setValor(venda.calculaTotal());
+
+            return venda;
+        }else{
+            System.out.println("Nenhum produto foi definido!");
+
+            return null;
+        }
+        
+    }
+    
+    public static Compra realizarCompra(Scanner scanner){
+        int prod, quantidade;    
+        Compra compra = new Compra();
+        Funcionario funcionarioCompra = null;
+        ArrayList<Itens> itens = new ArrayList<>();
+
+        System.out.println("Iniciando nova compra...");
+        
+        
+        do{
+            System.out.println("Insira o id do produto ou 0 para parar: ");
+            prod = scanner.nextInt();
+            
+            if (prod != 0 ) {
+                Produto produto = buscarProdutoPorId(prod);
+            
+                System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
+                quantidade = scanner.nextInt();
+
+                if (quantidade != 0 ) {
+                    Itens item = new Itens(quantidade, produto);
+                    itens.add(item);
+                }
+            }
+        }while(false);
+
+        if (itens.size() > 0) {
+            compra.setProdutos(itens);
+
+            do {
+                System.out.print("Informe o ID do funcionário: ");
+                String idFuncionario = scanner.next();
+                funcionarioCompra = buscarFuncionarioPorId(idFuncionario, funcionarios);
+
+                if (funcionarioCompra != null) {
+                    compra.setFuncionario(funcionarioCompra);
+                }else {
+                    System.out.println("\nFuncionário não encontrado !\n");
+                }
+            } while (funcionarioCompra == null);
+            
+
+            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+            String dataCompra = scanner.nextLine();
+            LocalDate dtCompra = LocalDate.parse(dataCompra);
+            if (dataCompra.equals("HJ")) {
+                dtCompra = LocalDate.now();
+            }else {
+                dtCompra = LocalDate.parse(dataCompra);
+            }
+            compra.setData(dtCompra);
+
+            if (dtCompra.isAfter(LocalDate.now())) {
+                compra.setStatus(Enums.Status.ABERTO);
+            }else {
+                compra.setStatus(Enums.Status.FECHADO);;
+            }
+
+            compra.setValor(compra.calculaTotal());
+
+            return compra;
+        }else{
+            System.out.println("Nenhum produto foi definido!");
+
+            return null;
+        }
+        
+    }
+    
+
+    public static Produto buscarProdutoPorId(int id){
+        for(Produto produto : produtos){
+            if (produto.getId() == id) {
+                return produto;
+            }
+        }
+        return null;
+    }
+
+
+
     public static void apresentarMenuTransportadoras(Scanner scanner, ArrayList<Transportadora> transportadoras) {
         int opcaoUsuarioTransportadoras;
 
@@ -411,78 +590,22 @@ public class Main {
 
             switch (opcaoUsuarioTransportadoras) {
                 case 1:
-
-                    System.out.println("Digite o nome da transportadora: ");
-                    String nome = scanner.nextLine();
-
-                    System.out.println("Digite o ID da transportadora: ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
-
-                    System.out.println("Digite o CNPJ da transportadora: ");
-                    String cnpj = scanner.nextLine();
-
-
-                    try {
-                        Transportadora novaTransportadora = new Transportadora(nome, cnpj);
-                        transportadoras.add(novaTransportadora);
-                        System.out.println("Transportadora cadastrada com sucesso!");
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
+                    genTransportadora.cadastrarTransportadora(scanner, transportadoras);
                     break;
 
                 case 2:
-
-                    if (transportadoras.isEmpty()) {
-                        System.out.println("Nenhuma transportadora cadastrada.");
-                    } else {
-                        System.out.println("Lista de transportadoras:");
-                        for (Transportadora t : transportadoras) {
-                            System.out.println("ID: " + t.getId() + ", Nome: " + t.getNome() + ", CNPJ: " + t.getCnpj());
-                        }
-                    }
+                    genTransportadora.listarTransportadoras(transportadoras);
                     break;
 
                 case 3:
-
-                    System.out.println("Digite o ID da transportadora que deseja atualizar: ");
-                    int idAtualizacao = scanner.nextInt();
-                    scanner.nextLine();
-
-                    Transportadora transportadoraEncontrada = null;
-                    for (Transportadora t : transportadoras) {
-                        if (t.getId() == idAtualizacao) {
-                            transportadoraEncontrada = t;
-                            break;
-                        }
-                    }
-
-                    if (transportadoraEncontrada != null) {
-                        System.out.println("Digite o novo nome da transportadora: ");
-                        String novoNome = scanner.nextLine();
-                        transportadoraEncontrada.setNome(novoNome);
-
-                        System.out.println("Digite o novo CNPJ da transportadora: ");
-                        String novoCnpj = scanner.nextLine();
-                        try {
-                            transportadoraEncontrada.setCnpj(novoCnpj);
-                            System.out.println("Transportadora atualizada com sucesso!");
-                        } catch (IllegalArgumentException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    } else {
-                        System.out.println("Transportadora com ID " + idAtualizacao + " não encontrada.");
-                    }
+                    genTransportadora.atualizarTransportadora(scanner, transportadoras);
                     break;
 
                 case 4:
-
-                    System.out.println("Total de transportadoras cadastradas: " + transportadoras.size());
+                    genTransportadora.visualizarTotalTransportadoras(transportadoras);
                     break;
 
                 case 0:
-
                     System.out.println("Saindo do menu de transportadoras.");
                     break;
 
@@ -492,6 +615,7 @@ public class Main {
             }
         } while (opcaoUsuarioTransportadoras != 0);
     }
+
 
     public static void apresentarMenuGestao(Scanner scanner) {
         int opcaoUsuarioGestao;

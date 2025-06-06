@@ -47,11 +47,11 @@ public class Caixa {
         double totalSaidas = 0;
 
         for (Venda v : entrada) {
-            totalEntradas += v.getTotal();
+            totalEntradas += v.getValor();
         }
 
         for (Compra c : saida) {
-            totalSaidas += c.getTotal();
+            totalSaidas += c.getValor();
         }
 
         saldo = totalEntradas - totalSaidas;
@@ -65,13 +65,13 @@ public class Caixa {
 
         for (Venda v : entrada) {
             if (v.getData().getMonthValue() == mes && v.getData().getYear() == ano) {
-                totalEntradas += v.getTotal();
+                totalEntradas += v.getValor();
             }
         }
 
         for (Compra c : saida) {
             if (c.getData().getMonthValue() == mes && c.getData().getYear() == ano) {
-                totalSaidas += c.getTotal();
+                totalSaidas += c.getValor();
             }
         }
 
@@ -85,13 +85,13 @@ public class Caixa {
 
         for (Venda v : entrada) {
             if (v.getData().getYear() == ano) {
-                totalEntradas += v.getTotal();
+                totalEntradas += v.getValor();
             }
         }
 
         for (Compra c : saida) {
             if (c.getData().getYear() == ano) {
-                totalSaidas += c.getTotal();
+                totalSaidas += c.getValor();
             }
         }
 
