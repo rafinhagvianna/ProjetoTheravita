@@ -1,5 +1,6 @@
 import Enums.Regiao;
 import Enums.Setores;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -29,7 +30,7 @@ public class Main {
 
     public static void apresentarMenu() {
         char opcaoInicialUsuario;
-        do{
+        do {
             Scanner scanner = new Scanner(System.in);
             System.out.println();
             System.out.println("ESCOLHA UMA DAS OPÇÕES: ");
@@ -69,163 +70,38 @@ public class Main {
                     System.out.println("\nOpção inválida!\n");
                     break;
             }
-        }while(opcaoInicialUsuario != 'E');
+        } while (opcaoInicialUsuario != 'E');
 
     }
 
     public static void apresentarMenuFuncionarios(Scanner scanner) {
         int opcaoUsuarioFuncionario;
         do {
-            System.out.println("Escolha uma das opções: ");
-            System.out.println("-----------------------------------------");
-            System.out.println("| 1 - Cadastrar funcionário             |");
-            System.out.println("| 2 - Listar funcionários (por setor)   |");
-            System.out.println("| 3 - Editar funcionário                |");
-            System.out.println("| 4 - Excluir funcionário               |");
-            System.out.println("| 5 - Visualizar total de funcionários  |");
-            System.out.println("| 0 - Sair                              |");
-            System.out.println("-----------------------------------------");
-            System.out.println();
+            GenFuncionario.menu();
             opcaoUsuarioFuncionario = scanner.nextInt();
 
             switch (opcaoUsuarioFuncionario) {
                 case 1:
-
-                    System.out.print("Nome = ");
-                    String nome = scanner.next();
-                    System.out.print("CPF = ");
-                    String cpf = scanner.next();
-                    System.out.print("Gênero = ");
-                    String genero = scanner.next();
-
-
-                    System.out.println("Escolha o setor para o funcionário:");
-                    for (int i = 0; i < setores.size(); i++) {
-                        System.out.println((i + 1) + " - " + setores.get(i).getNome());
-                    }
-                    int setorEscolhido = scanner.nextInt();
-                    Setor setorSelecionado = setores.get(setorEscolhido - 1);
-
-
-                    System.out.print("Salário base = ");
-                    double salarioBase = scanner.nextDouble();
-
-
-                    Funcionario funcionario;
-                    try {
-                        funcionario = new Funcionario(nome, cpf, genero, setorSelecionado, null);
-                    } catch (FuncionarioException funEx) {
-                        funcionario = funEx.CadastroException(nome, cpf, genero, setorSelecionado);
-                    }
-
-
-                    Salario salario = new Salario(salarioBase, funcionario);
-                    funcionario.setSalario(salario);
-
-
-                    setorSelecionado.getFuncionarios().add(funcionario);
-
-
-                    funcionarios.add(funcionario);
-                    System.out.println("Funcionário cadastrado com sucesso!");
+                    GenFuncionario.cadastrarFuncionario(setores);
                     break;
 
                 case 2:
-
-                    System.out.println("Escolha o setor para o funcionário:");
-                    for (int i = 0; i < setores.size(); i++) {
-                        System.out.println((i + 1) + " - " + setores.get(i).getNome());
-                    }
-                    setorEscolhido = scanner.nextInt();
-                    setorSelecionado = setores.get(setorEscolhido - 1);
-
-                    System.out.println("Funcionários do setor " + setorSelecionado.getNome() + ":");
-                    for (Funcionario func : setorSelecionado.getFuncionarios()) {
-                        System.out.println(func.getNome() + " - " + func.getId());
-                    }
-
+                    GenFuncionario.listarFuncionariosPorSetor(setores);
                     break;
 
                 case 3:
                     System.out.print("Informe o ID do funcionário: ");
                     String idFuncionario = scanner.next();
                     Funcionario funcionarioEditar = buscarFuncionarioPorId(idFuncionario, funcionarios);
-                    int opc; 
-                    if (funcionarioEditar != null) {
-                        do{
-                            System.out.print("Qual dado deseja modificar? \n 1- Nome\n2 - CPF\n3 - Genero\n4 - Setor\n5 - Salário\n0 - Sair");
-                            opc = scanner.nextInt();
-
-                            switch (opc) {
-                                case 1:
-                                    System.out.print("Insira o novo nome = ");
-                                    funcionarioEditar.setNome(scanner.next());
-                                    break;
-                                case 2:
-                                    System.out.print("Insira o novo CPF = ");
-                                    try {
-                                        funcionarioEditar.setCpf(scanner.next());
-                                    } catch (FuncionarioException funEx) {
-                                        funEx.CpfException(funcionarioEditar);
-                                    }
-                                    break;
-                                case 3:     
-                                    System.out.print("Insira o novo gênero = ");
-                                    funcionarioEditar.setGenero(scanner.next());
-                                    break;
-                                case 4:
-                                    System.out.println("Escolha o setor para o funcionário:");
-                                    for (int i = 0; i < setores.size(); i++) {
-                                        System.out.println((i + 1) + " - " + setores.get(i).getNome());
-                                    }
-                                    setorEscolhido = scanner.nextInt();
-                                    funcionarioEditar.setSetor(setores.get(setorEscolhido - 1));
-                                    break;
-                                case 5:
-                                    System.out.print("Insira o novo salário base = ");
-                                    funcionarioEditar.getSalario().setSalario(scanner.nextDouble());
-                                    break;
-
-                                case 0:
-                                break;
-                            
-                                default:
-                                    System.out.println("Opção inválida");
-                                    break;
-                            }
-                        }while (opc != 0);
-                    }else {
-                        System.out.println("Funcionário não encontrado !");
-                    }
+                    GenFuncionario.editarFuncionario(funcionarioEditar, setores);
                     break;
 
                 case 4:
-
                     System.out.print("Informe o CPF do funcionário a ser removido: ");
-                    String cpfExcluir = scanner.next();
-                    Funcionario funcRemover = null;
-                    System.out.println("Teste1");
-                    for (Funcionario func : funcionarios) {
-
-                        System.out.println(func.getCpf() +"=="+ cpfExcluir);
-                        if (func.getCpf().equals(cpfExcluir)) {
-                            System.out.println("Teste2");
-                            funcRemover = func;
-                            break;
-                        }
-                    }
-                    if (funcRemover != null) {
-                        funcionarios.remove(funcRemover);
-                        funcRemover.getSetor().getFuncionarios().remove(funcRemover);
-                        System.out.println("Funcionário removido com sucesso!");
-                    } else {
-                        System.out.println("Teste3");
-                        System.out.println("Funcionário com CPF " + cpfExcluir + " não encontrado.");
-                    }
+                    GenFuncionario.excluirFuncionario(funcionarios);
                     break;
 
                 case 5:
-
                     int totalFuncionarios = Setor.totalFuncionarios(setores);
                     System.out.println("Total de funcionários cadastrados: " + totalFuncionarios);
                     break;
@@ -236,6 +112,7 @@ public class Main {
 
                 default:
                     System.out.println("Opção inválida! Tente novamente.");
+                    break;
             }
         } while (opcaoUsuarioFuncionario != 0);
     }
@@ -317,12 +194,12 @@ public class Main {
 
                 case 5:
                     if (caixa != null && setores != null) {
-                        System.out.println("\nBonificação por funcionário: "+ Salario.calcularBonificacao(caixa, setores));
-                    }else {
+                        System.out.println("\nBonificação por funcionário: " + Salario.calcularBonificacao(caixa, setores));
+                    } else {
                         System.out.println("Não há registro de caixa ou setor");
                     }
                     break;
-                
+
                 case 0:
                     System.out.println("Retornando ao menu principal.");
                     break;
