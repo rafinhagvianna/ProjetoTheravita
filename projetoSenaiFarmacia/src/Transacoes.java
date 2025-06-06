@@ -7,26 +7,24 @@ import java.time.LocalDate;
 public abstract class Transacoes {
     private String id;
     private ArrayList<Itens> produtos;
-    private double total;
     private LocalDate data;
     private Funcionario funcionario;
-    private ArrayList<Status> status;
-    protected static int proxId = 1;
+    private Status status;
     private double valor;
+    protected static int proxId = 1;
 
     public Transacoes() {
         this.id = "TX"+proxId;
         proxId++;
+        this.data = LocalDate.now();
     }
 
-    public Transacoes(String id, ArrayList<Itens> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
+    public Transacoes(ArrayList<Itens> produtos, LocalDate data, Funcionario funcionario, Status status, double valor) {
 
-        this.id = id;
 
         this.id = "TX"+proxId;
 
         this.produtos = produtos;
-        this.total = total;
         this.data = data;
         this.funcionario = funcionario;
         this.status = status;
@@ -48,10 +46,6 @@ public abstract class Transacoes {
         this.produtos = produtos;
     }
 
-    public double getTotal() {
-        return total;
-    }
-
     public LocalDate getData() {
         return data;
     }
@@ -68,11 +62,11 @@ public abstract class Transacoes {
         this.funcionario = funcionario;
     }
 
-    public ArrayList<Status> getStatus(){
+    public Status getStatus(){
         return status;
     }
 
-    public void setStatus(ArrayList<Status> status){
+    public void setStatus(Status status){
         this.status = status;
     }
 

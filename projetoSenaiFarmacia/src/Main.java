@@ -1,6 +1,9 @@
+import Enums.Regiao;
 import Enums.Setores;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.ObjectInputFilter.Status;
 import java.time.LocalDate;
 
 public class Main {
@@ -439,15 +442,8 @@ public class Main {
 
             switch (opcaoUsuarioCaixa) {
                 case 1:
-                    System.out.println("Digite o valor da venda: ");
-                    double valorVenda = scanner.nextDouble();
-                    scanner.nextLine();
 
-                    System.out.println("Digite a data da venda (AAAA-MM-DD): ");
-                    String dataVenda = scanner.nextLine();
-
-
-                    Venda novaVenda = new Venda(valorVenda, LocalDate.parse(dataVenda));
+                    Venda novaVenda = realizarVenda(scanner);
                     caixa.getEntrada().add(novaVenda);
                     System.out.println("Venda registrada com sucesso!");
                     break;
@@ -519,6 +515,9 @@ public class Main {
     public static Venda realizarVenda(Scanner scanner){
         int prod, quantidade;    
         Venda venda = new Venda();
+        Funcionario funcionarioVenda = null;
+        Regiao regiao;
+        Transportadora transportadora = null;
         ArrayList<Itens> itens = new ArrayList<>();
 
         System.out.println("Iniciando nova venda...");
@@ -541,11 +540,87 @@ public class Main {
             }
         }while(false);
 
+        if (itens.size() > 0) {
+            venda.setProdutos(itens);
+
+            do {
+                System.out.print("Informe o ID do funcionário: ");
+                String idFuncionario = scanner.next();
+                funcionarioVenda = buscarFuncionarioPorId(idFuncionario, funcionarios);
+
+                if (funcionarioVenda != null) {
+                    venda.setFuncionario(funcionarioVenda);
+                }else {
+                    System.out.println("\nFuncionário não encontrado !\n");
+                }
+            } while (funcionarioVenda == null);
+            
+
+            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+            String dataVenda = scanner.nextLine();
+            LocalDate dtVenda = LocalDate.parse(dataVenda);
+            if (dataVenda.equals("HJ")) {
+                dtVenda = LocalDate.now();
+            }else {
+                dtVenda = LocalDate.parse(dataVenda);
+            }
+            venda.setData(dtVenda);
+
+            if (dtVenda.isAfter(LocalDate.now())) {
+                venda.setStatus(Enums.Status.ABERTO);
+            }else {
+                venda.setStatus(Enums.Status.FECHADO);;
+            }
+
+            do{
+                System.out.println("Escolha a região de entrega da venda:");
+                Regiao[] regioes = Regiao.values();
+                for (int i = 0; i < regioes.length; i++) {
+                    System.out.println((i + 1) + " - " + regioes[i]);
+                }
+                int regiaoEscolhida = scanner.nextInt();
+                try{
+                    regiao = regioes[regiaoEscolhida - 1];
+                }catch (ArrayIndexOutOfBoundsException | InputMismatchException e){
+                    System.out.println("Opção inválida! Tente novamente.");
+                    scanner.nextLine();
+                    regiao = null;
+                }
+            }while(regiao != null);
+
+            do {
+                System.out.println("Escolha a transportadora para a venda:");
+                for (int i = 0; i < transportadoras.size(); i++) {
+                    System.out.println((i + 1) + " - " + setores.get(i).getNome());
+                }
+                int transportadoraEscolhida = scanner.nextInt();
+
+                try{
+                    transportadora = transportadoras.get(transportadoraEscolhida);
+                }catch (ArrayIndexOutOfBoundsException | InputMismatchException e){
+                    System.out.println("Opção inválida! Tente novamente.");
+                    scanner.nextLine();
+                    transportadora = null;
+                }
+
+                
+                if (!transportadora.atendeRegiao(regiao) && transportadora != null ) {
+                    System.out.println("Transportadora não atende região definida!");
+                    transportadora = null;
+                }
+            } while (transportadora == null);
+
+            venda.setTransportadora(transportadora);
+
+            venda.setValor(venda.calculaTotal());
+
+            return venda;
+        }else{
+            System.out.println("Nenhum produto foi definido!");
+
+            return null;
+        }
         
-
-
-
-        return venda;
     }
     public static Produto buscarProdutoPorId(int id){
         for(Produto produto : produtos){
@@ -586,10 +661,12 @@ public class Main {
 
                     System.out.println("Digite o CNPJ da transportadora: ");
                     String cnpj = scanner.nextLine();
-
+                    
+                    System.out.println("Digite a taxa da transportadora (% em cima da venda cobrado): ");
+                    double taxa = scanner.nextDouble();
 
                     try {
-                        Transportadora novaTransportadora = new Transportadora(nome, cnpj);
+                        Transportadora novaTransportadora = new Transportadora(nome, cnpj, taxa);
                         transportadoras.add(novaTransportadora);
                         System.out.println("Transportadora cadastrada com sucesso!");
                     } catch (IllegalArgumentException e) {

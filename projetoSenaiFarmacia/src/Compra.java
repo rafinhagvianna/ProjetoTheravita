@@ -9,8 +9,8 @@ public class Compra extends Transacoes {
         super();
     }
 
-    public Compra(String id, ArrayList<Itens> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor){
-        super(id, produtos, total, data, funcionario, status, valor);
+    public Compra( ArrayList<Itens> produtos, LocalDate data, Funcionario funcionario, Status status, double valor){
+        super(produtos, data, funcionario, status, valor);
     }
 
     public void realizarCompra(){

@@ -11,11 +11,11 @@ public class Venda extends Transacoes {
     }
 
     public Venda(double valor, LocalDate data) {
-        super("TX" + proxId++, new ArrayList<Itens>(), valor, data, null, new ArrayList<Status>(), valor);
+        super(new ArrayList<Itens>(), data, null, null, valor);
     }
 
-    public Venda(String id, ArrayList<Itens> itens, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
-        super(id, itens, total, data, funcionario, status, valor);
+    public Venda(ArrayList<Itens> itens, LocalDate data, Funcionario funcionario, Status status, double valor) {
+        super( itens, data, funcionario, status, valor);
     }
 
     public Venda(Transportadora transportadora) {
@@ -46,12 +46,13 @@ public class Venda extends Transacoes {
         for (Itens item : getProdutos()) {
             total += item.valorVenda();
         }
+        total += transportadora.getTaxa() * total;
         return total;
     }
 
     public static void emAberto(ArrayList<Venda> vendas) {
         for (Venda venda : vendas) {
-            if (venda.getStatus().contains(Status.ABERTO)) {
+            if (venda.getStatus().equals(Status.ABERTO)) {
                 System.out.println("Venda em aberto: " + venda.getId());
             }
         }
