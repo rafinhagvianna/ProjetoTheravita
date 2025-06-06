@@ -446,24 +446,15 @@ public class Main {
                     Venda novaVenda = realizarVenda(scanner);
                     caixa.getEntrada().add(novaVenda);
                     System.out.println("Venda registrada com sucesso!");
+                    
                     break;
 
                 case 2:
-                    System.out.println("Digite o valor da compra: ");
-                    double valorCompra = scanner.nextDouble();
-                    scanner.nextLine();
-
-                    System.out.println("Digite a data da compra (AAAA-MM-DD): ");
-                    String dataCompra = scanner.nextLine();
-
-
-                    Compra novaCompra = new Compra();
-                    novaCompra.setValor(valorCompra);
-                    novaCompra.setData(LocalDate.parse(dataCompra));
-
-
+            
+                    Compra novaCompra = realizarCompra(scanner);
                     caixa.getSaida().add(novaCompra);
                     System.out.println("Compra registrada com sucesso!");
+
                     break;
 
                 case 3:
@@ -622,6 +613,77 @@ public class Main {
         }
         
     }
+    
+    public static Compra realizarCompra(Scanner scanner){
+        int prod, quantidade;    
+        Compra compra = new Compra();
+        Funcionario funcionarioCompra = null;
+        ArrayList<Itens> itens = new ArrayList<>();
+
+        System.out.println("Iniciando nova compra...");
+        
+        
+        do{
+            System.out.println("Insira o id do produto ou 0 para parar: ");
+            prod = scanner.nextInt();
+            
+            if (prod != 0 ) {
+                Produto produto = buscarProdutoPorId(prod);
+            
+                System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
+                quantidade = scanner.nextInt();
+
+                if (quantidade != 0 ) {
+                    Itens item = new Itens(quantidade, produto);
+                    itens.add(item);
+                }
+            }
+        }while(false);
+
+        if (itens.size() > 0) {
+            compra.setProdutos(itens);
+
+            do {
+                System.out.print("Informe o ID do funcionário: ");
+                String idFuncionario = scanner.next();
+                funcionarioCompra = buscarFuncionarioPorId(idFuncionario, funcionarios);
+
+                if (funcionarioCompra != null) {
+                    compra.setFuncionario(funcionarioCompra);
+                }else {
+                    System.out.println("\nFuncionário não encontrado !\n");
+                }
+            } while (funcionarioCompra == null);
+            
+
+            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+            String dataCompra = scanner.nextLine();
+            LocalDate dtCompra = LocalDate.parse(dataCompra);
+            if (dataCompra.equals("HJ")) {
+                dtCompra = LocalDate.now();
+            }else {
+                dtCompra = LocalDate.parse(dataCompra);
+            }
+            compra.setData(dtCompra);
+
+            if (dtCompra.isAfter(LocalDate.now())) {
+                compra.setStatus(Enums.Status.ABERTO);
+            }else {
+                compra.setStatus(Enums.Status.FECHADO);;
+            }
+
+            compra.setValor(compra.calculaTotal());
+
+            return compra;
+        }else{
+            System.out.println("Nenhum produto foi definido!");
+
+            return null;
+        }
+        
+    }
+    
+
     public static Produto buscarProdutoPorId(int id){
         for(Produto produto : produtos){
             if (produto.getId() == id) {

@@ -83,4 +83,6 @@ public abstract class Transacoes {
     public boolean verificaEstoque(int qtd){
         return qtd >= 0 ?  true :  false;
     }
+
+    public abstract double calculaTotal();
 }

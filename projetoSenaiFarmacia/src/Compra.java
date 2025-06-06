@@ -16,4 +16,12 @@ public class Compra extends Transacoes {
     public void realizarCompra(){
         System.out.println("Compra realizada.");
     }
+
+    public double calculaTotal(){
+        double total = 0;
+        for (Itens item : getProdutos()) {
+            total += item.valorVenda();
+        }
+        return total;
+    }
 }
