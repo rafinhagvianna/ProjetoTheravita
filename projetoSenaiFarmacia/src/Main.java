@@ -529,7 +529,7 @@ public class Main {
                     itens.add(item);
                 }
             }
-        }while(false);
+        }while(prod != 0);
 
         if (itens.size() > 0) {
             venda.setProdutos(itens);
@@ -638,7 +638,7 @@ public class Main {
                     itens.add(item);
                 }
             }
-        }while(false);
+        }while(prod != 0);
 
         if (itens.size() > 0) {
             compra.setProdutos(itens);
