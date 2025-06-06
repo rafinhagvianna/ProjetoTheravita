@@ -10,6 +10,7 @@ public class Transportadora {
     private int id;
     private String cnpj;
     private List<Regiao> regioes;
+    private static List<Transportadora> transportadoras = new ArrayList<>();
 
     public Transportadora(String nome, String cnpj) {
         if (!CnpjValidator.isValid(cnpj)) {
@@ -57,5 +58,24 @@ public class Transportadora {
 
     public boolean atendeRegiao(Regiao regiaoBuscada){
         return this.regioes.contains(regiaoBuscada);
-    };
+    }
+
+    @Override
+    public String toString() {
+        return "Transportadora: " +
+                "Nome = " + nome +
+                ", id = " + id +
+                ", cnpj = " + cnpj +
+                ", Regiões atendidas =" + regioes;
+    }
+
+    public static void getTransportadoras() {
+        if (transportadoras == null) {
+            System.out.println("Não há transportadoras cadastradas.");
+        }
+
+        for (Transportadora t : transportadoras) {
+            System.out.println(t);
+        }
+    }
 }
