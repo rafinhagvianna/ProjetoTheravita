@@ -12,8 +12,11 @@ public class genTransportadora {
         System.out.println("Digite o CNPJ da transportadora: ");
         String cnpj = scanner.nextLine();
 
+        System.out.println("Digite a taxa da transportadora (% em cima da venda cobrado): ");
+        double taxa = scanner.nextDouble();
+
         try {
-            Transportadora novaTransportadora = new Transportadora(nome, cnpj);
+            Transportadora novaTransportadora = new Transportadora(nome, cnpj, taxa);
             transportadoras.add(novaTransportadora);
             System.out.println("Transportadora cadastrada com sucesso!");
         } catch (IllegalArgumentException e) {
