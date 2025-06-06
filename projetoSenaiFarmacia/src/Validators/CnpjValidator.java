@@ -14,7 +14,6 @@ public class CnpjValidator {
         if (cnpjNumeros.matches("(\\d)\\1{13}")) {
             return false;
         }
-
         return true;
     }
 }
