@@ -11,19 +11,21 @@ public abstract class Transacoes {
     private LocalDate data;
     private Funcionario funcionario;
     private ArrayList<Status> status;
-    private static int proxId = 1;
+    protected static int proxId = 1;
+    private double valor;
 
     public Transacoes() {
         this.id = "TX"+proxId;
     }
 
-    public Transacoes(String id, ArrayList<Produto> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status) {
+    public Transacoes(String id, ArrayList<Produto> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
         this.id = id;
         this.produtos = produtos;
         this.total = total;
         this.data = data;
         this.funcionario = funcionario;
         this.status = status;
+        this.valor = valor;
     }
 
     public String getId() {
@@ -72,6 +74,14 @@ public abstract class Transacoes {
 
     public void setStatus(ArrayList<Status> status){
         this.status = status;
+    }
+
+    public double getValor(){
+        return valor;
+    }
+
+    public void setValor(double valor){
+        this.valor = valor;
     }
 
     public boolean verificaEstoque(int qtd){
