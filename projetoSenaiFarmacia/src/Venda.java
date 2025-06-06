@@ -14,8 +14,8 @@ public class Venda extends Transacoes {
         super("TX" + proxId++, new ArrayList<Produto>(), valor, data, null, new ArrayList<Status>(), valor);
     }
 
-    public Venda(String id, ArrayList<Produto> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
-        super(id, produtos, total, data, funcionario, status, valor);
+    public Venda(String id, ArrayList<Itens> itens, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
+        super(id, itens, total, data, funcionario, status, valor);
     }
 
     public Venda(Transportadora transportadora) {
