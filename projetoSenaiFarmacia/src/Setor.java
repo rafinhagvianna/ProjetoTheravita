@@ -8,9 +8,11 @@ public class Setor {
 
     private static int proxId = 1;
 
-    public Setor() {
+    public Setor(Setores nome) {
         this.id = "SET"+proxId;
         proxId++;
+        this.nome = nome;
+        this.funcionarios = new ArrayList<>();
     }
     
     public Setor(Setores nome, ArrayList<Funcionario> funcionarios) {

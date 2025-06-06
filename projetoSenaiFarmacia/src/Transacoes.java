@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public abstract class Transacoes {
     private String id;
-    private ArrayList<Produto> produtos;
+    private ArrayList<Itens> produtos;
     private double total;
     private LocalDate data;
     private Funcionario funcionario;
@@ -16,40 +16,40 @@ public abstract class Transacoes {
 
     public Transacoes() {
         this.id = "TX"+proxId;
+        proxId++;
     }
 
-    public Transacoes(String id, ArrayList<Produto> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
+    public Transacoes(String id, ArrayList<Itens> produtos, double total, LocalDate data, Funcionario funcionario, ArrayList<Status> status, double valor) {
+
         this.id = id;
+
+        this.id = "TX"+proxId;
+
         this.produtos = produtos;
         this.total = total;
         this.data = data;
         this.funcionario = funcionario;
         this.status = status;
         this.valor = valor;
+
+        proxId++;
+
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public ArrayList<Produto> getProdutos() {
+    public ArrayList<Itens> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(ArrayList<Produto> produtos) {
+    public void setProdutos(ArrayList<Itens> produtos) {
         this.produtos = produtos;
     }
 
     public double getTotal() {
         return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
     }
 
     public LocalDate getData() {
@@ -80,9 +80,11 @@ public abstract class Transacoes {
         return valor;
     }
 
+
     public void setValor(double valor){
         this.valor = valor;
     }
+
 
     public boolean verificaEstoque(int qtd){
         return qtd >= 0 ?  true :  false;

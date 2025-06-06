@@ -123,12 +123,17 @@ public class Salario {
         return bonificacao;
     }
 
-    public double calcularBonificacao(Caixa caixa, ArrayList<Setor> setores){
+    public static double calcularBonificacao(Caixa caixa, ArrayList<Setor> setores){
         int anoAtual = LocalDate.now().getYear();
         double lucroAnual = caixa.lucroAnual(anoAtual);
         double nFuncionarios = Setor.totalFuncionarios(setores);
+        double bonificacao;
 
-        double bonificacao = (lucroAnual * 0.2) / nFuncionarios;
+        if (nFuncionarios != 0) {
+            bonificacao = (lucroAnual * 0.2) / nFuncionarios;
+        }else{
+            return 0;
+        }
 
         return bonificacao;
     }
