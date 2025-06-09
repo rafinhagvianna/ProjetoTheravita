@@ -3,7 +3,6 @@ import Enums.Setores;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
 import Gerenciadores.*;
 
 public class Main {
