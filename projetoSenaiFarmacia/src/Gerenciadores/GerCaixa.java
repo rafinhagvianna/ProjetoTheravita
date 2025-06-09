@@ -51,20 +51,22 @@ public class GerCaixa implements IntCaixa {
         System.out.println("Iniciando nova venda...");
 
 
-        do {
+        do{
             System.out.println("Insira o id do produto ou 0 para parar: ");
-
-            prod = scanner.nextLine();
-
-
-
+            prod = scanner.next();
 
             if (!prod.equals("0")) {
                 Produto produto = buscarProdutoPorId(prod, produtos);
 
                 if (produto != null){
-                    System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
-                    quantidade = scanner.nextInt();
+                    try{
+                        System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
+                        quantidade = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        System.out.println("Tipo inserido não aceito, digite um número inteiro!");
+                        quantidade = 0;
+                    }
+
 
                     if (quantidade != 0 ) {
                         if (produto.verificaEstoque(quantidade)){
@@ -98,28 +100,25 @@ public class GerCaixa implements IntCaixa {
                 }
             } while (funcionarioVenda == null);
 
-            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
-            scanner.nextLine();
+            LocalDate dtVenda = null;
+            do {
+                System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+                scanner.nextLine();
+                String dataVenda = scanner.next();
 
-            String dataVenda = scanner.nextLine().trim();
-
-            LocalDate dtVenda;
-            if (dataVenda.equalsIgnoreCase("HJ")) {
-
-                dtVenda = LocalDate.now();
-            } else if (!dataVenda.isEmpty()) {
-                try {
-                    dtVenda = LocalDate.parse(dataVenda);
-                } catch (DateTimeParseException e) {
-                    System.out.println("Formato de data inválido! Use AAAA-MM-DD.");
-                    return null; // Ou peça uma nova entrada ao usuário.
+                if (dataVenda.equalsIgnoreCase("HJ")) {
+                    dtVenda = LocalDate.now();
+                }else {
+                    try {
+                        dtVenda = LocalDate.parse(dataVenda);
+                    }catch (DateTimeParseException e){
+                        System.out.println("Formato de data não aceito!");
+                        dtVenda = null;
+                    }
                 }
-            } else {
-                System.out.println("Data não pode estar vazia.");
-                return null; // Ou trate de outra forma.
-            }
+                venda.setData(dtVenda);
+            }while (dtVenda == null);
 
-            venda.setData(dtVenda);
 
 
             if (dtVenda.isAfter(LocalDate.now())) {
@@ -143,7 +142,6 @@ public class GerCaixa implements IntCaixa {
                     regiao = null;
                 }
             }while(regiao == null);
-
 
             do {
                 System.out.println("Escolha a transportadora para a venda:");
