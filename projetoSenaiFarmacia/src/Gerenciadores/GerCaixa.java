@@ -41,22 +41,21 @@ public class GerCaixa implements IntCaixa {
         System.out.println("Iniciando nova venda...");
 
 
-        do{
+        while (true) {
             System.out.println("Insira o id do produto ou 0 para parar: ");
             prod = scanner.nextInt();
-
-            if (prod != 0 ) {
-                Produto produto = buscarProdutoPorId(prod, produtos);
-
-                System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
-                quantidade = scanner.nextInt();
-
-                if (quantidade != 0 ) {
-                    Itens item = new Itens(quantidade, produto);
-                    itens.add(item);
-                }
+            if (prod == 0) break;
+            Produto produto = buscarProdutoPorId(prod, produtos);
+            if (produto == null) {
+                System.out.println("Produto não encontrado!");
+                continue;
             }
-        }while(false);
+            System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
+            quantidade = scanner.nextInt();
+            if (quantidade == 0) continue;
+            Itens item = new Itens(quantidade, produto);
+            itens.add(item);
+        }
 
         if (itens.size() > 0) {
             venda.setProdutos(itens);
