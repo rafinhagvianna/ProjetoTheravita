@@ -84,23 +84,23 @@ public class Main {
 
             switch (opcaoUsuarioFuncionario) {
                 case 1:
-                    new GerFuncionario().cadastrarFuncionario(setores, funcionarios);
+                    new GerFuncionario().cadastrarFuncionario(scanner, setores, funcionarios);
                     break;
 
                 case 2:
-                    new GerFuncionario().listarFuncionariosPorSetor(setores);
+                    new GerFuncionario().listarFuncionariosPorSetor(scanner, setores);
                     break;
 
                 case 3:
                     System.out.print("Informe o ID do funcionário: ");
                     String idFuncionario = scanner.next();
                     Funcionario funcionarioEditar = new GerFuncionario().buscarFuncionarioPorId(idFuncionario, funcionarios);
-                    new GerFuncionario().editarFuncionario(funcionarioEditar, setores);
+                    new GerFuncionario().editarFuncionario(scanner, funcionarioEditar, setores);
                     break;
 
                 case 4:
                     System.out.print("Informe o CPF do funcionário a ser removido: ");
-                    new GerFuncionario().excluirFuncionario(funcionarios);
+                    new GerFuncionario().excluirFuncionario(scanner, funcionarios);
                     break;
 
                 case 5:
@@ -368,7 +368,7 @@ public class Main {
                     break;
 
                 case 4:
-                   GerTransportadora.visualizarTotalTransportadoras(transportadoras);
+                    GerTransportadora.visualizarTotalTransportadoras(transportadoras);
                     break;
 
                 case 0:

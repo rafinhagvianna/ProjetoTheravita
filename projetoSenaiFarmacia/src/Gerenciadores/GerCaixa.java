@@ -13,7 +13,7 @@ public class GerCaixa implements IntCaixa {
     Scanner scanner = new Scanner(System.in);
     public void menu(){
         System.out.println("Escolha uma das opções: ");
-        System.out.println("______________________________________________");
+        System.out.println("--------------------------------------------");
         System.out.println("| 1 - Registrar entrada                    |");
         System.out.println("| 2 - Registrar saída                      |");
         System.out.println("| 3 - Visualizar saldo atual               |");
@@ -21,7 +21,7 @@ public class GerCaixa implements IntCaixa {
         System.out.println("| 5 - Verificar lucro anual                |");
         System.out.println("| 6 - Gerar relatório                      |");
         System.out.println("| 0 - Sair                                 |");
-        System.out.println("---------------------------------------------");
+        System.out.println("--------------------------------------------");
         System.out.println();
     }
 
@@ -31,9 +31,17 @@ public class GerCaixa implements IntCaixa {
         System.out.println("Venda registrada com sucesso!");
     }
 
+    public void registrarSaida(Caixa caixa, Compra novaCompra, ArrayList<Funcionario> funcionarios, ArrayList<Produto> produtos){
+        novaCompra = realizarCompra(scanner, funcionarios, produtos);
+        caixa.getSaida().add(novaCompra);
+        System.out.println("Compra registrada com sucesso!");
+    }
+
     public static Venda realizarVenda(Scanner scanner, ArrayList<Funcionario> funcionarios, ArrayList<Transportadora>  transportadoras, ArrayList<Setor> setores, ArrayList<Produto> produtos){
-        String prod;
+
         int quantidade;
+        String prod;
+
         Venda venda = new Venda();
         Funcionario funcionarioVenda = null;
         Regiao regiao;
@@ -43,22 +51,37 @@ public class GerCaixa implements IntCaixa {
         System.out.println("Iniciando nova venda...");
 
 
-        do{
+        do {
             System.out.println("Insira o id do produto ou 0 para parar: ");
+
             prod = scanner.nextLine();
+
+
+
 
             if (!prod.equals("0")) {
                 Produto produto = buscarProdutoPorId(prod, produtos);
 
-                System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
-                quantidade = scanner.nextInt();
+                if (produto != null){
+                    System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
+                    quantidade = scanner.nextInt();
 
-                if (quantidade != 0 ) {
-                    Itens item = new Itens(quantidade, produto);
-                    itens.add(item);
+                    if (quantidade != 0 ) {
+                        if (produto.verificaEstoque(quantidade)){
+                            produto.getEstoqueProduto().realizaTransicao(-quantidade);
+                            Itens item = new Itens(quantidade, produto);
+                            itens.add(item);
+                        }else {
+                            System.out.println("Quantidade excede a disponivel em estoque!");
+                        }
+
+                    }
+                }else {
+                    System.out.println("Produto não encontrado");
                 }
+
             }
-        }while(false);
+        }while(!prod.equals("0"));
 
         if (itens.size() > 0) {
             venda.setProdutos(itens);
@@ -77,10 +100,12 @@ public class GerCaixa implements IntCaixa {
 
             System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
             scanner.nextLine();
+
             String dataVenda = scanner.nextLine().trim();
 
             LocalDate dtVenda;
             if (dataVenda.equalsIgnoreCase("HJ")) {
+
                 dtVenda = LocalDate.now();
             } else if (!dataVenda.isEmpty()) {
                 try {
@@ -120,11 +145,10 @@ public class GerCaixa implements IntCaixa {
             }while(regiao == null);
 
 
-
             do {
                 System.out.println("Escolha a transportadora para a venda:");
                 for (int i = 0; i < transportadoras.size(); i++) {
-                    System.out.println((i + 1) + " - " + setores.get(i).getNome());
+                    System.out.println((i + 1) + " - " + transportadoras.get(i).getNome());
                 }
                 int transportadoraEscolhida = scanner.nextInt();
 
@@ -148,6 +172,78 @@ public class GerCaixa implements IntCaixa {
             venda.setValor(venda.calculaTotal());
 
             return venda;
+        }else{
+            System.out.println("Nenhum produto foi definido!");
+
+            return null;
+        }
+
+    }
+
+    public static Compra realizarCompra(Scanner scanner, ArrayList<Funcionario> funcionarios,  ArrayList<Produto> produtos){
+        int quantidade;
+        String prod;
+        Compra compra = new Compra();
+        Funcionario funcionarioCompra = null;
+        ArrayList<Itens> itens = new ArrayList<>();
+
+        System.out.println("Iniciando nova compra...");
+
+
+        do{
+            System.out.println("Insira o id do produto ou 0 para parar: ");
+            prod = scanner.next();
+
+            if (!prod.equals("0")) {
+                Produto produto = buscarProdutoPorId(prod, produtos);
+
+                System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
+                quantidade = scanner.nextInt();
+
+                if (quantidade != 0 ) {
+                    Itens item = new Itens(quantidade, produto);
+                    itens.add(item);
+                    produto.getEstoqueProduto().realizaTransicao(quantidade);
+                }
+            }
+        }while(!prod.equals("0"));
+
+        if (itens.size() > 0) {
+            compra.setProdutos(itens);
+
+            do {
+                System.out.print("Informe o ID do funcionário: ");
+                String idFuncionario = scanner.next();
+                funcionarioCompra = buscarFuncionarioPorId(idFuncionario, funcionarios);
+
+                if (funcionarioCompra != null) {
+                    compra.setFuncionario(funcionarioCompra);
+                }else {
+                    System.out.println("\nFuncionário não encontrado !\n");
+                }
+            } while (funcionarioCompra == null);
+
+
+            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+            scanner.nextLine();
+            String dataCompra = scanner.next();
+            LocalDate dtCompra;
+            if (dataCompra.equals("HJ")) {
+                dtCompra = LocalDate.now();
+            }else {
+                dtCompra = LocalDate.parse(dataCompra);
+            }
+            compra.setData(dtCompra);
+
+            if (dtCompra.isAfter(LocalDate.now())) {
+                compra.setStatus(Enums.Status.ABERTO);
+            }else {
+                compra.setStatus(Enums.Status.FECHADO);;
+            }
+
+            compra.setValor(compra.calculaTotal());
+
+            return compra;
         }else{
             System.out.println("Nenhum produto foi definido!");
 
