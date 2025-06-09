@@ -1,6 +1,7 @@
 package Gerenciadores;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -31,7 +32,8 @@ public class GerCaixa implements IntCaixa {
     }
 
     public static Venda realizarVenda(Scanner scanner, ArrayList<Funcionario> funcionarios, ArrayList<Transportadora>  transportadoras, ArrayList<Setor> setores, ArrayList<Produto> produtos){
-        int prod, quantidade;
+        String prod;
+        int quantidade;
         Venda venda = new Venda();
         Funcionario funcionarioVenda = null;
         Regiao regiao;
@@ -43,9 +45,9 @@ public class GerCaixa implements IntCaixa {
 
         do{
             System.out.println("Insira o id do produto ou 0 para parar: ");
-            prod = scanner.nextInt();
+            prod = scanner.nextLine();
 
-            if (prod != 0 ) {
+            if (!prod.equals("0")) {
                 Produto produto = buscarProdutoPorId(prod, produtos);
 
                 System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
@@ -73,16 +75,27 @@ public class GerCaixa implements IntCaixa {
                 }
             } while (funcionarioVenda == null);
 
-
             System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
-            String dataVenda = scanner.nextLine();
-            LocalDate dtVenda = LocalDate.parse(dataVenda);
-            if (dataVenda.equals("HJ")) {
+            scanner.nextLine();
+            String dataVenda = scanner.nextLine().trim();
+
+            LocalDate dtVenda;
+            if (dataVenda.equalsIgnoreCase("HJ")) {
                 dtVenda = LocalDate.now();
-            }else {
-                dtVenda = LocalDate.parse(dataVenda);
+            } else if (!dataVenda.isEmpty()) {
+                try {
+                    dtVenda = LocalDate.parse(dataVenda);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato de data inválido! Use AAAA-MM-DD.");
+                    return null; // Ou peça uma nova entrada ao usuário.
+                }
+            } else {
+                System.out.println("Data não pode estar vazia.");
+                return null; // Ou trate de outra forma.
             }
+
             venda.setData(dtVenda);
+
 
             if (dtVenda.isAfter(LocalDate.now())) {
                 venda.setStatus(Enums.Status.ABERTO);
@@ -104,7 +117,9 @@ public class GerCaixa implements IntCaixa {
                     scanner.nextLine();
                     regiao = null;
                 }
-            }while(regiao != null);
+            }while(regiao == null);
+
+
 
             do {
                 System.out.println("Escolha a transportadora para a venda:");
@@ -150,7 +165,7 @@ public class GerCaixa implements IntCaixa {
         return null;
     }
 
-    public static Produto buscarProdutoPorId(int id, ArrayList<Produto> produtos){
+    public static Produto buscarProdutoPorId(String id, ArrayList<Produto> produtos){
         for(Produto produto : produtos){
             if (produto.getId().equals(id)) {
                 return produto;

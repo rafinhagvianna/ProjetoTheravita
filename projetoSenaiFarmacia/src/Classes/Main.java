@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import Gerenciadores.*;
 
 public class Main {
+    Scanner scanner = new Scanner(System.in);
     static ArrayList<Funcionario> funcionarios = new ArrayList<>();
     static ArrayList<Setor> setores = new ArrayList<>();
     static ArrayList<Produto> produtos = new ArrayList<>();
@@ -367,7 +368,7 @@ public class Main {
                     break;
 
                 case 4:
-                    GerTransportadora.visualizarTotalTransportadoras(transportadoras);
+                   GerTransportadora.visualizarTotalTransportadoras(transportadoras);
                     break;
 
                 case 0:

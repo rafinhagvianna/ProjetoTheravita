@@ -124,9 +124,6 @@ public class GerFuncionario implements IntFuncionario {
                             break;
                         case 0:
                             break;
-                        default:
-                            System.out.println("Opção inválida");
-                            break;
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Entrada inválida. Digite um número.");
