@@ -1,9 +1,7 @@
 package Classes;
-import Enums.Regiao;
 import Enums.Setores;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDate;
 import Gerenciadores.*;

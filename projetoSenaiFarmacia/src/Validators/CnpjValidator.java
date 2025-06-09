@@ -2,12 +2,7 @@ package Validators;
 
 
 import Classes.Transportadora;
-
-import java.security.spec.RSAOtherPrimeInfo;
 import java.util.ArrayList;
-import java.util.List;
-
-import static Classes.Transportadora.buscarTransportadora;
 
 public class CnpjValidator {
     public static boolean isValid(String cnpj, ArrayList<Transportadora> transportadoras) {
