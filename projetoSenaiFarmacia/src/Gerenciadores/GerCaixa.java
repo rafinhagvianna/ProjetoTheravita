@@ -38,8 +38,10 @@ public class GerCaixa implements IntCaixa {
     }
 
     public static Venda realizarVenda(Scanner scanner, ArrayList<Funcionario> funcionarios, ArrayList<Transportadora>  transportadoras, ArrayList<Setor> setores, ArrayList<Produto> produtos){
+
         int quantidade;
         String prod;
+
         Venda venda = new Venda();
         Funcionario funcionarioVenda = null;
         Regiao regiao;
@@ -104,7 +106,7 @@ public class GerCaixa implements IntCaixa {
                 scanner.nextLine();
                 String dataVenda = scanner.next();
 
-                if (dataVenda.equals("HJ")) {
+                if (dataVenda.equalsIgnoreCase("HJ")) {
                     dtVenda = LocalDate.now();
                 }else {
                     try {
@@ -116,6 +118,7 @@ public class GerCaixa implements IntCaixa {
                 }
                 venda.setData(dtVenda);
             }while (dtVenda == null);
+
 
 
             if (dtVenda.isAfter(LocalDate.now())) {

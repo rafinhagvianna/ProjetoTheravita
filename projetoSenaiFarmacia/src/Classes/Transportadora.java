@@ -1,4 +1,5 @@
 package Classes;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +13,14 @@ public class Transportadora {
     private String cnpj;
     private List<Regiao> regioes;
     private double taxa;
-    private static List<Transportadora> transportadoras = new ArrayList<>();
+    private static ArrayList<Transportadora> transportadoras = new ArrayList<>();
 
     public Transportadora(String nome, String cnpj, double taxa) {
-        if (!CnpjValidator.isValid(cnpj)) {
+        if (!CnpjValidator.isValid(cnpj, transportadoras)) {
             throw new IllegalArgumentException("CNPJ inválido para a transportadora " + nome + ": " + cnpj);
         }
         this.nome = nome;
-        this.id = "TRA" + idBase;
+        this.id = "TRAN" + idBase;
         this.cnpj = cnpj;
         this.taxa = taxa;
         idBase++;
@@ -37,6 +38,7 @@ public class Transportadora {
     public String getId() {
         return id;
     }
+
     public double getTaxa() {
         return taxa;
     }
@@ -46,7 +48,7 @@ public class Transportadora {
     }
 
     public void setCnpj(String cnpj) {
-        if (!CnpjValidator.isValid(cnpj)) {
+        if (!CnpjValidator.isValid(cnpj, transportadoras)) {
             throw new IllegalArgumentException("CNPJ inválido: " + cnpj);
         }
         this.cnpj = cnpj;
@@ -62,11 +64,15 @@ public class Transportadora {
         this.regioes.add(regiao);
     }
 
-    public void setTaxa(double taxa){
+    public void removerRegiao(Regiao regiao) {
+        this.regioes.remove(regiao);
+    }
+
+    public void setTaxa(double taxa) {
         this.taxa = taxa;
     }
 
-    public boolean atendeRegiao(Regiao regiaoBuscada){
+    public boolean atendeRegiao(Regiao regiaoBuscada) {
         return this.regioes.contains(regiaoBuscada);
     }
 
@@ -87,5 +93,14 @@ public class Transportadora {
         for (Transportadora t : transportadoras) {
             System.out.println(t);
         }
+    }
+
+    public static Transportadora buscarTransportadora(String cnpj) {
+        for (int i = 0; i < transportadoras.size(); i++) {
+            if (transportadoras.get(i).getCnpj().equals(cnpj)) {
+                return transportadoras.get(i);
+            }
+        }
+        return null;
     }
 }
