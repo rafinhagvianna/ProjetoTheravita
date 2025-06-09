@@ -1,6 +1,7 @@
 package Gerenciadores;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -56,8 +57,14 @@ public class GerCaixa implements IntCaixa {
                 Produto produto = buscarProdutoPorId(prod, produtos);
 
                 if (produto != null){
-                    System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
-                    quantidade = scanner.nextInt();
+                    try{
+                        System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
+                        quantidade = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        System.out.println("Tipo inserido não aceito, digite um número inteiro!");
+                        quantidade = 0;
+                    }
+
 
                     if (quantidade != 0 ) {
                         if (produto.verificaEstoque(quantidade)){
@@ -91,16 +98,25 @@ public class GerCaixa implements IntCaixa {
                 }
             } while (funcionarioVenda == null);
 
-            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
-            scanner.nextLine();
-            String dataVenda = scanner.next();
-            LocalDate dtVenda;
-            if (dataVenda.equals("HJ")) {
-                dtVenda = LocalDate.now();
-            }else {
-                dtVenda = LocalDate.parse(dataVenda);
-            }
-            venda.setData(dtVenda);
+            LocalDate dtVenda = null;
+            do {
+                System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+                scanner.nextLine();
+                String dataVenda = scanner.next();
+
+                if (dataVenda.equals("HJ")) {
+                    dtVenda = LocalDate.now();
+                }else {
+                    try {
+                        dtVenda = LocalDate.parse(dataVenda);
+                    }catch (DateTimeParseException e){
+                        System.out.println("Formato de data não aceito!");
+                        dtVenda = null;
+                    }
+                }
+                venda.setData(dtVenda);
+            }while (dtVenda == null);
+
 
             if (dtVenda.isAfter(LocalDate.now())) {
                 venda.setStatus(Enums.Status.ABERTO);

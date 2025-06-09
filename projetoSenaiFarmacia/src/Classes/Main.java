@@ -2,6 +2,7 @@ package Classes;
 import Enums.Setores;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDate;
 import Gerenciadores.*;
@@ -78,7 +79,12 @@ public class Main {
         int opcaoUsuarioFuncionario;
         do {
             new GerFuncionario().menu();
-            opcaoUsuarioFuncionario = scanner.nextInt();
+            try {
+                scanner.nextLine();
+                opcaoUsuarioFuncionario = scanner.nextInt();
+            }catch (InputMismatchException inputExcpt){
+                opcaoUsuarioFuncionario = 6;
+            }
 
             switch (opcaoUsuarioFuncionario) {
                 case 1:
@@ -122,7 +128,13 @@ public class Main {
 
         do {
             new GerSalario().menu();
-            opcaoUsuarioSalario = scanner.nextInt();
+
+            try {
+                scanner.nextLine();
+                opcaoUsuarioSalario = scanner.nextInt();
+            }catch (InputMismatchException inputExcpt){
+                opcaoUsuarioSalario = 6;
+            }
 
             switch (opcaoUsuarioSalario) {
                 case 1:
@@ -170,7 +182,12 @@ public class Main {
         int opcaoUsuarioProduto;
         do {
             new GerProduto().menu();
-            opcaoUsuarioProduto = scanner.nextInt();
+            try {
+                scanner.nextLine();
+                opcaoUsuarioProduto = scanner.nextInt();
+            }catch (InputMismatchException inputExcpt){
+                opcaoUsuarioProduto = 6;
+            }
 
             switch (opcaoUsuarioProduto) {
                 case 1:
@@ -206,7 +223,12 @@ public class Main {
 
         do {
             new GerCaixa().menu();
-            opcaoUsuarioCaixa = scanner.nextInt();
+            try {
+                scanner.nextLine();
+                opcaoUsuarioCaixa = scanner.nextInt();
+            }catch (InputMismatchException inputExcpt){
+                opcaoUsuarioCaixa = 6;
+            }
             scanner.nextLine();
 
             switch (opcaoUsuarioCaixa) {
@@ -280,7 +302,12 @@ public class Main {
 
         do {
             new GerTransportadora().menu();
-            opcaoUsuarioTransportadoras = scanner.nextInt();
+            try {
+                scanner.nextLine();
+                opcaoUsuarioTransportadoras = scanner.nextInt();
+            }catch (InputMismatchException inputExcpt){
+                opcaoUsuarioTransportadoras = 6;
+            }
             scanner.nextLine();
 
             switch (opcaoUsuarioTransportadoras) {
@@ -321,7 +348,12 @@ public class Main {
             System.out.println("| 0 - Sair                                 |");
             System.out.println("--------------------------------------------");
             System.out.println();
-            opcaoUsuarioGestao = scanner.nextInt();
+            try {
+                scanner.nextLine();
+                opcaoUsuarioGestao = scanner.nextInt();
+            }catch (InputMismatchException inputExcpt){
+                opcaoUsuarioGestao = 6;
+            }
 
             switch (opcaoUsuarioGestao) {
                 case 1:

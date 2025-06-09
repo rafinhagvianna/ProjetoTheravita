@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Classes.*;
+import Exceptions.FuncionarioException;
 import Interfaces.IntFuncionario;
 
 public class GerFuncionario implements IntFuncionario {

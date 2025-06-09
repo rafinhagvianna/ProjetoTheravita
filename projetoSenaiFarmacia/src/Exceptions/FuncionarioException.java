@@ -1,7 +1,9 @@
-package Classes;
+package Exceptions;
 
 import java.util.Scanner;
 
+import Classes.Funcionario;
+import Classes.Setor;
 import Validators.FuncionarioValidator;
 
 public class FuncionarioException extends Exception{
