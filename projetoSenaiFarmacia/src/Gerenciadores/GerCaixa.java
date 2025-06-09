@@ -48,7 +48,7 @@ public class GerCaixa implements IntCaixa {
         System.out.println("Iniciando nova venda...");
 
 
-        do{
+        do {
             System.out.println("Insira o id do produto ou 0 para parar: ");
             prod = scanner.next();
 
