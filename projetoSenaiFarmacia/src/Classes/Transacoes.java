@@ -80,10 +80,5 @@ public abstract class Transacoes {
         this.valor = valor;
     }
 
-
-    public boolean verificaEstoque(int qtd){
-        return qtd >= 0 ?  true :  false;
-    }
-
     public abstract double calculaTotal();
 }

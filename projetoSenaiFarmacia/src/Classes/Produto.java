@@ -53,6 +53,13 @@ public class Produto {
         this.valorCompra = valorCompra;
     }
 
+    public Estoque getEstoqueProduto() {
+        return estoqueProduto;
+    }
+    public void setEstoqueProduto(Estoque estoqueProduto) {
+        this.estoqueProduto = estoqueProduto;
+    }
+
     @Override
     public String toString() {
         return  "Nome do produto = " + descricao +
@@ -66,5 +73,9 @@ public class Produto {
         for (Produto produto : catalogo) {
             System.out.println(produto);
         }
+    }
+
+    public boolean verificaEstoque(int qtd){
+        return qtd <= this.estoqueProduto.getEstoque();
     }
 }
