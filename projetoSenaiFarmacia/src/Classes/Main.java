@@ -384,11 +384,11 @@ public class Main {
         int opcaoUsuarioGestao;
         do {
             System.out.println("Escolha uma das opções: ");
-            System.out.println("_____________________________________________");
+            System.out.println("--------------------------------------------");
             System.out.println("| 1 - Consultar negócios em andamento      |");
             System.out.println("| 2 - Atualizar status                     |");
             System.out.println("| 0 - Sair                                 |");
-            System.out.println("---------------------------------------------");
+            System.out.println("--------------------------------------------");
             System.out.println();
             opcaoUsuarioGestao = scanner.nextInt();
 
