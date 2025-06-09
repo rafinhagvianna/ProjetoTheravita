@@ -55,8 +55,7 @@ public class GerTransportadora implements IntTransportadora {
     // Método para atualizar dados de uma transportadora
     public static void atualizarTransportadora(Scanner scanner, ArrayList<Transportadora> transportadoras) {
         System.out.println("Digite o ID da transportadora que deseja atualizar: ");
-        int idAtualizacao = scanner.nextInt();
-        scanner.nextLine();
+        String idAtualizacao = scanner.nextLine();
 
         Transportadora transportadoraEncontrada = null;
         for (Transportadora t : transportadoras) {
