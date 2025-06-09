@@ -407,26 +407,13 @@ public class Main {
         } while (opcaoUsuarioTransportadoras != 0);
     }
 
-    public static void apresentarMenuGestao(Scanner scanner) {
-        int opcaoUsuarioGestao;
-        do {
-            System.out.println("Escolha uma das opções: ");
-            System.out.println("_____________________________________________");
-            System.out.println("| 1 - Consultar negócios em andamento      |");
-            System.out.println("| 2 - Atualizar status                     |");
-            System.out.println("| 0 - Sair                                 |");
-            System.out.println("---------------------------------------------");
-            System.out.println();
-            try {
-                scanner.nextLine();
-                opcaoUsuarioGestao = scanner.nextInt();
-            }catch (InputMismatchException inputExcpt){
-                opcaoUsuarioGestao = 6;
-            }
+   public static void apresentarMenuGestao(Scanner scanner) {
 
-            switch (opcaoUsuarioGestao) {
-                case 1:
-            }
-        } while (opcaoUsuarioGestao != 0);
+        ArrayList<Compra> Compra = new ArrayList<>();
+        ArrayList<Venda> Venda = new ArrayList<>();
+        GerGestao gerGestao = new GerGestao(Compra, Venda);
+        gerGestao.apresentarMenuGestao(scanner);
+
+
     }
 }
