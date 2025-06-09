@@ -12,7 +12,7 @@ public class GerCaixa implements IntCaixa {
     Scanner scanner = new Scanner(System.in);
     public void menu(){
         System.out.println("Escolha uma das opções: ");
-        System.out.println("______________________________________________");
+        System.out.println("--------------------------------------------");
         System.out.println("| 1 - Registrar entrada                    |");
         System.out.println("| 2 - Registrar saída                      |");
         System.out.println("| 3 - Visualizar saldo atual               |");
@@ -20,7 +20,7 @@ public class GerCaixa implements IntCaixa {
         System.out.println("| 5 - Verificar lucro anual                |");
         System.out.println("| 6 - Gerar relatório                      |");
         System.out.println("| 0 - Sair                                 |");
-        System.out.println("---------------------------------------------");
+        System.out.println("--------------------------------------------");
         System.out.println();
     }
 

@@ -9,13 +9,13 @@ public class GerTransportadora implements IntTransportadora {
     @Override
     public void menu(){
         System.out.println("Escolha uma das opções: ");
-        System.out.println("______________________________________________");
+        System.out.println("--------------------------------------------");
         System.out.println("| 1 - Cadastrar                            |");
         System.out.println("| 2 - Listar                               |");
         System.out.println("| 3 - Atualizar                            |");
         System.out.println("| 4 - Visualizar total                     |");
         System.out.println("| 0 - Sair                                 |");
-        System.out.println("---------------------------------------------");
+        System.out.println("--------------------------------------------");
         System.out.println();
     }
 
