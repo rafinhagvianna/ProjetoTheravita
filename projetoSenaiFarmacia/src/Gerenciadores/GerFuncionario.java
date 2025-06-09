@@ -60,7 +60,6 @@ public class GerFuncionario implements IntFuncionario {
 
         funcionarios.add(funcionario);
         System.out.println("Funcionário cadastrado com sucesso!");
-        sc.close();
     }
 
     public void listarFuncionariosPorSetor(ArrayList<Setor> setores){
@@ -76,8 +75,6 @@ public class GerFuncionario implements IntFuncionario {
         for (Funcionario func : setorSelecionado.getFuncionarios()) {
             System.out.println(func.getNome() + " - " + func.getId());
         }
-
-        sc.close();
     }
 
     public void editarFuncionario(Funcionario funcionarioEditar, ArrayList<Setor> setores){
@@ -139,8 +136,6 @@ public class GerFuncionario implements IntFuncionario {
         } else {
             System.out.println("Funcionário não encontrado!");
         }
-
-        sc.close();
     }
 
     public void excluirFuncionario(ArrayList<Funcionario> funcionarios){
@@ -160,8 +155,6 @@ public class GerFuncionario implements IntFuncionario {
         } else {
             System.out.println("Funcionário com CPF " + cpfExcluir + " não encontrado.");
         }
-
-        sc.close();
     }
 
     public Funcionario buscarFuncionarioPorId(String id, ArrayList<Funcionario> funcionarios) {
