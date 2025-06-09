@@ -85,20 +85,17 @@ public class Transportadora {
                 ", Regiões atendidas =" + regioes;
     }
 
-    public static void getTransportadoras() {
-        if (transportadoras == null) {
-            System.out.println("Não há transportadoras cadastradas.");
-        }
-
-        for (Transportadora t : transportadoras) {
-            System.out.println(t);
-        }
+    public static ArrayList<Transportadora> getTransportadoras() {
+        return transportadoras;
+    }
+    public static void setTransportadoras(Transportadora transportadora) {
+        transportadoras.add(transportadora);
     }
 
     public static Transportadora buscarTransportadora(String cnpj) {
-        for (int i = 0; i < transportadoras.size(); i++) {
-            if (transportadoras.get(i).getCnpj().equals(cnpj)) {
-                return transportadoras.get(i);
+        for (Transportadora transportadora : transportadoras) {
+            if (transportadora.getCnpj().equals(cnpj)) {
+                return transportadora;
             }
         }
         return null;

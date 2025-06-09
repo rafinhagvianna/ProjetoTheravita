@@ -2,6 +2,7 @@ package Classes;
 import Enums.Setores;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDate;
 import Gerenciadores.*;
@@ -11,7 +12,7 @@ public class Main {
     static ArrayList<Funcionario> funcionarios = new ArrayList<>();
     static ArrayList<Setor> setores = new ArrayList<>();
     static ArrayList<Produto> produtos = new ArrayList<>();
-    static ArrayList<Transportadora> transportadoras = new ArrayList<>();
+//    static ArrayList<Transportadora> transportadoras = new ArrayList<>();
     static Caixa caixa = new Caixa();
 
     static {
@@ -61,7 +62,7 @@ public class Main {
                     apresentarMenuCaixa(scanner);
                     break;
                 case 'T':
-                    apresentarMenuTransportadoras(scanner, transportadoras);
+                    apresentarMenuTransportadoras(scanner, Transportadora.getTransportadoras());
                     break;
                 case 'E':
                     System.out.println("Obrigado por utilizar o nosso sistema!");
@@ -233,7 +234,7 @@ public class Main {
             switch (opcaoUsuarioCaixa) {
                 case 1:
                     Venda novaVenda = new Venda();
-                    new GerCaixa().registrarEntrada(caixa, novaVenda, funcionarios, transportadoras, setores, produtos);
+                    new GerCaixa().registrarEntrada(caixa, novaVenda, funcionarios, Transportadora.getTransportadoras(), setores, produtos);
                     break;
 
                 case 2:
