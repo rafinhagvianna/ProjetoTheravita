@@ -9,13 +9,13 @@ public class GerTransportadora implements IntTransportadora {
     @Override
     public void menu(){
         System.out.println("Escolha uma das opções: ");
-        System.out.println("______________________________________________");
+        System.out.println("--------------------------------------------");
         System.out.println("| 1 - Cadastrar                            |");
         System.out.println("| 2 - Listar                               |");
         System.out.println("| 3 - Atualizar                            |");
         System.out.println("| 4 - Visualizar total                     |");
         System.out.println("| 0 - Sair                                 |");
-        System.out.println("---------------------------------------------");
+        System.out.println("--------------------------------------------");
         System.out.println();
     }
 
@@ -55,8 +55,7 @@ public class GerTransportadora implements IntTransportadora {
     // Método para atualizar dados de uma transportadora
     public static void atualizarTransportadora(Scanner scanner, ArrayList<Transportadora> transportadoras) {
         System.out.println("Digite o ID da transportadora que deseja atualizar: ");
-        int idAtualizacao = scanner.nextInt();
-        scanner.nextLine();
+        String idAtualizacao = scanner.nextLine();
 
         Transportadora transportadoraEncontrada = null;
         for (Transportadora t : transportadoras) {
