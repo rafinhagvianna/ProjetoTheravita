@@ -1,0 +1,33 @@
+# Clonar repositório remoto para local
+git clone https://github.com/rafinhagvianna/projetoSenai.git
+
+# Entrar no repositório clonado
+cd projetoSenai
+
+# Para verificar se está tudo configurado corretamente:
+# Veja seus remotes:
+git remote -v
+Você deverá ver algo como:
+origin  https://github.com/rafinhagvianna/projetoSenai.git (fetch)
+origin  https://github.com/rafinhagvianna/projetoSenai.git (push)
+Isso significa que seu repositório local está configurado para "buscar" (fetch) e "enviar" (push) para o repositório em https://github.com/rafinhagvianna/projetoSenai.git.
+
+# Atualizar meu repositório local
+git pull origin main
+
+# Faço as alterações necessárias no código
+
+# Verifico o que foi modificado
+git status (opcional)
+
+# Caso precise de mais detalhes
+git diff (opcional)
+
+# Adiciono os arquivos para commitar
+git add --all
+
+# Faço a mensagem do commit
+git commit -m "Aqui eu digo o que eu fiz"
+
+# Envio os commits para o repositório remoto
+git push origin main
