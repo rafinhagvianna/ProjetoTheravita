@@ -21,8 +21,7 @@ public class GerFuncionario implements IntFuncionario {
         System.out.println();
     }
 
-    public void cadastrarFuncionario(ArrayList<Setor> setores, ArrayList<Funcionario> funcionarios){
-        Scanner sc = new Scanner(System.in);
+    public void cadastrarFuncionario(Scanner sc, ArrayList<Setor> setores, ArrayList<Funcionario> funcionarios){
         System.out.print("Nome = ");
         String nome = sc.next();
         System.out.print("CPF = ");
@@ -62,8 +61,7 @@ public class GerFuncionario implements IntFuncionario {
         System.out.println("Funcionário cadastrado com sucesso!");
     }
 
-    public void listarFuncionariosPorSetor(ArrayList<Setor> setores){
-        Scanner sc = new Scanner(System.in);
+    public void listarFuncionariosPorSetor(Scanner sc, ArrayList<Setor> setores){
         System.out.println("Escolha o setor para o funcionário:");
         for (int i = 0; i < setores.size(); i++) {
             System.out.println((i + 1) + " - " + setores.get(i).getNome());
@@ -77,8 +75,7 @@ public class GerFuncionario implements IntFuncionario {
         }
     }
 
-    public void editarFuncionario(Funcionario funcionarioEditar, ArrayList<Setor> setores){
-        Scanner sc = new Scanner(System.in);
+    public void editarFuncionario(Scanner sc, Funcionario funcionarioEditar, ArrayList<Setor> setores){
         int opc;
         if (funcionarioEditar != null) {
             do {
@@ -138,8 +135,7 @@ public class GerFuncionario implements IntFuncionario {
         }
     }
 
-    public void excluirFuncionario(ArrayList<Funcionario> funcionarios){
-        Scanner sc = new Scanner(System.in);
+    public void excluirFuncionario(Scanner sc, ArrayList<Funcionario> funcionarios){
         String cpfExcluir = sc.next();
         Funcionario funcRemover = null;
         for (Funcionario func : funcionarios) {
