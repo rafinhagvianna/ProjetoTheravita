@@ -119,8 +119,6 @@ public class GerCaixa implements IntCaixa {
                 venda.setData(dtVenda);
             }while (dtVenda == null);
 
-
-
             if (dtVenda.isAfter(LocalDate.now())) {
                 venda.setStatus(Enums.Status.ABERTO);
             }else {
@@ -151,7 +149,7 @@ public class GerCaixa implements IntCaixa {
                 int transportadoraEscolhida = scanner.nextInt();
 
                 try{
-                    transportadora = transportadoras.get(transportadoraEscolhida);
+                    transportadora = transportadoras.get(transportadoraEscolhida - 1);
                 }catch (ArrayIndexOutOfBoundsException | InputMismatchException e){
                     System.out.println("Opção inválida! Tente novamente.");
                     scanner.nextLine();
@@ -187,9 +185,13 @@ public class GerCaixa implements IntCaixa {
 
         System.out.println("Iniciando nova compra...");
 
-
+        int contador = 0;
         do{
-            System.out.println("Insira o id do produto ou 0 para parar: ");
+            if (contador == 0){
+                System.out.println("Insira o id do produto ou 0 para cancelar a compra: ");
+            } else {
+                System.out.println("Insira o id do novo produto ou 0 para finalizar a compra: ");
+            }
             prod = scanner.next();
 
             if (!prod.equals("0")) {
@@ -204,6 +206,7 @@ public class GerCaixa implements IntCaixa {
                     produto.getEstoqueProduto().realizaTransicao(quantidade);
                 }
             }
+            contador = 1;
         }while(!prod.equals("0"));
 
         if (itens.size() > 0) {
@@ -222,11 +225,11 @@ public class GerCaixa implements IntCaixa {
             } while (funcionarioCompra == null);
 
 
-            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+            System.out.println("Digite a data da compra (AAAA-MM-DD) ou HJ para dia de hoje: ");
             scanner.nextLine();
             String dataCompra = scanner.next();
             LocalDate dtCompra;
-            if (dataCompra.equals("HJ")) {
+            if (dataCompra.equalsIgnoreCase("HJ")) {
                 dtCompra = LocalDate.now();
             }else {
                 dtCompra = LocalDate.parse(dataCompra);
@@ -243,8 +246,7 @@ public class GerCaixa implements IntCaixa {
 
             return compra;
         }else{
-            System.out.println("Nenhum produto foi definido!");
-
+            System.out.println("Compra cancelada!");
             return null;
         }
 

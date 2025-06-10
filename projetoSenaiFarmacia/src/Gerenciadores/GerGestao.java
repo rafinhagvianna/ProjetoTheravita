@@ -40,6 +40,7 @@ public class GerGestao {
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
+                    break;
             }
         } while (opcaoUsuarioGestao != 0);
     }

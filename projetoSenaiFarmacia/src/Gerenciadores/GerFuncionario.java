@@ -84,10 +84,9 @@ public class GerFuncionario implements IntFuncionario {
 
                 try {
                     opc = sc.nextInt();
-
+                    sc.nextLine();
                     switch (opc) {
                         case 1:
-                            sc.nextLine();
                             System.out.print("Insira o novo nome = ");
                             funcionarioEditar.setNome(sc.nextLine());
                             System.out.println("Nome atualizado com sucesso!");
@@ -102,13 +101,11 @@ public class GerFuncionario implements IntFuncionario {
                             System.out.println("CPF atualizado com sucesso!");
                             break;
                         case 3:
-                            sc.nextLine();
                             System.out.print("Insira o novo gênero = ");
                             funcionarioEditar.setGenero(sc.nextLine());
                             System.out.println("Gênero atualizado com sucesso!");
                             break;
                         case 4:
-                            sc.nextLine();
                             System.out.println("Escolha o setor para o funcionário:");
                             for (int i = 0; i < setores.size(); i++) {
                                 System.out.println((i + 1) + " - " + setores.get(i).getNome());
@@ -120,7 +117,6 @@ public class GerFuncionario implements IntFuncionario {
                             System.out.println("Setor atualizado com sucesso!");
                             break;
                         case 5:
-                            sc.nextLine();
                             System.out.print("Insira o novo salário base = ");
                             double novoSalario = Double.parseDouble(sc.nextLine());
                             funcionarioEditar.getSalario().setSalario(novoSalario);
