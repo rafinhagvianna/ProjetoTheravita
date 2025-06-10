@@ -14,8 +14,7 @@ public class FuncionarioException extends Exception{
 
         // Validação do nome
         while (!FuncionarioValidator.isValidNome(nome)) {
-            System.out.println("O nome deve ter ao menos 5 letras");
-            System.out.println("Insira o nome:");
+            System.out.println("Insira o nome completo:");
             nome = scanner.next();
         }
         // Validação do CPF
