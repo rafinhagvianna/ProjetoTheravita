@@ -1,7 +1,11 @@
 package Validators;
 
+
+import Classes.Transportadora;
+import java.util.ArrayList;
+
 public class CnpjValidator {
-    public static boolean isValid(String cnpj) {
+    public static boolean isValid(String cnpj, ArrayList<Transportadora> transportadoras) {
         // 1. Remove caracteres não numéricos do CNPJ
         String cnpjNumeros = cnpj.replaceAll("[^0-9]", "");
 
@@ -14,6 +18,9 @@ public class CnpjValidator {
         if (cnpjNumeros.matches("(\\d)\\1{13}")) {
             return false;
         }
+        System.out.println(cnpjNumeros);
+        if (Transportadora.buscarTransportadora(cnpj) != null)
+            return  false;
         return true;
     }
 }
