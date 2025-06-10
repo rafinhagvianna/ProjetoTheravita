@@ -18,7 +18,7 @@ public class CnpjValidator {
         if (cnpjNumeros.matches("(\\d)\\1{13}")) {
             return false;
         }
-        System.out.println(cnpjNumeros);
+        System.out.println("CNPJ já cadastrado!");
         if (Transportadora.buscarTransportadora(cnpj) != null)
             return  false;
         return true;
