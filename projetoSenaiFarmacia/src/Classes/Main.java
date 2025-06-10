@@ -329,9 +329,7 @@ public class Main {
     }
 
    public static void apresentarMenuGestao(Scanner scanner) {
-        ArrayList<Compra> Compra = new ArrayList<>();
-        ArrayList<Venda> Venda = new ArrayList<>();
-        GerGestao gerGestao = new GerGestao(Compra, Venda);
+        GerGestao gerGestao = new GerGestao(caixa.getSaida(), caixa.getEntrada());
         gerGestao.apresentarMenuGestao(scanner);
     }
 }

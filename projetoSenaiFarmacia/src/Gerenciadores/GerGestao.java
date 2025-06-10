@@ -46,26 +46,28 @@ public class GerGestao {
     }
 
     private void consultarNegocios() {
-        boolean temNegocios = false;
+        boolean statusCompra = false, statusVenda = false;
 
         System.out.println("\n--- Compras em andamento ---");
-        for (int i = 0; i < compras.size(); i++) {
-            if (compras.get(i).getStatus() == Status.ABERTO) {
-                System.out.println("Compra #" + i + " - " + compras.get(i));
-                temNegocios = true;
+        for (Compra compra : compras) {
+            if (compra.getStatus() == Status.ABERTO) {
+                System.out.println("Compra #" + compra.getId() + " - " + compra);
+                statusCompra = true;
             }
+        }
+        if (statusCompra) {
+            System.out.println("Não há compras em andamentos.");
         }
 
         System.out.println("\n--- Vendas em andamento ---");
-        for (int i = 0; i < vendas.size(); i++) {
-            if (vendas.get(i).getStatus() == Status.ABERTO) {
-                System.out.println("Venda #" + i + " - " + vendas.get(i));
-                temNegocios = true;
+        for (Venda venda : vendas) {
+            if (venda.getStatus() == Status.ABERTO) {
+                System.out.println("Compra #" + venda.getId() + " - " + venda);
+                statusVenda = true;
             }
         }
-
-        if (!temNegocios) {
-            System.out.println("Não há compras ou vendas em andamento.");
+        if (!statusVenda) {
+            System.out.println("Não há compras em andamentos.");
         }
     }
 
