@@ -19,13 +19,16 @@ public class FuncionarioValidator {
         
         return true;
     }
-    public static boolean isValidGenero(String genero) {        
+    public static boolean isValidGenero(String genero) {
+        
         if (genero.equalsIgnoreCase("H")  || 
             genero.equalsIgnoreCase("M") || 
             genero.equalsIgnoreCase("O")) {
-            return true;
+            System.out.println("O g~enero deve ser (H) homem, (M) mulher ou (O) outro! ");
+            return false;
         }
-        System.out.println("O gênero deve ser (H) homem, (M) mulher ou (O) outro! ");
-        return false;
+
+        return true;
+
     }
 }
