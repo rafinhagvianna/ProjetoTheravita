@@ -83,7 +83,7 @@ public class Main {
             try {
                 scanner.nextLine();
                 opcaoUsuarioFuncionario = scanner.nextInt();
-            }catch (InputMismatchException inputExcpt){
+            }catch (Exception e){
                 opcaoUsuarioFuncionario = 6;
             }
 
@@ -97,9 +97,15 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.print("Informe o ID do funcionário: ");
-                    String idFuncionario = scanner.next();
-                    Funcionario funcionarioEditar = new GerFuncionario().buscarFuncionarioPorId(idFuncionario, funcionarios);
+                    Funcionario funcionarioEditar = null;
+                    
+                    do{
+                        System.out.print("Informe o ID do funcionário: ");
+                        String idFuncionario = scanner.next();
+                        funcionarioEditar = new GerFuncionario().buscarFuncionarioPorId(idFuncionario, funcionarios);
+                        if (funcionarioEditar == null) System.out.println("Funcionário não encontrado!");
+                    }while(funcionarioEditar == null);
+                    
                     new GerFuncionario().editarFuncionario(scanner, funcionarioEditar, setores);
                     break;
 
