@@ -171,7 +171,6 @@ public class GerCaixa implements IntCaixa {
             venda.setTransportadora(transportadora);
 
             venda.setValor(venda.calculaTotal());
-            System.out.println(venda.getValor());
 
             return venda;
         } else {
@@ -237,15 +236,25 @@ public class GerCaixa implements IntCaixa {
                 }
             } while (funcionarioCompra == null);
 
-            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
-            scanner.nextLine();
-            String dataCompra = scanner.next();
             LocalDate dtCompra;
-            if (dataCompra.equals("HJ")) {
-                dtCompra = LocalDate.now();
-            } else {
-                dtCompra = LocalDate.parse(dataCompra);
-            }
+            do {
+                System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+                scanner.nextLine();
+                String dataCompra = scanner.next();
+
+                if (dataCompra.equalsIgnoreCase("HJ")) {
+                    dtCompra = LocalDate.now();
+                } else {
+                    try {
+                        dtCompra = LocalDate.parse(dataCompra);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Formato de data não aceito!");
+                        dtCompra = null;
+                    }
+                }
+
+            } while (dtCompra == null);
+
             compra.setData(dtCompra);
 
             if (dtCompra.isAfter(LocalDate.now())) {
@@ -256,8 +265,6 @@ public class GerCaixa implements IntCaixa {
             }
 
             compra.setValor(compra.calculaTotal());
-
-            System.out.println(compra.getValor());
 
             return compra;
         } else {
