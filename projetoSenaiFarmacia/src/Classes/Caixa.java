@@ -1,13 +1,11 @@
 package Classes;
 
 import java.util.ArrayList;
-import java.time.LocalDate;
 
 public class Caixa {
     private double saldo;
     private ArrayList<Venda> entrada;
     private ArrayList<Compra> saida;
-    private LocalDate hoje = LocalDate.now();
 
     public Caixa() {
         entrada = new ArrayList<>();

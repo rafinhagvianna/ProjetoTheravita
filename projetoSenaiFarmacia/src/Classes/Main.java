@@ -4,7 +4,6 @@ import Enums.Setores;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.time.LocalDate;
 import Gerenciadores.*;
 
 public class Main {
@@ -238,9 +237,8 @@ public class Main {
                     break;
 
                 case 2:
-                    Compra novaCompra = realizarCompra(scanner);
-                    caixa.getSaida().add(novaCompra);
-                    System.out.println("Compra registrada com sucesso!");
+                    Compra novaCompra = new Compra();
+                    new GerCaixa().registrarSaida(caixa, novaCompra, funcionarios, produtos);
                     break;
 
                 case 3:
@@ -286,84 +284,6 @@ public class Main {
                     break;
             }
         } while (opcaoUsuarioCaixa != 0);
-    }
-
-    public static Compra realizarCompra(Scanner scanner){
-        int prod, quantidade;    
-        Compra compra = new Compra();
-        Funcionario funcionarioCompra = null;
-        ArrayList<Itens> itens = new ArrayList<>();
-
-        System.out.println("Iniciando nova compra...");
-        
-        
-        do{
-            System.out.println("Insira o id do produto ou 0 para parar: ");
-            prod = scanner.nextInt();
-            
-            if (prod != 0 ) {
-                Produto produto = buscarProdutoPorId(prod);
-            
-                System.out.println("Quantas unidades do produto "+ produto.getDescricao() +" deseja adicionar? (0 para cancelar)");
-                quantidade = scanner.nextInt();
-
-                if (quantidade != 0 ) {
-                    Itens item = new Itens(quantidade, produto);
-                    itens.add(item);
-                }
-            }
-        }while(false);
-
-        if (itens.size() > 0) {
-            compra.setProdutos(itens);
-
-            do {
-                System.out.print("Informe o ID do funcionário: ");
-                String idFuncionario = scanner.next();
-                funcionarioCompra = buscarFuncionarioPorId(idFuncionario, funcionarios);
-
-                if (funcionarioCompra != null) {
-                    compra.setFuncionario(funcionarioCompra);
-                }else {
-                    System.out.println("\nFuncionário não encontrado !\n");
-                }
-            } while (funcionarioCompra == null);
-            
-
-            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
-            String dataCompra = scanner.nextLine();
-            LocalDate dtCompra = LocalDate.parse(dataCompra);
-            if (dataCompra.equals("HJ")) {
-                dtCompra = LocalDate.now();
-            }else {
-                dtCompra = LocalDate.parse(dataCompra);
-            }
-            compra.setData(dtCompra);
-
-            if (dtCompra.isAfter(LocalDate.now())) {
-                compra.setStatus(Enums.Status.ABERTO);
-            }else {
-                compra.setStatus(Enums.Status.FECHADO);;
-            }
-
-            compra.setValor(compra.calculaTotal());
-
-            return compra;
-        }else{
-            System.out.println("Nenhum produto foi definido!");
-
-            return null;
-        }
-        
-    }
-
-    public static Produto buscarProdutoPorId(int id){
-        for(Produto produto : produtos){
-            if (produto.getId().equals(id)) {
-                return produto;
-            }
-        }
-        return null;
     }
 
     public static void apresentarMenuTransportadoras(Scanner scanner, ArrayList<Transportadora> transportadoras) {
