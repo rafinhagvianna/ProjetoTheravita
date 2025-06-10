@@ -18,7 +18,8 @@ public class Funcionario {
     }
     
     public Funcionario(String nome, String cpf, String genero, Setor setor, Salario salario) throws FuncionarioException {
-        if (!FuncionarioValidator.isValidCpf(cpf)) {
+        if (!FuncionarioValidator.isValidCpf(cpf)||!FuncionarioValidator.isValidNome(nome)
+            ||!FuncionarioValidator.isValidGenero(genero)) {
             throw new FuncionarioException();
         }
         this.id = "FUN"+proxId;

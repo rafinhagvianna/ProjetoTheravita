@@ -13,7 +13,10 @@ public class Estoque {
 
     }
 
-    public Estoque(int estoque, int minimo, Produto produto) {
+    public Estoque(int estoque, int minimo, Produto produto) throws ProdutoException {
+        if (!ProdutoValidator.isValidEstoque(estoque)) {
+            throw new ProdutoException();
+        }
         this.estoque = estoque;
         this.minimo = minimo;
         this.produto = produto;

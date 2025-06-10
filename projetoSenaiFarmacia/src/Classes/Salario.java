@@ -17,7 +17,11 @@ public class Salario {
 
     }
     
-    public Salario(double salario, Funcionario funcionario) {
+    public Salario(double salario, Funcionario funcionario) throws FuncionarioException {
+        if (!FuncionarioValidator.isValidSalario(salario)) {
+            throw new FuncionarioException();
+        }
+
         this.salario = salario;
         this.funcionario = funcionario;
         defineBeneficios();
@@ -29,7 +33,7 @@ public class Salario {
     }
 
     public void setSalario(double salario) throws FuncionarioException {
-        if (!FuncionarioValidator.isValidSalario(salario)) {
+        if (FuncionarioValidator.isValidSalario(salario)) {
             this.salario = salario;
         } else {
             throw new FuncionarioException();

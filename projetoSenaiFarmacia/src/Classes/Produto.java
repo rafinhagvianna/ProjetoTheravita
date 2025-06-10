@@ -2,6 +2,7 @@ package Classes;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import Exceptions.ProdutoException;
 import Validators.ProdutoValidator;
 
@@ -19,6 +20,10 @@ public class Produto {
     }
 
     public Produto(String descricao, double valorVenda, double valorCompra) throws ProdutoException {
+        if (!ProdutoValidator.isValidDescricao(descricao)||!ProdutoValidator.isValidValor(valorVenda)
+            ||!ProdutoValidator.isValidValor(valorCompra)) {
+            throw new ProdutoException();
+        }
         this.descricao = descricao;
         this.id = "PROD" + idBase;
         this.valorVenda = valorVenda;

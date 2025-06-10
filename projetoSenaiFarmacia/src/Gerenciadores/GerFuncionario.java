@@ -50,9 +50,12 @@ public class GerFuncionario implements IntFuncionario {
             funcionario = funEx.CadastroException(nome, cpf, genero, setorSelecionado);
         }
 
-
-        Salario salario = new Salario(salarioBase, funcionario);
-        funcionario.setSalario(salario);
+        try {
+            Salario salario = new Salario(salarioBase, funcionario);
+            funcionario.setSalario(salario);
+        } catch (FuncionarioException e) {
+            e.SalarioException(funcionario);
+        }
 
 
         setorSelecionado.getFuncionarios().add(funcionario);
