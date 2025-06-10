@@ -101,7 +101,7 @@ public class Caixa {
         return totalEntradas - totalSaidas;
     }
 
-    public ArrayList<Venda> filtarVendaPelaData(LocalDate date){
+    public ArrayList<Venda> filtrarVendaPelaData(LocalDate date){
         ArrayList<Venda> vendasFiltrada = new ArrayList<>();
 
         for (Venda venda : this.entrada){
@@ -112,7 +112,7 @@ public class Caixa {
 
         return vendasFiltrada;
     } 
-    public ArrayList<Compra> filtarCompraPelaData(LocalDate date){
+    public ArrayList<Compra> filtrarCompraPelaData(LocalDate date){
         ArrayList<Compra> comprasFiltrada = new ArrayList<>();
 
         for (Compra compra : this.saida){
