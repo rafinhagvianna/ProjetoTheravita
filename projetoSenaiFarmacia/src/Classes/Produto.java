@@ -2,6 +2,9 @@ package Classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.ProdutoException;
+import Validators.ProdutoValidator;
+
 public class Produto {
     private static int idBase = 1;
     private String descricao;
@@ -15,7 +18,7 @@ public class Produto {
 
     }
 
-    public Produto(String descricao, double valorVenda, double valorCompra) {
+    public Produto(String descricao, double valorVenda, double valorCompra) throws ProdutoException {
         this.descricao = descricao;
         this.id = "PROD" + idBase;
         this.valorVenda = valorVenda;
@@ -29,8 +32,12 @@ public class Produto {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricao(String descricao) throws ProdutoException {
+        if (ProdutoValidator.isValidDescricao(descricao)) {
+            this.descricao = descricao;
+        } else {
+            throw new ProdutoException();
+        }
     }
 
     public String getId() {
@@ -41,16 +48,25 @@ public class Produto {
         return valorVenda;
     }
 
-    public void setValorVenda(double valorVenda) {
-        this.valorVenda = valorVenda;
+    public void setValorVenda(double valorVenda) throws ProdutoException{
+        if (ProdutoValidator.isValidValor(valorVenda) || valorVenda > this.valorCompra) {
+            this.valorVenda = valorVenda;
+        } else {
+            throw new ProdutoException();
+        }
     }
 
     public double getValorCompra() {
         return valorCompra;
     }
 
-    public void setValorCompra(double valorCompra) {
-        this.valorCompra = valorCompra;
+    public void setValorCompra(double valorCompra) throws ProdutoException{
+        if (ProdutoValidator.isValidValor(valorCompra)) {
+            this.valorCompra = valorCompra;
+        } else {
+            throw new ProdutoException();
+        }
+        
     }
 
     public Estoque getEstoqueProduto() {

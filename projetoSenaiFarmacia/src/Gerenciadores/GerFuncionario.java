@@ -101,7 +101,12 @@ public class GerFuncionario implements IntFuncionario {
                     switch (opc) {
                         case 1:
                             System.out.print("Insira o novo nome = ");
-                            funcionarioEditar.setNome(sc.nextLine());
+                            try {
+                                
+                                funcionarioEditar.setNome(sc.nextLine());
+                            } catch (FuncionarioException e) {
+                                e.NomeException(funcionarioEditar);
+                            }
                             System.out.println("Nome atualizado com sucesso!");
                             break;
                         case 2:
@@ -115,7 +120,11 @@ public class GerFuncionario implements IntFuncionario {
                             break;
                         case 3:
                             System.out.print("Insira o novo gênero = ");
-                            funcionarioEditar.setGenero(sc.nextLine());
+                            try {
+                                funcionarioEditar.setGenero(sc.nextLine());
+                            } catch (FuncionarioException e) {
+                                e.GeneroException(funcionarioEditar);
+                            }
                             System.out.println("Gênero atualizado com sucesso!");
                             break;
                         case 4:
@@ -132,7 +141,11 @@ public class GerFuncionario implements IntFuncionario {
                         case 5:
                             System.out.print("Insira o novo salário base = ");
                             double novoSalario = Double.parseDouble(sc.nextLine());
-                            funcionarioEditar.getSalario().setSalario(novoSalario);
+                            try {
+                                funcionarioEditar.getSalario().setSalario(novoSalario);
+                            } catch (FuncionarioException e) {
+                                e.SalarioException(funcionarioEditar);
+                            }
                             System.out.println("Setor atualizado com sucesso!");
                             break;
                         case 0:

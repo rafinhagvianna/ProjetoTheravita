@@ -14,19 +14,16 @@ public class FuncionarioException extends Exception{
 
         // Validação do nome
         while (!FuncionarioValidator.isValidNome(nome)) {
-            System.out.println("O nome deve ter ao menos 5 letras");
-            System.out.println("Insira o nome:");
+            System.out.println("Insira o nome completo:");
             nome = scanner.next();
         }
         // Validação do CPF
         while (!FuncionarioValidator.isValidCpf(cpf)) {
-            System.out.println("O CPF deve ter ao menos 11 digitos");
             System.out.println("Insira o CPF:");
             cpf = scanner.next();
         }
         // Validação do gênero
         while (!FuncionarioValidator.isValidGenero(genero)) {
-            System.out.println("O gênero deve ser (H) homem, (M) mulher ou (O) outro!");
             System.out.println("Insira o gênero:");
             genero = scanner.next();
         }
@@ -40,17 +37,39 @@ public class FuncionarioException extends Exception{
         }
     }
 
-    public String exceptionNome(){
-        System.out.println("Nome inválido.");
-        return "";
+    public void NomeException(Funcionario func){
+        try{
+            System.out.print("Insira o nome completo: ");
+            func.setNome(scanner.next());
+        }catch(FuncionarioException nte){
+            nte.NomeException(func);
+        }
     }
 
     public void CpfException(Funcionario func) {
         try{
+            System.out.print("Insira o CPF: ");
             func.setCpf(scanner.next());
         }catch(FuncionarioException nte){
-            // Evite recursão infinita
-            System.out.println("CPF inválido.");
+            nte.CpfException(func);
+        }
+    }
+    
+    public void GeneroException(Funcionario func) {
+        try{
+            System.out.print("Insira o gênero: ");
+            func.setGenero(scanner.next());
+        }catch(FuncionarioException nte){
+            nte.GeneroException(func);
+        }
+    }
+
+    public void SalarioException(Funcionario func) {
+        try{
+            System.out.print("Insira o salário base: ");
+            func.getSalario().setSalario(scanner.nextDouble());
+        }catch(FuncionarioException nte){
+            nte.SalarioException(func);
         }
     }
 }
