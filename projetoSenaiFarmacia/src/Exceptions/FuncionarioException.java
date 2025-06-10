@@ -19,13 +19,11 @@ public class FuncionarioException extends Exception{
         }
         // Validação do CPF
         while (!FuncionarioValidator.isValidCpf(cpf)) {
-            System.out.println("O CPF deve ter ao menos 11 digitos");
             System.out.println("Insira o CPF:");
             cpf = scanner.next();
         }
         // Validação do gênero
         while (!FuncionarioValidator.isValidGenero(genero)) {
-            System.out.println("O gênero deve ser (H) homem, (M) mulher ou (O) outro!");
             System.out.println("Insira o gênero:");
             genero = scanner.next();
         }
@@ -39,17 +37,35 @@ public class FuncionarioException extends Exception{
         }
     }
 
-    public String exceptionNome(){
-        System.out.println("Nome inválido.");
-        return "";
+    public void exceptionNome(Funcionario func){
+        try{
+            func.setNome(scanner.next());
+        }catch(FuncionarioException nte){
+            System.out.println("Nome inválido.");
+        }
     }
 
     public void CpfException(Funcionario func) {
         try{
             func.setCpf(scanner.next());
         }catch(FuncionarioException nte){
-            // Evite recursão infinita
             System.out.println("CPF inválido.");
+        }
+    }
+    
+    public void GeneroException(Funcionario func) {
+        try{
+            func.setGenero(scanner.next());
+        }catch(FuncionarioException nte){
+            System.out.println("Gênero inválido.");
+        }
+    }
+
+    public void SalarioException(Funcionario func) {
+        try{
+            func.getSalario().setSalario(scanner.nextDouble());
+        }catch(FuncionarioException nte){
+            System.out.println("Salário inválido.");
         }
     }
 }

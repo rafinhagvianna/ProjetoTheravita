@@ -34,8 +34,12 @@ public class Funcionario {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) throws FuncionarioException{
+        if (FuncionarioValidator.isValidNome(nome)) {
+            this.nome = nome;
+        } else {
+            throw new FuncionarioException();
+        }
     }
 
     public String getCpf() {
@@ -58,8 +62,12 @@ public class Funcionario {
         return genero;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setGenero(String genero) throws FuncionarioException{
+        if (FuncionarioValidator.isValidGenero(genero)) {
+            this.genero = genero;
+        } else {
+            throw new FuncionarioException();
+        }
     }
 
     public Setor getSetor() {

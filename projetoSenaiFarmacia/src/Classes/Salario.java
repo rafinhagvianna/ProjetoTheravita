@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Enums.Setores;
+import Exceptions.FuncionarioException;
+import Validators.FuncionarioValidator;
 
 public class Salario {
     private double salario;
@@ -26,8 +28,12 @@ public class Salario {
         return salario;
     }
 
-    public void setSalario(double salario) {
-        this.salario = salario;
+    public void setSalario(double salario) throws FuncionarioException {
+        if (!FuncionarioValidator.isValidSalario(salario)) {
+            this.salario = salario;
+        } else {
+            throw new FuncionarioException();
+        }
     }
 
     public double getSaude() {
