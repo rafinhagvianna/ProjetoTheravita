@@ -48,7 +48,7 @@ public class GerGestao {
         boolean temNegocios = false;
 
         System.out.println("\n--- Compras em andamento ---");
-        for (int i = 0; i <= compras.size(); i++) {
+        for (int i = 0; i < compras.size(); i++) {
             if (compras.get(i).getStatus() == Status.ABERTO) {
                 System.out.println("Compra #" + i + " - " + compras.get(i));
                 temNegocios = true;
@@ -56,7 +56,7 @@ public class GerGestao {
         }
 
         System.out.println("\n--- Vendas em andamento ---");
-        for (int i = 0; i <= vendas.size(); i++) {
+        for (int i = 0; i < vendas.size(); i++) {
             if (vendas.get(i).getStatus() == Status.ABERTO) {
                 System.out.println("Venda #" + i + " - " + vendas.get(i));
                 temNegocios = true;
