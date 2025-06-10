@@ -50,7 +50,7 @@ public class Venda extends Transacoes {
         if (transportadora == null) {
             throw new IllegalStateException("Venda não pode ser finalizada sem transportadora.");
         }
-        total += transportadora.getTaxa() * total;
+        total += (transportadora.getTaxa()/100) * total;
         return total;
     }
 

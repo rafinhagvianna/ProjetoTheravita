@@ -22,7 +22,7 @@ public class Compra extends Transacoes {
     public double calculaTotal(){
         double total = 0;
         for (Itens item : getProdutos()) {
-            total += item.valorVenda();
+            total += item.valorCompra();
         }
         return total;
     }
