@@ -21,18 +21,13 @@ public abstract class Transacoes {
     }
 
     public Transacoes(ArrayList<Itens> produtos, LocalDate data, Funcionario funcionario, Status status, double valor) {
-
-
         this.id = "TX"+proxId;
-
         this.produtos = produtos;
         this.data = data;
         this.funcionario = funcionario;
         this.status = status;
         this.valor = valor;
-
         proxId++;
-
     }
 
     public String getId() {
@@ -75,11 +70,9 @@ public abstract class Transacoes {
         return valor;
     }
 
-
     public void setValor(double valor){
         this.valor = valor;
     }
-
 
     public boolean verificaEstoque(int qtd){
         return qtd >= 0 ?  true :  false;

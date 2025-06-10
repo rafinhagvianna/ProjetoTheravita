@@ -63,11 +63,11 @@ public class Main {
                 case 'T':
                     apresentarMenuTransportadoras(scanner, Transportadora.getTransportadoras());
                     break;
+                case 'G':
+                    apresentarMenuGestao(scanner);
                 case 'E':
                     System.out.println("Obrigado por utilizar o nosso sistema!");
                     break;
-                case 'G':
-                    apresentarMenuGestao(scanner);
                 default:
                     System.out.println("\nOpção inválida!\n");
                     break;
@@ -329,12 +329,9 @@ public class Main {
     }
 
    public static void apresentarMenuGestao(Scanner scanner) {
-
         ArrayList<Compra> Compra = new ArrayList<>();
         ArrayList<Venda> Venda = new ArrayList<>();
         GerGestao gerGestao = new GerGestao(Compra, Venda);
         gerGestao.apresentarMenuGestao(scanner);
-
-
     }
 }
