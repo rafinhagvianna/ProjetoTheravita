@@ -4,6 +4,9 @@ git clone https://github.com/rafinhagvianna/projetoSenai.git
 # Entrar no repositório clonado
 cd projetoSenai
 
+# Criar branch e mudar para ela
+git checkout -b <nome_do_branch>
+
 # Para verificar se está tudo configurado corretamente:
 # Veja seus remotes:
 git remote -v
