@@ -47,6 +47,9 @@ public class Venda extends Transacoes {
         for (Itens item : getProdutos()) {
             total += item.valorVenda();
         }
+        if (transportadora == null) {
+            throw new IllegalStateException("Venda não pode ser finalizada sem transportadora.");
+        }
         total += transportadora.getTaxa() * total;
         return total;
     }
@@ -59,4 +62,3 @@ public class Venda extends Transacoes {
         }
     }
 }
-

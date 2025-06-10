@@ -1,4 +1,5 @@
 package Classes;
+import Exceptions.FuncionarioException;
 import Validators.FuncionarioValidator;
 
 public class Funcionario {
@@ -16,7 +17,7 @@ public class Funcionario {
         proxId++;
     }
     
-    public Funcionario(String nome, String cpf, String genero, Setor setor, Salario salario) throws FuncionarioException  {
+    public Funcionario(String nome, String cpf, String genero, Setor setor, Salario salario) throws FuncionarioException {
         if (!FuncionarioValidator.isValidCpf(cpf)) {
             throw new FuncionarioException();
         }
@@ -90,3 +91,4 @@ public class Funcionario {
         System.out.println(" - Vale refeição/alimentação: "+ salario.getValeRefAliment());
     }
 }
+

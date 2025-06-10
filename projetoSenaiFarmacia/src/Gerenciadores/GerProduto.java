@@ -53,15 +53,14 @@ public class GerProduto implements IntProduto {
     @Override
     public void atualizarProduto(ArrayList<Produto> produtos) {
         System.out.print("Informe o ID do produto a ser atualizado: ");
-        int procurarId = scanner.nextInt();
-        scanner.nextLine();
+        String procurarId = scanner.nextLine();
         System.out.print("Informe a descrição do produto a ser atualizado: ");
         String descricaoProduto = scanner.nextLine();
 
 
         Produto produtoAtualizar = null;
         for (Produto prod : produtos) {
-            if (prod.getDescricao().equalsIgnoreCase(descricaoProduto) && prod.getId().equalsIgnoreCase(String.valueOf(procurarId))) {
+            if (prod.getDescricao().equalsIgnoreCase(descricaoProduto) && prod.getId().equalsIgnoreCase(procurarId)) {
                 produtoAtualizar = prod;
                 break;
             }

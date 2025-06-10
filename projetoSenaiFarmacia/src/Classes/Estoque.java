@@ -48,4 +48,8 @@ public class Estoque {
             return true;
         }
     }
+
+    public void realizaTransicao(int quantidae){
+        this.estoque += quantidae;
+    }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Classes.*;
+import Exceptions.FuncionarioException;
 import Interfaces.IntFuncionario;
 
 public class GerFuncionario implements IntFuncionario {
@@ -21,8 +22,7 @@ public class GerFuncionario implements IntFuncionario {
         System.out.println();
     }
 
-    public void cadastrarFuncionario(ArrayList<Setor> setores, ArrayList<Funcionario> funcionarios){
-        Scanner sc = new Scanner(System.in);
+    public void cadastrarFuncionario(Scanner sc, ArrayList<Setor> setores, ArrayList<Funcionario> funcionarios){
         System.out.print("Nome = ");
         String nome = sc.next();
         System.out.print("CPF = ");
@@ -62,14 +62,26 @@ public class GerFuncionario implements IntFuncionario {
         System.out.println("Funcionário cadastrado com sucesso!");
     }
 
-    public void listarFuncionariosPorSetor(ArrayList<Setor> setores){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Escolha o setor para o funcionário:");
-        for (int i = 0; i < setores.size(); i++) {
-            System.out.println((i + 1) + " - " + setores.get(i).getNome());
-        }
-        int setorEscolhido = sc.nextInt();
-        Setor setorSelecionado = setores.get(setorEscolhido - 1);
+    public void listarFuncionariosPorSetor(Scanner sc, ArrayList<Setor> setores){
+        int setorEscolhido = -1;
+        Setor setorSelecionado = null;
+        do {
+            System.out.println("Escolha o setor para o funcionário:");
+            for (int i = 0; i < setores.size(); i++) {
+                System.out.println((i + 1) + " - " + setores.get(i).getNome());
+            }
+            try {
+                setorEscolhido = sc.nextInt();
+                if (setorEscolhido < 1 || setorEscolhido > setores.size()) {
+                    System.out.println("\nOpção inválida! Tente novamente.");
+                    continue;
+                }
+                setorSelecionado = setores.get(setorEscolhido - 1);
+            } catch (Exception e) {
+                System.out.println("Entrada inválida! Digite um número.");
+                sc.nextLine();
+            }
+        } while (setorSelecionado == null);
 
         System.out.println("Funcionários do setor " + setorSelecionado.getNome() + ":");
         for (Funcionario func : setorSelecionado.getFuncionarios()) {
@@ -77,8 +89,7 @@ public class GerFuncionario implements IntFuncionario {
         }
     }
 
-    public void editarFuncionario(Funcionario funcionarioEditar, ArrayList<Setor> setores){
-        Scanner sc = new Scanner(System.in);
+    public void editarFuncionario(Scanner sc, Funcionario funcionarioEditar, ArrayList<Setor> setores){
         int opc;
         if (funcionarioEditar != null) {
             do {
@@ -124,9 +135,6 @@ public class GerFuncionario implements IntFuncionario {
                             break;
                         case 0:
                             break;
-                        default:
-                            System.out.println("Opção inválida");
-                            break;
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Entrada inválida. Digite um número.");
@@ -138,8 +146,7 @@ public class GerFuncionario implements IntFuncionario {
         }
     }
 
-    public void excluirFuncionario(ArrayList<Funcionario> funcionarios){
-        Scanner sc = new Scanner(System.in);
+    public void excluirFuncionario(Scanner sc, ArrayList<Funcionario> funcionarios){
         String cpfExcluir = sc.next();
         Funcionario funcRemover = null;
         for (Funcionario func : funcionarios) {
