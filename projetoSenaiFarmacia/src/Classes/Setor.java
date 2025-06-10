@@ -53,4 +53,12 @@ public class Setor {
         return total;
     }
 
+    public void removerFuncionario(Funcionario funcionario){
+        this.funcionarios.remove(funcionario);
+    }
+
+    public void adicionarFuncionario(Funcionario funcionario){
+        this.funcionarios.add(funcionario);
+    }
+
 }

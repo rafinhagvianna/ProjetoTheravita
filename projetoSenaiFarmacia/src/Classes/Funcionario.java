@@ -90,5 +90,17 @@ public class Funcionario {
         System.out.println(" - Plano odontológico: "+ salario.getOdonto());
         System.out.println(" - Vale refeição/alimentação: "+ salario.getValeRefAliment());
     }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", id='" + id + '\'' +
+                ", genero='" + genero + '\'' +
+                ", setor=" + setor.getNome() +
+                ", salario=" + salario.getSalario() +
+                '}';
+    }
 }
 
