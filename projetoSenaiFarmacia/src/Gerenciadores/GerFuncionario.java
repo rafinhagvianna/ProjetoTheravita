@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Classes.*;
+import Interfaces.IntFuncionario;
 
-public class GerFuncionario {
+public class GerFuncionario implements IntFuncionario {
 
     public void menu(){
         System.out.println("Escolha uma das opções: ");

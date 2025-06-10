@@ -61,7 +61,7 @@ public class GerProduto implements IntProduto {
 
         Produto produtoAtualizar = null;
         for (Produto prod : produtos) {
-            if (prod.getDescricao().equalsIgnoreCase(descricaoProduto) && procurarId == prod.getId()) {
+            if (prod.getDescricao().equalsIgnoreCase(descricaoProduto) && prod.getId().equalsIgnoreCase(String.valueOf(procurarId))) {
                 produtoAtualizar = prod;
                 break;
             }
