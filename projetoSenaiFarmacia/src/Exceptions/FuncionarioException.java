@@ -37,35 +37,39 @@ public class FuncionarioException extends Exception{
         }
     }
 
-    public void exceptionNome(Funcionario func){
+    public void NomeException(Funcionario func){
         try{
+            System.out.print("Insira o nome completo: ");
             func.setNome(scanner.next());
         }catch(FuncionarioException nte){
-            System.out.println("Nome inválido.");
+            nte.NomeException(func);
         }
     }
 
     public void CpfException(Funcionario func) {
         try{
+            System.out.print("Insira o CPF: ");
             func.setCpf(scanner.next());
         }catch(FuncionarioException nte){
-            System.out.println("CPF inválido.");
+            nte.CpfException(func);
         }
     }
     
     public void GeneroException(Funcionario func) {
         try{
+            System.out.print("Insira o gênero: ");
             func.setGenero(scanner.next());
         }catch(FuncionarioException nte){
-            System.out.println("Gênero inválido.");
+            nte.GeneroException(func);
         }
     }
 
     public void SalarioException(Funcionario func) {
         try{
+            System.out.print("Insira o salário base: ");
             func.getSalario().setSalario(scanner.nextDouble());
         }catch(FuncionarioException nte){
-            System.out.println("Salário inválido.");
+            nte.SalarioException(func);
         }
     }
 }

@@ -30,7 +30,7 @@ public class GerCaixa implements IntCaixa {
             ArrayList<Transportadora> transportadoras, ArrayList<Setor> setores, ArrayList<Produto> produtos) {
         novaVenda = realizarVenda(scanner, funcionarios, transportadoras, setores, produtos);
         caixa.getEntrada().add(novaVenda);
-        if (novaVenda.getStatus().equals(Enums.Status.ABERTO)) caixa.setSaldo(caixa.getSaldo() + novaVenda.getValor());
+        if (novaVenda.getStatus().equals(Enums.Status.FECHADO)) caixa.setSaldo(caixa.getSaldo() + novaVenda.getValor());
         System.out.println("Venda registrada com sucesso!");
     }
 
@@ -38,7 +38,7 @@ public class GerCaixa implements IntCaixa {
     ArrayList<Produto> produtos) {
         novaCompra = realizarCompra(scanner, funcionarios, produtos);
         caixa.getSaida().add(novaCompra);
-        if (novaCompra.getStatus().equals(Enums.Status.ABERTO)) caixa.setSaldo(caixa.getSaldo() - novaCompra.getValor());
+        if (novaCompra.getStatus().equals(Enums.Status.FECHADO)) caixa.setSaldo(caixa.getSaldo() - novaCompra.getValor());
         System.out.println("Compra registrada com sucesso!");
     }
 

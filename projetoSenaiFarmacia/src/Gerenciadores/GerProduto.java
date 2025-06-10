@@ -2,6 +2,7 @@ package Gerenciadores;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Classes.*;
+import Exceptions.ProdutoException;
 import Interfaces.IntProduto;
 
 public class GerProduto implements IntProduto {
@@ -31,7 +32,12 @@ public class GerProduto implements IntProduto {
         scanner.nextLine();
 
         try {
-            Produto produto = new Produto(descricao, valorVenda, valorCompra);
+            Produto produto;
+            try {
+                produto = new Produto(descricao, valorVenda, valorCompra);
+            } catch (ProdutoException e) {
+                produto = e.CadastroException(descricao, valorVenda, valorCompra);
+            }
             produtos.add(produto);
             System.out.println("Produto cadastrado com sucesso!");
             System.out.println();
@@ -74,7 +80,11 @@ public class GerProduto implements IntProduto {
             if (atualizarValorVenda == 'S' || atualizarValorVenda == 's') {
                 System.out.print("Novo valor de venda: ");
                 double novoValorVenda = scanner.nextDouble();
-                produtoAtualizar.setValorVenda(novoValorVenda);
+                try {
+                    produtoAtualizar.setValorVenda(novoValorVenda);
+                } catch (ProdutoException e) {
+                    e.ValorVendaException(produtoAtualizar);
+                }
             }
 
             System.out.print("Deseja atualizar o valor de compra? (S/N): ");
@@ -82,7 +92,11 @@ public class GerProduto implements IntProduto {
             if (atualizarValorCompra == 'S' || atualizarValorCompra == 's') {
                 System.out.print("Novo valor de compra: ");
                 double novoValorCompra = scanner.nextDouble();
-                produtoAtualizar.setValorCompra(novoValorCompra);
+                try {
+                    produtoAtualizar.setValorCompra(novoValorCompra);
+                } catch (ProdutoException e) {
+                    e.ValorCompraException(produtoAtualizar);
+                }
             }
 
             System.out.print("Deseja atualizar a descrição do produto? (S/N): ");
@@ -91,7 +105,11 @@ public class GerProduto implements IntProduto {
                 System.out.print("Nova descrição: ");
                 scanner.nextLine();
                 String novaDescricao = scanner.nextLine();
-                produtoAtualizar.setDescricao(novaDescricao);
+                try {
+                    produtoAtualizar.setDescricao(novaDescricao);
+                } catch (ProdutoException e) {
+                    e.DescricaoException(produtoAtualizar);
+                }
             }
             System.out.println("Produto atualizado com sucesso!");
         } else {

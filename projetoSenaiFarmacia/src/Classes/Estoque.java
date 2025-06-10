@@ -1,4 +1,8 @@
 package Classes;
+
+import Exceptions.ProdutoException;
+import Validators.ProdutoValidator;
+
 public class Estoque {
 
     private Produto produto;
@@ -27,16 +31,25 @@ public class Estoque {
         return estoque;
     }
 
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
+    public void setEstoque(int estoque) throws ProdutoException{
+        if (ProdutoValidator.isValidEstoque(estoque)) {
+            this.estoque = estoque;
+        } else {
+            throw new ProdutoException();
+        }
     }
 
     public int getMinimo() {
         return minimo;
     }
 
-    public void setMinimo(int minimo) {
-        this.minimo = minimo;
+    public void setMinimo(int minimo) throws ProdutoException {
+        
+        if (ProdutoValidator.isValidMinimo(estoque)) {
+            this.minimo = minimo;
+        } else {
+            throw new ProdutoException();
+        }
     }
 
     public boolean verificarEstoque() { // Para o método verificarVenda na classe Venda

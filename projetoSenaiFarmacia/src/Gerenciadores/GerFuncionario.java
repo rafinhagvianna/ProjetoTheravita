@@ -105,7 +105,7 @@ public class GerFuncionario implements IntFuncionario {
                                 
                                 funcionarioEditar.setNome(sc.nextLine());
                             } catch (FuncionarioException e) {
-                                e.exceptionNome(funcionarioEditar);
+                                e.NomeException(funcionarioEditar);
                             }
                             System.out.println("Nome atualizado com sucesso!");
                             break;
@@ -123,7 +123,7 @@ public class GerFuncionario implements IntFuncionario {
                             try {
                                 funcionarioEditar.setGenero(sc.nextLine());
                             } catch (FuncionarioException e) {
-                                e.CpfException(funcionarioEditar);
+                                e.GeneroException(funcionarioEditar);
                             }
                             System.out.println("Gênero atualizado com sucesso!");
                             break;
