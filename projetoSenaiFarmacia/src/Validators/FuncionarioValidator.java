@@ -28,4 +28,12 @@ public class FuncionarioValidator {
         System.out.println("O gênero deve ser (H) homem, (M) mulher ou (O) outro! ");
         return false;
     }
+
+    public static boolean isValidSalario(double salario) {        
+        if (salario < 1500){
+            System.out.println("O salário deve ser ao menos 1500!");
+            return false;
+        }
+        return true;
+    }
 }

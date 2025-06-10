@@ -8,17 +8,17 @@ import Enums.Regiao;
 import Interfaces.IntTransportadora;
 
 public class GerTransportadora implements IntTransportadora {
-
+    Scanner sc = new Scanner(System.in);
     @Override
     public void menu() {
         System.out.println("Escolha uma das opções: ");
-        System.out.println("______________________________________________");
+        System.out.println("____________________________________________");
         System.out.println("| 1 - Cadastrar                            |");
         System.out.println("| 2 - Listar                               |");
         System.out.println("| 3 - Atualizar                            |");
         System.out.println("| 4 - Visualizar total                     |");
         System.out.println("| 0 - Sair                                 |");
-        System.out.println("---------------------------------------------");
+        System.out.println("--------------------------------------------");
         System.out.println();
     }
 
@@ -88,7 +88,9 @@ public class GerTransportadora implements IntTransportadora {
             }
 
             if (transportadoraEncontrada == null) {
-                System.out.println("Transportadora não encontrada. Tente novamente.");
+                System.out.println("ID inválido!");
+                System.out.println("Transportadora não encontrada.");
+                return;
             }
 
         } while (transportadoraEncontrada == null);

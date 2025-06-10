@@ -33,7 +33,7 @@ public class GerCaixa implements IntCaixa {
         if (novaVenda.getStatus().equals(Enums.Status.ABERTO)) caixa.setSaldo(caixa.getSaldo() + novaVenda.getValor());
         System.out.println("Venda registrada com sucesso!");
     }
-    
+
     public void registrarSaida(Caixa caixa, Compra novaCompra, ArrayList<Funcionario> funcionarios,
     ArrayList<Produto> produtos) {
         novaCompra = realizarCompra(scanner, funcionarios, produtos);
@@ -124,11 +124,12 @@ public class GerCaixa implements IntCaixa {
                 venda.setData(dtVenda);
             } while (dtVenda == null);
 
+
+
             if (dtVenda.isAfter(LocalDate.now())) {
                 venda.setStatus(Enums.Status.ABERTO);
             } else {
                 venda.setStatus(Enums.Status.FECHADO);
-                ;
             }
 
             do {
@@ -171,7 +172,6 @@ public class GerCaixa implements IntCaixa {
             venda.setTransportadora(transportadora);
 
             venda.setValor(venda.calculaTotal());
-            System.out.println(venda.getValor());
 
             return venda;
         } else {
@@ -192,8 +192,13 @@ public class GerCaixa implements IntCaixa {
 
         System.out.println("Iniciando nova compra...");
 
-        do {
-            System.out.println("Insira o id do produto ou 0 para parar: ");
+        int contador = 0;
+        do{
+            if (contador == 0){
+                System.out.println("Insira o id do produto ou 0 para cancelar a compra: ");
+            } else {
+                System.out.println("Insira o id do novo produto ou 0 para finalizar a compra: ");
+            }
             prod = scanner.next();
 
             if (!prod.equals("0")) {
@@ -218,9 +223,9 @@ public class GerCaixa implements IntCaixa {
                 } else {
                     System.out.println("Produto não encontrado");
                 }
-
             }
-        } while (!prod.equals("0"));
+            contador = 1;
+        }while(!prod.equals("0"));
 
         if (itens.size() > 0) {
             compra.setProdutos(itens);
@@ -237,15 +242,25 @@ public class GerCaixa implements IntCaixa {
                 }
             } while (funcionarioCompra == null);
 
-            System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
-            scanner.nextLine();
-            String dataCompra = scanner.next();
             LocalDate dtCompra;
-            if (dataCompra.equals("HJ")) {
-                dtCompra = LocalDate.now();
-            } else {
-                dtCompra = LocalDate.parse(dataCompra);
-            }
+            do {
+                System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+                scanner.nextLine();
+                String dataCompra = scanner.next();
+
+                if (dataCompra.equalsIgnoreCase("HJ")) {
+                    dtCompra = LocalDate.now();
+                } else {
+                    try {
+                        dtCompra = LocalDate.parse(dataCompra);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Formato de data não aceito!");
+                        dtCompra = null;
+                    }
+                }
+
+            } while (dtCompra == null);
+
             compra.setData(dtCompra);
 
             if (dtCompra.isAfter(LocalDate.now())) {
@@ -257,12 +272,9 @@ public class GerCaixa implements IntCaixa {
 
             compra.setValor(compra.calculaTotal());
 
-            System.out.println(compra.getValor());
-
             return compra;
-        } else {
-            System.out.println("Nenhum produto foi definido!");
-
+        }else{
+            System.out.println("Compra cancelada!");
             return null;
         }
 

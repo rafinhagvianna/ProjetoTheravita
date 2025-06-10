@@ -12,39 +12,60 @@ public class FuncionarioException extends Exception{
 
     public Funcionario CadastroException(String nome, String cpf, String genero, Setor setorSelecionado){
 
-        if (!FuncionarioValidator.isValidNome(nome)) {
-            System.out.println("Insira o nome: ");
+        // Validação do nome
+        while (!FuncionarioValidator.isValidNome(nome)) {
+            System.out.println("Insira o nome completo:");
             nome = scanner.next();
         }
-        if (!FuncionarioValidator.isValidCpf(cpf)) {
-            System.out.println("Insira o CPF: ");
+        // Validação do CPF
+        while (!FuncionarioValidator.isValidCpf(cpf)) {
+            System.out.println("Insira o CPF:");
             cpf = scanner.next();
         }
-        if (!FuncionarioValidator.isValidGenero(genero)) {
-            System.out.println("Insira o gênero: ");
+        // Validação do gênero
+        while (!FuncionarioValidator.isValidGenero(genero)) {
+            System.out.println("Insira o gênero:");
             genero = scanner.next();
         }
 
+        // Criação do funcionário
         try {
             return new Funcionario(nome, cpf, genero, setorSelecionado, null);
         } catch (FuncionarioException funEx) {
-            funEx.CadastroException(nome, cpf, genero, setorSelecionado);
+            // Não recursivo, apenas retorna null em caso de erro
+            return null;
         }
-        return null;
     }
 
-
-    public String exceptionNome(){
-        System.out.println("Nome inválido, ");
-        return"";
+    public void exceptionNome(Funcionario func){
+        try{
+            func.setNome(scanner.next());
+        }catch(FuncionarioException nte){
+            System.out.println("Nome inválido.");
+        }
     }
 
     public void CpfException(Funcionario func) {
         try{
             func.setCpf(scanner.next());
         }catch(FuncionarioException nte){
-            nte.CpfException(func);
-		}
+            System.out.println("CPF inválido.");
+        }
+    }
+    
+    public void GeneroException(Funcionario func) {
+        try{
+            func.setGenero(scanner.next());
+        }catch(FuncionarioException nte){
+            System.out.println("Gênero inválido.");
+        }
+    }
+
+    public void SalarioException(Funcionario func) {
+        try{
+            func.getSalario().setSalario(scanner.nextDouble());
+        }catch(FuncionarioException nte){
+            System.out.println("Salário inválido.");
+        }
     }
 }
-    
