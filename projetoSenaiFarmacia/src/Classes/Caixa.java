@@ -1,5 +1,6 @@
 package Classes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Caixa {
@@ -12,7 +13,6 @@ public class Caixa {
         saida = new ArrayList<>();
     }
 
-  
     public Caixa(double saldo, ArrayList<Venda> entrada, ArrayList<Compra> saida) {
         this.saldo = saldo;
         this.entrada = entrada;
@@ -42,6 +42,7 @@ public class Caixa {
     public void setSaida(ArrayList<Compra> saida) {
         this.saida = saida;
     }
+
     public double totalCaixa() {
         double totalEntradas = 0;
         double totalSaidas = 0;
@@ -58,26 +59,26 @@ public class Caixa {
         return saldo;
     }
 
-
     public double lucroMensal(int mes, int ano) {
         double totalEntradas = 0;
         double totalSaidas = 0;
 
         for (Venda v : entrada) {
             if (v.getData().getMonthValue() == mes && v.getData().getYear() == ano) {
-                totalEntradas += v.getValor();
+                if (!v.getStatus().equals(Enums.Status.CANCELADO))
+                    totalEntradas += v.getValor();
             }
         }
 
         for (Compra c : saida) {
             if (c.getData().getMonthValue() == mes && c.getData().getYear() == ano) {
-                totalSaidas += c.getValor();
+                if (!c.getStatus().equals(Enums.Status.CANCELADO))
+                    totalSaidas += c.getValor();
             }
         }
 
         return totalEntradas - totalSaidas;
     }
-
 
     public double lucroAnual(int ano) {
         double totalEntradas = 0;
@@ -85,16 +86,41 @@ public class Caixa {
 
         for (Venda v : entrada) {
             if (v.getData().getYear() == ano) {
-                totalEntradas += v.getValor();
+                if (!v.getStatus().equals(Enums.Status.CANCELADO))
+                    totalEntradas += v.getValor();
             }
         }
 
         for (Compra c : saida) {
             if (c.getData().getYear() == ano) {
-                totalSaidas += c.getValor();
+                if (!c.getStatus().equals(Enums.Status.CANCELADO))
+                    totalSaidas += c.getValor();
             }
         }
 
         return totalEntradas - totalSaidas;
     }
+
+    public ArrayList<Venda> filtarVendaPelaData(LocalDate date){
+        ArrayList<Venda> vendasFiltrada = new ArrayList<>();
+
+        for (Venda venda : this.entrada){
+            if (venda.getData().equals(date)) {
+                vendasFiltrada.add(venda);
+            }
+        }
+
+        return vendasFiltrada;
+    } 
+    public ArrayList<Compra> filtarCompraPelaData(LocalDate date){
+        ArrayList<Compra> comprasFiltrada = new ArrayList<>();
+
+        for (Compra compra : this.saida){
+            if (compra.getData().equals(date)) {
+                comprasFiltrada.add(compra);
+            }
+        }
+
+        return comprasFiltrada;
+    } 
 }

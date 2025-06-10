@@ -2,9 +2,7 @@ package Classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.FuncionarioException;
 import Exceptions.ProdutoException;
-import Validators.FuncionarioValidator;
 import Validators.ProdutoValidator;
 
 public class Produto {
