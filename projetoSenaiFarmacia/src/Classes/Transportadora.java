@@ -82,6 +82,7 @@ public class Transportadora {
                 "Nome = " + nome +
                 ", id = " + id +
                 ", cnpj = " + cnpj +
+                ", taxa = " + taxa +
                 ", Regiões atendidas =" + regioes;
     }
 

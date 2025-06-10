@@ -63,12 +63,25 @@ public class GerFuncionario implements IntFuncionario {
     }
 
     public void listarFuncionariosPorSetor(Scanner sc, ArrayList<Setor> setores){
-        System.out.println("Escolha o setor para o funcionário:");
-        for (int i = 0; i < setores.size(); i++) {
-            System.out.println((i + 1) + " - " + setores.get(i).getNome());
-        }
-        int setorEscolhido = sc.nextInt();
-        Setor setorSelecionado = setores.get(setorEscolhido - 1);
+        int setorEscolhido = -1;
+        Setor setorSelecionado = null;
+        do {
+            System.out.println("Escolha o setor para o funcionário:");
+            for (int i = 0; i < setores.size(); i++) {
+                System.out.println((i + 1) + " - " + setores.get(i).getNome());
+            }
+            try {
+                setorEscolhido = sc.nextInt();
+                if (setorEscolhido < 1 || setorEscolhido > setores.size()) {
+                    System.out.println("\nOpção inválida! Tente novamente.");
+                    continue;
+                }
+                setorSelecionado = setores.get(setorEscolhido - 1);
+            } catch (Exception e) {
+                System.out.println("Entrada inválida! Digite um número.");
+                sc.nextLine();
+            }
+        } while (setorSelecionado == null);
 
         System.out.println("Funcionários do setor " + setorSelecionado.getNome() + ":");
         for (Funcionario func : setorSelecionado.getFuncionarios()) {

@@ -294,7 +294,6 @@ public class Main {
         do {
             new GerTransportadora().menu();
             try {
-                scanner.nextLine();
                 opcaoUsuarioTransportadoras = scanner.nextInt();
             }catch (InputMismatchException inputExcpt){
                 opcaoUsuarioTransportadoras = 6;
