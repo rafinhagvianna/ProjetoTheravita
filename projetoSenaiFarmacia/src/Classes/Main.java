@@ -336,6 +336,6 @@ public class Main {
 
    public static void apresentarMenuGestao(Scanner scanner) {
         GerGestao gerGestao = new GerGestao(caixa.getSaida(), caixa.getEntrada());
-        gerGestao.apresentarMenuGestao(scanner);
+        gerGestao.apresentarMenuGestao(scanner, caixa);
     }
 }

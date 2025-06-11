@@ -15,10 +15,6 @@ public class Compra extends Transacoes {
         super(produtos, data, funcionario, status, valor);
     }
 
-    public void realizarCompra(){
-        System.out.println("Compra realizada.");
-    }
-
     public double calculaTotal(){
         double total = 0;
         for (Itens item : getProdutos()) {
@@ -26,4 +22,6 @@ public class Compra extends Transacoes {
         }
         return total;
     }
+
+
 }

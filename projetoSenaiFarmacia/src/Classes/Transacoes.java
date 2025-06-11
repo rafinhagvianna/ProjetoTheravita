@@ -79,4 +79,15 @@ public abstract class Transacoes {
     }
 
     public abstract double calculaTotal();
+
+    @Override
+    public String toString() {
+        return "Transacoes{" +
+                "id='" + id + '\'' +
+                ", produtos=" + produtos +
+                ", data=" + data +
+                ", status=" + status +
+                ", valor=" + valor +
+                '}';
+    }
 }
