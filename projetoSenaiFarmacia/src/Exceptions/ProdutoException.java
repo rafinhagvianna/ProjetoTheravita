@@ -28,7 +28,6 @@ public class ProdutoException extends Exception {
         try {
             return new Produto(descricao, valorVenda, valorCompra);
         } catch (ProdutoException e) {
-            System.out.println("teste");
             return null;
         }
     }
@@ -44,30 +43,58 @@ public class ProdutoException extends Exception {
     public void ValorVendaException(Produto prod) {
         try {
             prod.setValorVenda(scanner.nextDouble());
+            scanner.nextLine();
         }catch(ProdutoException nte){
+            scanner.nextLine();
             nte.ValorVendaException(prod);
+        }
+        catch(Exception e){
+            scanner.nextLine();
+            System.out.println("Tipo inserido inválido! Digite um número real!");
+            ValorVendaException(prod);
         }
     }
     public void ValorCompraException(Produto prod) {
         try {
             prod.setValorCompra(scanner.nextDouble());
+            scanner.nextLine();
         }catch(ProdutoException nte){
+            scanner.nextLine();
             nte.ValorCompraException(prod);
+        }
+        catch(Exception e){
+            scanner.nextLine();
+            System.out.println("Tipo inserido inválido! Digite um número real!");
+            ValorCompraException(prod);
         }
     }
 
     public void EstoqueException(Produto prod) {
         try {
             prod.getEstoqueProduto().setEstoque(scanner.nextInt());
+            scanner.nextLine();
         }catch(ProdutoException nte){
+            scanner.nextLine();
             nte.EstoqueException(prod);
+        }
+        catch(Exception e){
+            System.out.println("Tipo inserido inválido! Digite um número real!");
+            scanner.nextLine();
+            EstoqueException(prod);
         }
     }
     public void MinimoException(Produto prod) {
         try {
             prod.getEstoqueProduto().setMinimo(scanner.nextInt());
+            scanner.nextLine();
         }catch(ProdutoException nte){
+            scanner.nextLine();
             nte.MinimoException(prod);
+        }
+        catch(Exception e){
+            scanner.nextLine();
+            System.out.println("Tipo inserido inválido! Digite um número real!");
+            MinimoException(prod);
         }
     }
 

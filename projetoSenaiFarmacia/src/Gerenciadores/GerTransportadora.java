@@ -37,7 +37,9 @@ public class GerTransportadora implements IntTransportadora {
             try {
                 System.out.print("Digite a taxa da transportadora (% em cima da venda cobrado): ");
                 taxa = scanner.nextDouble();
+                sc.nextLine();
             } catch (Exception e) {
+                scanner.nextLine();
                 System.out.println("Tipo inserido inválido. Digite um valor real!");
                 taxa = -1;
             }
@@ -56,8 +58,10 @@ public class GerTransportadora implements IntTransportadora {
                 System.out.println();
                 System.out.println("Digite a região");
                 int regiaoEscolhida = scanner.nextInt();
+                sc.nextLine();
                 regiao = regioes[regiaoEscolhida - 1];
             } catch (Exception e) {
+                scanner.nextLine();
                 System.out.println("Opção inválida! Tente novamente.");
                 regiao = null;
             }
@@ -142,7 +146,9 @@ public class GerTransportadora implements IntTransportadora {
                             try {
                                 System.out.print("Digite a taxa da transportadora (% em cima da venda cobrado): ");
                                 novaTaxa = scanner.nextDouble();
+                                scanner.nextLine();
                             } catch (Exception e) {
+                                scanner.nextLine();
                                 System.out.println("Tipo inserido inválido. Digite um valor real!");
                                 novaTaxa = -1;
                             }
@@ -166,8 +172,10 @@ public class GerTransportadora implements IntTransportadora {
                                 System.out.println();
                                 System.out.println("Digite a região");
                                 int regiaoEscolhida = scanner.nextInt();
+                                scanner.nextLine();
                                 regiao = regioes[regiaoEscolhida - 1];
                             } catch (Exception e) {
+                                scanner.nextLine();
                                 System.out.println("Opção inválida! Tente novamente.");
                                 regiao = null;
                             }
@@ -191,8 +199,10 @@ public class GerTransportadora implements IntTransportadora {
                                 System.out.println();
                                 System.out.println("Digite a região");
                                 int regiaoEscolhida = scanner.nextInt();
+                                scanner.nextLine();
                                 removerRegiao = transportadoraEncontrada.getRegiao().get(regiaoEscolhida - 1);
                             } catch (Exception e) {
+                                scanner.nextLine();
                                 System.out.println("Opção inválida! Tente novamente.");
                                 removerRegiao = null;
                             }
@@ -210,8 +220,8 @@ public class GerTransportadora implements IntTransportadora {
                         System.out.println("Opção inválida, tente novamente.");
                 }
             } catch (Exception e) {
+                scanner.nextLine();
                 System.out.println("Entrada inválida! Tente novamente.");
-                scanner.nextLine(); // Evita loop infinito
                 opc = -1;
             }
 

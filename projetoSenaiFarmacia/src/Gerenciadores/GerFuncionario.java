@@ -22,13 +22,13 @@ public class GerFuncionario implements IntFuncionario {
         System.out.println();
     }
 
-    public void cadastrarFuncionario(Scanner sc, ArrayList<Setor> setores, ArrayList<Funcionario> funcionarios) {
+    public void cadastrarFuncionario(Scanner scanner, ArrayList<Setor> setores, ArrayList<Funcionario> funcionarios) {
         System.out.print("Nome = ");
-        String nome = sc.next();
+        String nome = scanner.nextLine();
         System.out.print("CPF = ");
-        String cpf = sc.next();
+        String cpf = scanner.next();
         System.out.print("Gênero = ");
-        String genero = sc.next();
+        String genero = scanner.next();
 
         Setor setorSelecionado = null;
         do {
@@ -37,13 +37,14 @@ public class GerFuncionario implements IntFuncionario {
                 for (int i = 0; i < setores.size(); i++) {
                     System.out.println((i + 1) + " - " + setores.get(i).getNome());
                 }
-                int setorEscolhido = sc.nextInt();
+                int setorEscolhido = scanner.nextInt();
+                scanner.nextLine();
                 setorSelecionado = setores.get(setorEscolhido - 1);
 
             } catch (Exception e) {
+                scanner.nextLine();
                 System.out.println("Opcção inválida!");
                 setorSelecionado = null;
-                sc.nextLine();
             }
         } while (setorSelecionado == null);
 
@@ -51,11 +52,12 @@ public class GerFuncionario implements IntFuncionario {
         do {
             try {
                 System.out.print("Salário base = ");
-                salarioBase = sc.nextDouble();
+                salarioBase = scanner.nextDouble();
+                scanner.nextLine();
             } catch (Exception e) {
+                scanner.nextLine();
                 System.out.println("Tipo inserido inválido. Digite um valor real!");
                 salarioBase = -1;
-                sc.nextLine();
             }
         } while (salarioBase < 0);
 
@@ -66,12 +68,14 @@ public class GerFuncionario implements IntFuncionario {
             funcionario = funEx.CadastroException(nome, cpf, genero, setorSelecionado);
         }
 
+        Salario salario = new Salario();
         try {
-            Salario salario = new Salario(salarioBase, funcionario);
-            funcionario.setSalario(salario);
+            salario = new Salario(salarioBase, funcionario);
         } catch (FuncionarioException e) {
-            e.SalarioException(funcionario);
+            e.SalarioException(salario);
+            salario.setFuncionario(funcionario);
         }
+        funcionario.setSalario(salario);
 
         setorSelecionado.getFuncionarios().add(funcionario);
 
@@ -79,7 +83,7 @@ public class GerFuncionario implements IntFuncionario {
         System.out.println("Funcionário cadastrado com sucesso!");
     }
 
-    public void listarFuncionariosPorSetor(Scanner sc, ArrayList<Setor> setores) {
+    public void listarFuncionariosPorSetor(Scanner scanner, ArrayList<Setor> setores) {
         int setorEscolhido = -1;
         Setor setorSelecionado = null;
         do {
@@ -88,15 +92,16 @@ public class GerFuncionario implements IntFuncionario {
                 System.out.println((i + 1) + " - " + setores.get(i).getNome());
             }
             try {
-                setorEscolhido = sc.nextInt();
+                setorEscolhido = scanner.nextInt();
+                scanner.nextLine();
                 if (setorEscolhido < 1 || setorEscolhido > setores.size()) {
                     System.out.println("\nOpção inválida! Tente novamente.");
                     continue;
                 }
                 setorSelecionado = setores.get(setorEscolhido - 1);
             } catch (Exception e) {
+                scanner.nextLine();
                 System.out.println("Entrada inválida! Digite um número.");
-                sc.nextLine();
             }
         } while (setorSelecionado == null);
 
@@ -106,7 +111,7 @@ public class GerFuncionario implements IntFuncionario {
         }
     }
 
-    public void editarFuncionario(Scanner sc, Funcionario funcionarioEditar, ArrayList<Setor> setores) {
+    public void editarFuncionario(Scanner scanner, Funcionario funcionarioEditar, ArrayList<Setor> setores) {
         int opc;
         if (funcionarioEditar != null) {
             do {
@@ -114,13 +119,14 @@ public class GerFuncionario implements IntFuncionario {
                         "Qual dado deseja modificar? \n1 - Nome\n2 - CPF\n3 - Gênero\n4 - Setor\n5 - Salário\n0 - Sair");
 
                 try {
-                    opc = sc.nextInt();
+                    opc = scanner.nextInt();
+                    scanner.nextLine();
                     switch (opc) {
                         case 1:
                             System.out.print("Insira o novo nome = ");
                             try {
 
-                                funcionarioEditar.setNome(sc.nextLine());
+                                funcionarioEditar.setNome(scanner.nextLine());
                             } catch (FuncionarioException e) {
                                 e.NomeException(funcionarioEditar);
                             }
@@ -129,7 +135,7 @@ public class GerFuncionario implements IntFuncionario {
                         case 2:
                             System.out.print("Insira o novo CPF = ");
                             try {
-                                funcionarioEditar.setCpf(sc.nextLine());
+                                funcionarioEditar.setCpf(scanner.nextLine());
                             } catch (FuncionarioException funEx) {
                                 funEx.CpfException(funcionarioEditar);
                             }
@@ -138,7 +144,7 @@ public class GerFuncionario implements IntFuncionario {
                         case 3:
                             System.out.print("Insira o novo gênero = ");
                             try {
-                                funcionarioEditar.setGenero(sc.nextLine());
+                                funcionarioEditar.setGenero(scanner.nextLine());
                             } catch (FuncionarioException e) {
                                 e.GeneroException(funcionarioEditar);
                             }
@@ -152,13 +158,14 @@ public class GerFuncionario implements IntFuncionario {
                                     for (int i = 0; i < setores.size(); i++) {
                                         System.out.println((i + 1) + " - " + setores.get(i).getNome());
                                     }
-                                    int setorEscolhido = sc.nextInt();
+                                    int setorEscolhido = scanner.nextInt();
+                                    scanner.nextLine();
                                     setorSelecionado = setores.get(setorEscolhido - 1);
 
                                 } catch (Exception e) {
+                                    scanner.nextLine();
                                     System.out.println("Opcção inválida!");
                                     setorSelecionado = null;
-                                    sc.nextLine();
                                 }
                             } while (setorSelecionado == null);
                             setorSelecionado.removerFuncionario(funcionarioEditar);
@@ -172,20 +179,21 @@ public class GerFuncionario implements IntFuncionario {
                             do {
                                 try {
                                     System.out.print("Insira o novo salário base = ");
-                                    double novoSalario = sc.nextDouble();
+                                    double novoSalario = scanner.nextDouble();
+                                    scanner.nextLine();
                                     try {
                                         funcionarioEditar.getSalario().setSalario(novoSalario);
                                     } catch (FuncionarioException e) {
                                         e.SalarioException(funcionarioEditar);
                                     }
                                 } catch (Exception e) {
+                                    scanner.nextLine();
                                     System.out.println("Tipo inserido inválido. Digite um valor real!");
                                     salarioBase = -1;
-                                    sc.nextLine();
                                 }
-                            } while (salarioBase < 0);
+                            } while (salarioBase > 0);
        
-                            System.out.println("Setor atualizado com sucesso!");
+                            System.out.println("Salário atualizado com sucesso!");
                             break;
                         case 0:
                             break;
@@ -193,7 +201,6 @@ public class GerFuncionario implements IntFuncionario {
                 } catch (NumberFormatException e) {
                     System.out.println("Entrada inválida. Digite um número.");
                     opc = -1; // Força repetição do menu
-                    sc.nextLine();
                 }
             } while (opc != 0);
         } else {
@@ -201,8 +208,8 @@ public class GerFuncionario implements IntFuncionario {
         }
     }
 
-    public void excluirFuncionario(Scanner sc, ArrayList<Funcionario> funcionarios) {
-        String cpfExcluir = sc.next();
+    public void excluirFuncionario(Scanner scanner, ArrayList<Funcionario> funcionarios) {
+        String cpfExcluir = scanner.next();
         Funcionario funcRemover = null;
         for (Funcionario func : funcionarios) {
             if (func.getCpf().equals(cpfExcluir)) {
