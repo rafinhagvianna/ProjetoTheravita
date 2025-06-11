@@ -32,18 +32,20 @@ public class Main {
         char opcaoInicialUsuario;
         do {
             Scanner scanner = new Scanner(System.in);
-            System.out.println();
-            System.out.println("ESCOLHA UMA DAS OPÇÕES: ");
-            System.out.println();
-            System.out.println("FUNCIONÁRIOS - (F)");
-            System.out.println("SALÁRIO E BENEFÍCIOS - (S)");
-            System.out.println("PRODUTO - (P)");
-            System.out.println("CAIXA - (C)");
-            System.out.println("TRANSPORTADORAS - (T)");
-            System.out.println("GESTÃO DE NEGÓCIOS - (G)");
-            System.out.println();
-            System.out.println("SAIR - (E)");
-            System.out.println();
+            System.out.println("______________________________");
+            System.out.println("|  ESCOLHA UMA DAS OPÇÕES:   |");
+            System.out.println("|____________________________|");
+            System.out.println("|____________________________|");
+            System.out.println("|     FUNCIONÁRIOS - (F)     |");
+            System.out.println("|  SALÁRIO E BENEFÍCIOS - (S)|");
+            System.out.println("|      PRODUTO - (P)         |");
+            System.out.println("|        CAIXA - (C)         |");
+            System.out.println("|   TRANSPORTADORAS - (T)    |");
+            System.out.println("|   GESTÃO DE NEGÓCIOS - (G) |");
+            System.out.println("|____________________________|");
+            System.out.println("|____________________________|");
+            System.out.println("|         SAIR - (E)         |");
+            System.out.println("|____________________________|");
 
             opcaoInicialUsuario = scanner.next().toUpperCase().charAt(0);
 
@@ -120,7 +122,7 @@ public class Main {
                     break;
 
                 case 0:
-                    System.out.println("Retornando ao menu principal.");
+                    System.out.println("Retornando ao menu principal...");
                     break;
 
                 default:
@@ -165,7 +167,7 @@ public class Main {
                     break;
 
                 case 0:
-                    System.out.println("Retornando ao menu principal.");
+                    System.out.println("Retornando ao menu principal...");
                     break;
 
                 default:
@@ -203,7 +205,7 @@ public class Main {
                     break;
 
                 case 0:
-                    System.out.println("Retornando ao menu principal.");
+                    System.out.println("Retornando ao menu principal...");
                     break;
 
                 default:
@@ -323,15 +325,15 @@ public class Main {
                     break;
 
                 case 2:
-                    GerTransportadora.listarTransportadoras(transportadoras);
+                    new GerTransportadora().listarTransportadoras(transportadoras);
                     break;
 
                 case 3:
-                    GerTransportadora.atualizarTransportadora(scanner, transportadoras);
+                    new GerTransportadora().atualizarTransportadora(scanner, transportadoras);
                     break;
 
                 case 4:
-                    GerTransportadora.visualizarTotalTransportadoras(transportadoras);
+                    new GerTransportadora().visualizarTotalTransportadoras(transportadoras);
                     break;
 
                 case 0:

@@ -279,7 +279,4 @@ public class GerCaixa implements IntCaixa {
         }
 
     }
-
-
-    
 }

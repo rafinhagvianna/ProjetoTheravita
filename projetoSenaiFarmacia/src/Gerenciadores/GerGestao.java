@@ -4,12 +4,13 @@ import Classes.Caixa;
 import Classes.Compra;
 import Classes.Venda;
 import Enums.Status;
+import Interfaces.IntGestao;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GerGestao {
+public class GerGestao implements IntGestao {
     private ArrayList<Compra> compras;
     private ArrayList<Venda> vendas;
 
@@ -47,7 +48,7 @@ public class GerGestao {
         } while (opcaoUsuarioGestao != 0);
     }
 
-    private void consultarNegocios() {
+    public void consultarNegocios() {
         boolean statusCompra = false, statusVenda = false;
 
         System.out.println("\n--- Compras em andamento ---");
@@ -73,7 +74,7 @@ public class GerGestao {
         }
     }
 
-    private void atualizarStatus(Scanner scanner, Caixa caixa) {
+    public void atualizarStatus(Scanner scanner, Caixa caixa) {
         System.out.println("Insira o tipo de transação que deseja atualizar: ");
         System.out.println("1 - Compra");
         System.out.println("2 - Venda");

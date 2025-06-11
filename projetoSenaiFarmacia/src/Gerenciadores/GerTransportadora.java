@@ -74,7 +74,7 @@ public class GerTransportadora implements IntTransportadora {
     }
 
     // Método para listar todas as transportadoras
-    public static void listarTransportadoras(ArrayList<Transportadora> transportadoras) {
+    public void listarTransportadoras(ArrayList<Transportadora> transportadoras) {
         if (transportadoras.isEmpty()) {
             System.out.println("Nenhuma transportadora cadastrada.");
         } else {
@@ -86,7 +86,7 @@ public class GerTransportadora implements IntTransportadora {
     }
 
     // Método para atualizar dados de uma transportadora
-    public static void atualizarTransportadora(Scanner scanner, ArrayList<Transportadora> transportadoras) {
+    public void atualizarTransportadora(Scanner scanner, ArrayList<Transportadora> transportadoras) {
         Regiao[] regioes = Regiao.values();
         while (transportadoras.isEmpty()) {
             System.out.println("Nenhuma transportadora cadastrada.");
@@ -219,7 +219,7 @@ public class GerTransportadora implements IntTransportadora {
     }
 
     // Método para visualizar o total de transportadoras cadastradas
-    public static void visualizarTotalTransportadoras(ArrayList<Transportadora> transportadoras) {
+    public void visualizarTotalTransportadoras(ArrayList<Transportadora> transportadoras) {
         System.out.println("Total de transportadoras cadastradas: " + transportadoras.size());
     }
 
