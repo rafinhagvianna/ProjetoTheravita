@@ -31,7 +31,7 @@ public class GerSalario implements IntSalario {
         Funcionario funcionarioBruto = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
         if (funcionarioBruto != null && funcionarioBruto.getSalario() != null) {
-            System.out.println("Salário bruto de " + funcionarioBruto.getNome() + ": R$ " + funcionarioBruto.getSalario().getSalario());
+            System.out.println("Salário bruto de " + funcionarioBruto.getNome() + ": R$ " + String.format("%.2f", funcionarioBruto.getSalario().getSalario()));
         } else {
             System.out.println("Funcionário ou salário não encontrado.");
         }
@@ -44,7 +44,7 @@ public class GerSalario implements IntSalario {
 
         if (funcionarioLiquido != null && funcionarioLiquido.getSalario() != null) {
             double salarioLiquido = funcionarioLiquido.getSalario().calculaSalario();
-            System.out.println("Salário líquido de " + funcionarioLiquido.getNome() + ": R$ " + salarioLiquido);
+            System.out.println("Salário líquido de " + funcionarioLiquido.getNome() + ": R$ " + String.format("%.2f", salarioLiquido));
         } else {
             System.out.println("Funcionário ou salário não encontrado.");
         }
@@ -58,9 +58,9 @@ public class GerSalario implements IntSalario {
         if (funcionarioBeneficios != null && funcionarioBeneficios.getSalario() != null) {
             Salario salarioFuncionario = funcionarioBeneficios.getSalario();
             System.out.println("Benefícios de " + funcionarioBeneficios.getNome() + ":");
-            System.out.println(" - Plano de saúde: R$ " + salarioFuncionario.getSaude());
-            System.out.println(" - Vale refeição/alimentação: R$ " + salarioFuncionario.getValeRefAliment());
-            System.out.println(" - Plano odontológico: R$ " + salarioFuncionario.getOdonto());
+            System.out.println(" - Plano de saúde: R$ " + String.format("%.2f", salarioFuncionario.getSaude()));
+            System.out.println(" - Vale refeição/alimentação: R$ " + String.format("%.2f", salarioFuncionario.getValeRefAliment()));
+            System.out.println(" - Plano odontológico: R$ " + String.format("%.2f", salarioFuncionario.getOdonto()));
         } else {
             System.out.println("Funcionário ou salário não encontrado.");
         }
@@ -80,7 +80,7 @@ public class GerSalario implements IntSalario {
 
     public void valorBonificacao(Caixa caixa, ArrayList<Setor> setores){
         if (caixa != null && setores != null) {
-            System.out.println("\nBonificação por funcionário: " + Salario.calcularBonificacao(caixa, setores));
+            System.out.println("\nBonificação por funcionário: " + String.format("%.2f", Salario.calcularBonificacao(caixa, setores)));
         } else {
             System.out.println("Não há registro de caixa ou setor");
         }

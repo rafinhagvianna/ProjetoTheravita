@@ -200,7 +200,7 @@ public class GerFuncionario implements IntFuncionario {
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Entrada inválida. Digite um número.");
-                    opc = -1; // Força repetição do menu
+                    opc = -1;
                 }
             } while (opc != 0);
         } else {

@@ -82,7 +82,7 @@ public class Transportadora {
                 "Nome = " + nome +
                 ", id = " + id +
                 ", cnpj = " + cnpj +
-                ", taxa = " + taxa +
+                ", taxa = " + String.format("%.2f", taxa) +
                 ", Regiões atendidas =" + regioes;
     }
 

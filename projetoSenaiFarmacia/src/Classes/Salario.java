@@ -123,7 +123,6 @@ public class Salario {
         aliquota *= salario;
 
         totalSalario = salario - aliquota - IR;
-
         return totalSalario;
     }
 

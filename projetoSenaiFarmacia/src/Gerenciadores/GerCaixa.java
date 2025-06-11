@@ -275,7 +275,6 @@ public class GerCaixa implements IntCaixa {
             }
 
             compra.setValor(compra.calculaTotal());
-
             return compra;
         } else {
             System.out.println("Compra cancelada!");

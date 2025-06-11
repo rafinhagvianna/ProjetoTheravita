@@ -87,7 +87,7 @@ public abstract class Transacoes {
                 ", produtos=" + produtos +
                 ", data=" + data +
                 ", status=" + status +
-                ", valor=" + valor +
+                ", valor=" + String.format("%.2f", valor) +
                 '}';
     }
 }
