@@ -13,27 +13,22 @@ public class FuncionarioException extends Exception{
 
     public Funcionario CadastroException(String nome, String cpf, String genero, Setor setorSelecionado){
 
-        // Validação do nome
-        while (!FuncionarioValidator.isValidNome(nome)) {
+        do {
             System.out.println("Insira o nome completo:");
             nome = scanner.next();
-        }
-        // Validação do CPF
-        while (!FuncionarioValidator.isValidCpf(cpf)) {
+        }while (!FuncionarioValidator.isValidNome(nome));
+        do {
             System.out.println("Insira o CPF:");
             cpf = scanner.next();
-        }
-        // Validação do gênero
-        while (!FuncionarioValidator.isValidGenero(genero)) {
+        }while (!FuncionarioValidator.isValidCpf(cpf));
+        do {
             System.out.println("Insira o gênero:");
             genero = scanner.next();
-        }
+        }while (!FuncionarioValidator.isValidGenero(genero));
 
-        // Criação do funcionário
         try {
             return new Funcionario(nome, cpf, genero, setorSelecionado, null);
         } catch (FuncionarioException funEx) {
-            // Não recursivo, apenas retorna null em caso de erro
             return null;
         }
     }

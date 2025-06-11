@@ -38,8 +38,8 @@ public class GerFuncionario implements IntFuncionario {
                     System.out.println((i + 1) + " - " + setores.get(i).getNome());
                 }
                 int setorEscolhido = scanner.nextInt();
-                scanner.nextLine();
                 setorSelecionado = setores.get(setorEscolhido - 1);
+                scanner.nextLine();
 
             } catch (Exception e) {
                 scanner.nextLine();

@@ -16,6 +16,11 @@ public class FuncionarioValidator {
             System.out.println("O CPF deve ter ao menos 11 digitos");
             return false;
         }
+
+        if (!cpf.matches("(\\d){11}")) {
+            System.out.println("O CPF deve ter ao menos 11 digitos numéricos");
+            return false;
+        }
         
         return true;
     }
