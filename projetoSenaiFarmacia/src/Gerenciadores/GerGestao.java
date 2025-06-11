@@ -2,6 +2,7 @@ package Gerenciadores;
 
 import Classes.Caixa;
 import Classes.Compra;
+import Classes.Itens;
 import Classes.Venda;
 import Enums.Status;
 import Interfaces.IntGestao;
@@ -123,6 +124,9 @@ public class GerGestao implements IntGestao {
                     compraSelecionada.setStatus(Status.FECHADO);
                 } else if (opcao == 2) {
                     compraSelecionada.setStatus(Status.CANCELADO);
+                    for (Itens item : compraSelecionada.getProdutos()) {
+                        item.getProduto().getEstoqueProduto().realizaTransicao(-item.getQuantidade());
+                    }
                 } else {
                     System.out.println("Opção inválida. Tente novamente.");
                 }
@@ -152,6 +156,9 @@ public class GerGestao implements IntGestao {
                     vendaSelecionada.setStatus(Status.FECHADO);
                 } else if (opcao == 2) {
                     vendaSelecionada.setStatus(Status.CANCELADO);
+                    for (Itens item : vendaSelecionada.getProdutos()) {
+                        item.getProduto().getEstoqueProduto().realizaTransicao(item.getQuantidade());
+                    }
                 } else {
                     System.out.println("Opção inválida. Tente novamente.");
                 }
