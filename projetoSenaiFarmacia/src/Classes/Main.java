@@ -103,7 +103,7 @@ public class Main {
                     
                     do{
                         System.out.print("Informe o ID do funcionário: ");
-                        String idFuncionario = scanner.next();
+                        String idFuncionario = scanner.nextLine();
                         funcionarioEditar = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
                         if (funcionarioEditar == null) System.out.println("Funcionário não encontrado!");
                     }while(funcionarioEditar == null);
@@ -254,6 +254,7 @@ public class Main {
                             mes = scanner.nextInt();
                             scanner.nextLine();                  
                         } catch (Exception e) {
+                            scanner.nextLine();                  
                             System.out.println("Tipo inserido inválido!");    
                         }
                     } while (mes < 1 || mes > 12);
@@ -264,6 +265,7 @@ public class Main {
                             ano = scanner.nextInt();
                             scanner.nextLine();                     
                         } catch (Exception e) {
+                            scanner.nextLine();                     
                             System.out.println("Tipo inserido inválido!"); 
                         }
                     } while (ano < 2000 || ano > 2050);
@@ -282,6 +284,7 @@ public class Main {
                             anoAnual = scanner.nextInt();
                             scanner.nextLine();                 
                         } catch (Exception e) {
+                            scanner.nextLine();                 
                             System.out.println("Tipo inserido inválido!");     
                         }
                     } while (anoAnual < 2000 || anoAnual > 2050);

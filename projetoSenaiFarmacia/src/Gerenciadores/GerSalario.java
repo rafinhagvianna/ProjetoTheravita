@@ -1,7 +1,5 @@
 package Gerenciadores;
 
-import Classes.Funcionario;
-import Classes.Salario;
 import Interfaces.IntSalario;
 
 import java.util.ArrayList;
@@ -27,7 +25,7 @@ public class GerSalario implements IntSalario {
 
     public void salarioBruto(ArrayList<Funcionario> funcionarios) {
         System.out.print("Informe o ID do funcionário: ");
-        String idFuncionario = scanner.next();
+        String idFuncionario = scanner.nextLine();
         Funcionario funcionarioBruto = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
         if (funcionarioBruto != null && funcionarioBruto.getSalario() != null) {
@@ -39,7 +37,7 @@ public class GerSalario implements IntSalario {
 
     public void calcularSalario(ArrayList<Funcionario> funcionarios){
         System.out.print("Informe o ID do funcionário: ");
-        String idFuncionario = scanner.next();
+        String idFuncionario = scanner.nextLine();
         Funcionario funcionarioLiquido = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
         if (funcionarioLiquido != null && funcionarioLiquido.getSalario() != null) {
@@ -52,7 +50,7 @@ public class GerSalario implements IntSalario {
 
     public void consultarBeneficios(ArrayList<Funcionario> funcionarios){
         System.out.print("Informe o ID do funcionário: ");
-        String idFuncionario = scanner.next();
+        String idFuncionario = scanner.nextLine();
         Funcionario funcionarioBeneficios = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
         if (funcionarioBeneficios != null && funcionarioBeneficios.getSalario() != null) {
@@ -68,7 +66,7 @@ public class GerSalario implements IntSalario {
 
     public void exibirDemonstrativo(ArrayList<Funcionario> funcionarios){
         System.out.print("Informe o ID do funcionário: ");
-        String idFuncionario = scanner.next();
+        String idFuncionario = scanner.nextLine();
         Funcionario funcionarioDemonstrativo = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
         if (funcionarioDemonstrativo != null) {

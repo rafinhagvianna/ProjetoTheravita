@@ -28,20 +28,32 @@ public class GerCaixa implements IntCaixa {
 
     public void registrarEntrada(Caixa caixa, Venda novaVenda, ArrayList<Funcionario> funcionarios,
             ArrayList<Transportadora> transportadoras, ArrayList<Setor> setores, ArrayList<Produto> produtos) {
-        novaVenda = realizarVenda(scanner, funcionarios, transportadoras, setores, produtos);
-        caixa.getEntrada().add(novaVenda);
-        if (novaVenda.getStatus().equals(Enums.Status.FECHADO))
-            caixa.setSaldo(caixa.getSaldo() + novaVenda.getValor());
-        System.out.println("Venda registrada com sucesso!");
+        if (funcionarios.size() < 1 || produtos.size() < 1 || transportadoras.size() < 1) {
+            System.out.println("Não há funcionários, produtos ou transportadoras suficientes para essa ação!");
+        } else {
+            novaVenda = realizarVenda(scanner, funcionarios, transportadoras, setores, produtos);
+            if (novaVenda != null) {
+                caixa.getEntrada().add(novaVenda);
+                if (novaVenda.getStatus().equals(Enums.Status.FECHADO))
+                    caixa.setSaldo(caixa.getSaldo() + novaVenda.getValor());
+                System.out.println("Venda registrada com sucesso!");
+            }
+        }
     }
 
     public void registrarSaida(Caixa caixa, Compra novaCompra, ArrayList<Funcionario> funcionarios,
             ArrayList<Produto> produtos) {
-        novaCompra = realizarCompra(scanner, funcionarios, produtos);
-        caixa.getSaida().add(novaCompra);
-        if (novaCompra.getStatus().equals(Enums.Status.FECHADO))
-            caixa.setSaldo(caixa.getSaldo() - novaCompra.getValor());
-        System.out.println("Compra registrada com sucesso!");
+        if (funcionarios.size() < 1 || produtos.size() < 1) {
+            System.out.println("Não há funcionários ou produtos suficientes para essa ação!");
+        } else {
+            novaCompra = realizarCompra(scanner, funcionarios, produtos);
+            if (novaCompra != null) {
+                caixa.getSaida().add(novaCompra);
+                if (novaCompra.getStatus().equals(Enums.Status.FECHADO))
+                    caixa.setSaldo(caixa.getSaldo() - novaCompra.getValor());
+                System.out.println("Compra registrada com sucesso!");
+            }
+        }
     }
 
     public static Venda realizarVenda(Scanner scanner, ArrayList<Funcionario> funcionarios,
@@ -60,7 +72,7 @@ public class GerCaixa implements IntCaixa {
 
         do {
             System.out.println("Insira o id do produto ou 0 para parar: ");
-            prod = scanner.next();
+            prod = scanner.nextLine();
 
             if (!prod.equals("0")) {
                 Produto produto = Produto.buscarProdutoPorId(prod, produtos);
@@ -99,7 +111,7 @@ public class GerCaixa implements IntCaixa {
 
             do {
                 System.out.print("Informe o ID do funcionário: ");
-                String idFuncionario = scanner.next();
+                String idFuncionario = scanner.nextLine();
                 funcionarioVenda = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
                 if (funcionarioVenda != null) {
@@ -202,7 +214,7 @@ public class GerCaixa implements IntCaixa {
             } else {
                 System.out.println("Insira o id do novo produto ou 0 para finalizar a compra: ");
             }
-            prod = scanner.next();
+            prod = scanner.nextLine();
 
             if (!prod.equals("0")) {
                 Produto produto = Produto.buscarProdutoPorId(prod, produtos);
@@ -237,7 +249,7 @@ public class GerCaixa implements IntCaixa {
 
             do {
                 System.out.print("Informe o ID do funcionário: ");
-                String idFuncionario = scanner.next();
+                String idFuncionario = scanner.nextLine();
                 funcionarioCompra = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
                 if (funcionarioCompra != null) {

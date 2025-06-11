@@ -26,9 +26,9 @@ public class GerFuncionario implements IntFuncionario {
         System.out.print("Nome = ");
         String nome = scanner.nextLine();
         System.out.print("CPF = ");
-        String cpf = scanner.next();
+        String cpf = scanner.nextLine();
         System.out.print("Gênero = ");
-        String genero = scanner.next();
+        String genero = scanner.nextLine();
 
         Setor setorSelecionado = null;
         do {
@@ -209,7 +209,7 @@ public class GerFuncionario implements IntFuncionario {
     }
 
     public void excluirFuncionario(Scanner scanner, ArrayList<Funcionario> funcionarios) {
-        String cpfExcluir = scanner.next();
+        String cpfExcluir = scanner.nextLine();
         Funcionario funcRemover = null;
         for (Funcionario func : funcionarios) {
             if (func.getCpf().equals(cpfExcluir)) {
