@@ -11,19 +11,21 @@ public class ProdutoException extends Exception {
 
     public Produto CadastroException(String descricao, double valorVenda, double valorCompra) {
 
-        while (!ProdutoValidator.isValidDescricao(descricao)) {
+        do {
             System.out.println("Insira a descricao do produto:");
             descricao = scanner.next();
-        }
-        while (!ProdutoValidator.isValidValor(valorCompra)) {
+        }while (!ProdutoValidator.isValidDescricao(descricao));
+        
+        do{
             System.out.println("Insira o valor da compra:");
             valorCompra = scanner.nextDouble();
-        }
-        while (!ProdutoValidator.isValidValor(valorVenda) || valorVenda <= valorCompra) {
+        }while (!ProdutoValidator.isValidValor(valorCompra)) ;
+
+        do {
             if (valorVenda <= valorCompra) System.out.println("O valor da venda deve ser maior que o da compra !");
             System.out.println("Insira o valor da venda:");
             valorVenda = scanner.nextDouble();
-        }
+        }while (!ProdutoValidator.isValidValor(valorVenda) || valorVenda <= valorCompra);
 
         try {
             return new Produto(descricao, valorVenda, valorCompra);
