@@ -30,15 +30,17 @@ public class GerCaixa implements IntCaixa {
             ArrayList<Transportadora> transportadoras, ArrayList<Setor> setores, ArrayList<Produto> produtos) {
         novaVenda = realizarVenda(scanner, funcionarios, transportadoras, setores, produtos);
         caixa.getEntrada().add(novaVenda);
-        if (novaVenda.getStatus().equals(Enums.Status.FECHADO)) caixa.setSaldo(caixa.getSaldo() + novaVenda.getValor());
+        if (novaVenda.getStatus().equals(Enums.Status.FECHADO))
+            caixa.setSaldo(caixa.getSaldo() + novaVenda.getValor());
         System.out.println("Venda registrada com sucesso!");
     }
 
     public void registrarSaida(Caixa caixa, Compra novaCompra, ArrayList<Funcionario> funcionarios,
-    ArrayList<Produto> produtos) {
+            ArrayList<Produto> produtos) {
         novaCompra = realizarCompra(scanner, funcionarios, produtos);
         caixa.getSaida().add(novaCompra);
-        if (novaCompra.getStatus().equals(Enums.Status.FECHADO)) caixa.setSaldo(caixa.getSaldo() - novaCompra.getValor());
+        if (novaCompra.getStatus().equals(Enums.Status.FECHADO))
+            caixa.setSaldo(caixa.getSaldo() - novaCompra.getValor());
         System.out.println("Compra registrada com sucesso!");
     }
 
@@ -61,7 +63,7 @@ public class GerCaixa implements IntCaixa {
             prod = scanner.next();
 
             if (!prod.equals("0")) {
-                Produto produto = buscarProdutoPorId(prod, produtos);
+                Produto produto = Produto.buscarProdutoPorId(prod, produtos);
 
                 if (produto != null) {
                     try {
@@ -96,7 +98,7 @@ public class GerCaixa implements IntCaixa {
             do {
                 System.out.print("Informe o ID do funcionário: ");
                 String idFuncionario = scanner.next();
-                funcionarioVenda = buscarFuncionarioPorId(idFuncionario, funcionarios);
+                funcionarioVenda = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
                 if (funcionarioVenda != null) {
                     venda.setFuncionario(funcionarioVenda);
@@ -107,24 +109,22 @@ public class GerCaixa implements IntCaixa {
 
             LocalDate dtVenda = null;
             do {
-                System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
-                scanner.nextLine();
-                String dataVenda = scanner.next();
+                try {
+                    System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+                    scanner.nextLine();
+                    String dataVenda = scanner.next();
 
-                if (dataVenda.equalsIgnoreCase("HJ")) {
-                    dtVenda = LocalDate.now();
-                } else {
-                    try {
+                    if (dataVenda.equalsIgnoreCase("HJ")) {
+                        dtVenda = LocalDate.now();
+                    } else {
                         dtVenda = LocalDate.parse(dataVenda);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Formato de data não aceito!");
-                        dtVenda = null;
                     }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato de data não aceito!");
+                    dtVenda = null;
                 }
-                venda.setData(dtVenda);
             } while (dtVenda == null);
-
-
+            venda.setData(dtVenda);
 
             if (dtVenda.isAfter(LocalDate.now())) {
                 venda.setStatus(Enums.Status.ABERTO);
@@ -133,33 +133,33 @@ public class GerCaixa implements IntCaixa {
             }
 
             do {
-                System.out.println("Escolha a região de entrega da venda:");
-                Regiao[] regioes = Regiao.values();
-                for (int i = 0; i < regioes.length; i++) {
-                    System.out.println((i + 1) + " - " + regioes[i]);
-                }
-                int regiaoEscolhida = scanner.nextInt();
                 try {
+                    System.out.println("Escolha a região de entrega da venda:");
+                    Regiao[] regioes = Regiao.values();
+                    for (int i = 0; i < regioes.length; i++) {
+                        System.out.println((i + 1) + " - " + regioes[i]);
+                    }
+                    int regiaoEscolhida = scanner.nextInt();
                     regiao = regioes[regiaoEscolhida - 1];
                 } catch (ArrayIndexOutOfBoundsException | InputMismatchException e) {
                     System.out.println("Opção inválida! Tente novamente.");
-                    scanner.nextLine();
+                    // scanner.nextLine();
                     regiao = null;
                 }
             } while (regiao == null);
 
             do {
-                System.out.println("Escolha a transportadora para a venda:");
-                for (int i = 0; i < transportadoras.size(); i++) {
-                    System.out.println((i + 1) + " - " + transportadoras.get(i).getNome());
-                }
-                int transportadoraEscolhida = scanner.nextInt() - 1;
 
                 try {
+                    System.out.println("Escolha a transportadora para a venda:");
+                    for (int i = 0; i < transportadoras.size(); i++) {
+                        System.out.println((i + 1) + " - " + transportadoras.get(i).getNome());
+                    }
+                    int transportadoraEscolhida = scanner.nextInt() - 1;
                     transportadora = transportadoras.get(transportadoraEscolhida);
                 } catch (Exception e) {
                     System.out.println("Opção inválida! Tente novamente.");
-                    scanner.nextLine();
+                    // scanner.nextLine();
                     transportadora = null;
                 }
 
@@ -193,8 +193,8 @@ public class GerCaixa implements IntCaixa {
         System.out.println("Iniciando nova compra...");
 
         int contador = 0;
-        do{
-            if (contador == 0){
+        do {
+            if (contador == 0) {
                 System.out.println("Insira o id do produto ou 0 para cancelar a compra: ");
             } else {
                 System.out.println("Insira o id do novo produto ou 0 para finalizar a compra: ");
@@ -202,7 +202,7 @@ public class GerCaixa implements IntCaixa {
             prod = scanner.next();
 
             if (!prod.equals("0")) {
-                Produto produto = buscarProdutoPorId(prod, produtos);
+                Produto produto = Produto.buscarProdutoPorId(prod, produtos);
 
                 if (produto != null) {
 
@@ -210,7 +210,7 @@ public class GerCaixa implements IntCaixa {
                         System.out.println("Quantas unidades do produto " + produto.getDescricao()
                                 + " deseja adicionar? (0 para cancelar)");
                         quantidade = scanner.nextInt();
-                    } catch (InputMismatchException e) {
+                    } catch (Exception e) {
                         System.out.println("Tipo inserido não aceito, digite um número inteiro!");
                         quantidade = 0;
                     }
@@ -225,7 +225,7 @@ public class GerCaixa implements IntCaixa {
                 }
             }
             contador = 1;
-        }while(!prod.equals("0"));
+        } while (!prod.equals("0"));
 
         if (itens.size() > 0) {
             compra.setProdutos(itens);
@@ -233,7 +233,7 @@ public class GerCaixa implements IntCaixa {
             do {
                 System.out.print("Informe o ID do funcionário: ");
                 String idFuncionario = scanner.next();
-                funcionarioCompra = buscarFuncionarioPorId(idFuncionario, funcionarios);
+                funcionarioCompra = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
                 if (funcionarioCompra != null) {
                     compra.setFuncionario(funcionarioCompra);
@@ -244,19 +244,19 @@ public class GerCaixa implements IntCaixa {
 
             LocalDate dtCompra;
             do {
-                System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
-                scanner.nextLine();
-                String dataCompra = scanner.next();
 
-                if (dataCompra.equalsIgnoreCase("HJ")) {
-                    dtCompra = LocalDate.now();
-                } else {
-                    try {
+                try {
+                    System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+                    scanner.nextLine();
+                    String dataCompra = scanner.next();
+                    if (dataCompra.equalsIgnoreCase("HJ")) {
+                        dtCompra = LocalDate.now();
+                    } else {
                         dtCompra = LocalDate.parse(dataCompra);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Formato de data não aceito!");
-                        dtCompra = null;
                     }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato de data não aceito!");
+                    dtCompra = null;
                 }
 
             } while (dtCompra == null);
@@ -273,28 +273,13 @@ public class GerCaixa implements IntCaixa {
             compra.setValor(compra.calculaTotal());
 
             return compra;
-        }else{
+        } else {
             System.out.println("Compra cancelada!");
             return null;
         }
 
     }
 
-    public static Funcionario buscarFuncionarioPorId(String id, ArrayList<Funcionario> funcionarios) {
-        for (Funcionario funcionario : funcionarios) {
-            if (funcionario.getId().equals(id)) {
-                return funcionario;
-            }
-        }
-        return null;
-    }
 
-    public static Produto buscarProdutoPorId(String id, ArrayList<Produto> produtos) {
-        for (Produto produto : produtos) {
-            if (produto.getId().equals(id)) {
-                return produto;
-            }
-        }
-        return null;
-    }
+    
 }

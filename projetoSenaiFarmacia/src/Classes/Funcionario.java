@@ -1,4 +1,6 @@
 package Classes;
+import java.util.ArrayList;
+
 import Exceptions.FuncionarioException;
 import Validators.FuncionarioValidator;
 
@@ -110,6 +112,15 @@ public class Funcionario {
                 ", setor=" + setor.getNome() +
                 ", salario=" + salario.getSalario() +
                 '}';
+    }
+
+    public static Funcionario buscarFuncionarioPorId(String id, ArrayList<Funcionario> funcionarios) {
+        for (Funcionario funcionario : funcionarios) {
+            if (funcionario.getId().equals(id)) {
+                return funcionario;
+            }
+        }
+        return null;
     }
 }
 

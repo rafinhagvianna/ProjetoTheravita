@@ -99,4 +99,13 @@ public class Produto {
     public boolean verificaEstoque(int qtd){
         return qtd <= this.estoqueProduto.getEstoque();
     }
+
+    public static Produto buscarProdutoPorId(String id, ArrayList<Produto> produtos) {
+        for (Produto produto : produtos) {
+            if (produto.getId().equals(id)) {
+                return produto;
+            }
+        }
+        return null;
+    }
 }

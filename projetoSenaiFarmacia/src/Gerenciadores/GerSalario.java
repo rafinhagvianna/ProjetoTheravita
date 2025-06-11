@@ -28,7 +28,7 @@ public class GerSalario implements IntSalario {
     public void salarioBruto(ArrayList<Funcionario> funcionarios) {
         System.out.print("Informe o ID do funcionário: ");
         String idFuncionario = scanner.next();
-        Funcionario funcionarioBruto = buscarFuncionarioPorId(idFuncionario, funcionarios);
+        Funcionario funcionarioBruto = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
         if (funcionarioBruto != null && funcionarioBruto.getSalario() != null) {
             System.out.println("Salário bruto de " + funcionarioBruto.getNome() + ": R$ " + funcionarioBruto.getSalario().getSalario());
@@ -40,7 +40,7 @@ public class GerSalario implements IntSalario {
     public void calcularSalario(ArrayList<Funcionario> funcionarios){
         System.out.print("Informe o ID do funcionário: ");
         String idFuncionario = scanner.next();
-        Funcionario funcionarioLiquido = buscarFuncionarioPorId(idFuncionario, funcionarios);
+        Funcionario funcionarioLiquido = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
         if (funcionarioLiquido != null && funcionarioLiquido.getSalario() != null) {
             double salarioLiquido = funcionarioLiquido.getSalario().calculaSalario();
@@ -53,7 +53,7 @@ public class GerSalario implements IntSalario {
     public void consultarBeneficios(ArrayList<Funcionario> funcionarios){
         System.out.print("Informe o ID do funcionário: ");
         String idFuncionario = scanner.next();
-        Funcionario funcionarioBeneficios = buscarFuncionarioPorId(idFuncionario, funcionarios);
+        Funcionario funcionarioBeneficios = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
         if (funcionarioBeneficios != null && funcionarioBeneficios.getSalario() != null) {
             Salario salarioFuncionario = funcionarioBeneficios.getSalario();
@@ -69,7 +69,7 @@ public class GerSalario implements IntSalario {
     public void exibirDemonstrativo(ArrayList<Funcionario> funcionarios){
         System.out.print("Informe o ID do funcionário: ");
         String idFuncionario = scanner.next();
-        Funcionario funcionarioDemonstrativo = buscarFuncionarioPorId(idFuncionario, funcionarios);
+        Funcionario funcionarioDemonstrativo = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
 
         if (funcionarioDemonstrativo != null) {
             funcionarioDemonstrativo.dadosFuncionario();
@@ -86,12 +86,5 @@ public class GerSalario implements IntSalario {
         }
     }
 
-    public static Funcionario buscarFuncionarioPorId(String id, ArrayList<Funcionario> funcionarios) {
-        for (Funcionario funcionario : funcionarios) {
-            if (funcionario.getId().equals(id)) {
-                return funcionario;
-            }
-        }
-        return null;
-    }
+    
 }
