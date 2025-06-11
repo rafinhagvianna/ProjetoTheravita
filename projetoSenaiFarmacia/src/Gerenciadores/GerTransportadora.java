@@ -8,7 +8,6 @@ import Enums.Regiao;
 import Interfaces.IntTransportadora;
 
 public class GerTransportadora implements IntTransportadora {
-    Scanner sc = new Scanner(System.in);
 
     @Override
     public void menu() {
@@ -37,7 +36,7 @@ public class GerTransportadora implements IntTransportadora {
             try {
                 System.out.print("Digite a taxa da transportadora (% em cima da venda cobrado): ");
                 taxa = scanner.nextDouble();
-                sc.nextLine();
+                scanner.nextLine();
             } catch (Exception e) {
                 scanner.nextLine();
                 System.out.println("Tipo inserido inválido. Digite um valor real!");
@@ -58,7 +57,7 @@ public class GerTransportadora implements IntTransportadora {
                 System.out.println();
                 System.out.println("Digite a região");
                 int regiaoEscolhida = scanner.nextInt();
-                sc.nextLine();
+                scanner.nextLine();
                 regiao = regioes[regiaoEscolhida - 1];
             } catch (Exception e) {
                 scanner.nextLine();
