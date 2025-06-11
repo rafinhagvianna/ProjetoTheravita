@@ -212,7 +212,6 @@ public class Main {
         } while (opcaoUsuarioProduto != 0);
     }
 
-
     public static void apresentarMenuCaixa(Scanner scanner) {
         int opcaoUsuarioCaixa;
 

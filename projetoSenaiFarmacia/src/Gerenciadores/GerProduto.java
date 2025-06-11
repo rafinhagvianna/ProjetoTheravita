@@ -1,7 +1,6 @@
 package Gerenciadores;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import Classes.*;
 import Exceptions.ProdutoException;
@@ -40,7 +39,7 @@ public class GerProduto implements IntProduto {
                 valorVenda = 0;
             }
 
-        } while (valorVenda != 0);
+        } while (valorVenda <= 0);
 
         do {
             try {
@@ -51,7 +50,7 @@ public class GerProduto implements IntProduto {
                 valorCompra = 0;
             }
 
-        } while (valorCompra != 0);
+        } while (valorCompra <= 0);
 
         Produto produto;
         try {
@@ -103,7 +102,7 @@ public class GerProduto implements IntProduto {
                                 novoValorVenda = 0;
                             }
 
-                        } while (novoValorVenda != 0);
+                        } while (novoValorVenda <= 0);
 
                         try {
                             produtoAtualizar.setValorVenda(novoValorVenda);
@@ -126,7 +125,7 @@ public class GerProduto implements IntProduto {
                                 novoValorCompra = 0;
                             }
 
-                        } while (novoValorCompra != 0);
+                        } while (novoValorCompra <= 0);
 
 
                         try {

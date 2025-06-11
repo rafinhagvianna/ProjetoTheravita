@@ -43,6 +43,7 @@ public class GerFuncionario implements IntFuncionario {
             } catch (Exception e) {
                 System.out.println("Opcção inválida!");
                 setorSelecionado = null;
+                sc.nextLine();
             }
         } while (setorSelecionado == null);
 
@@ -54,6 +55,7 @@ public class GerFuncionario implements IntFuncionario {
             } catch (Exception e) {
                 System.out.println("Tipo inserido inválido. Digite um valor real!");
                 salarioBase = -1;
+                sc.nextLine();
             }
         } while (salarioBase < 0);
 
@@ -113,7 +115,6 @@ public class GerFuncionario implements IntFuncionario {
 
                 try {
                     opc = sc.nextInt();
-                    // sc.nextLine();
                     switch (opc) {
                         case 1:
                             System.out.print("Insira o novo nome = ");
@@ -157,6 +158,7 @@ public class GerFuncionario implements IntFuncionario {
                                 } catch (Exception e) {
                                     System.out.println("Opcção inválida!");
                                     setorSelecionado = null;
+                                    sc.nextLine();
                                 }
                             } while (setorSelecionado == null);
                             setorSelecionado.removerFuncionario(funcionarioEditar);
@@ -179,6 +181,7 @@ public class GerFuncionario implements IntFuncionario {
                                 } catch (Exception e) {
                                     System.out.println("Tipo inserido inválido. Digite um valor real!");
                                     salarioBase = -1;
+                                    sc.nextLine();
                                 }
                             } while (salarioBase < 0);
        
@@ -190,6 +193,7 @@ public class GerFuncionario implements IntFuncionario {
                 } catch (NumberFormatException e) {
                     System.out.println("Entrada inválida. Digite um número.");
                     opc = -1; // Força repetição do menu
+                    sc.nextLine();
                 }
             } while (opc != 0);
         } else {
