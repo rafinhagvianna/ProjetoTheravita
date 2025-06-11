@@ -57,7 +57,7 @@ public class GerGestao {
                 statusCompra = true;
             }
         }
-        if (statusCompra) {
+        if (!statusCompra) {
             System.out.println("Não há compras em andamentos.");
         }
 
