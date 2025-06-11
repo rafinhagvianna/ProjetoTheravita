@@ -70,7 +70,9 @@ public class GerCaixa implements IntCaixa {
                         System.out.println("Quantas unidades do produto " + produto.getDescricao()
                                 + " deseja adicionar? (0 para cancelar)");
                         quantidade = scanner.nextInt();
+                        scanner.nextLine();
                     } catch (InputMismatchException e) {
+                        scanner.nextLine();
                         System.out.println("Tipo inserido não aceito, digite um número inteiro!");
                         quantidade = 0;
                     }
@@ -111,8 +113,7 @@ public class GerCaixa implements IntCaixa {
             do {
                 try {
                     System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
-                    scanner.nextLine();
-                    String dataVenda = scanner.next();
+                    String dataVenda = scanner.nextLine();
 
                     if (dataVenda.equalsIgnoreCase("HJ")) {
                         dtVenda = LocalDate.now();
@@ -140,10 +141,11 @@ public class GerCaixa implements IntCaixa {
                         System.out.println((i + 1) + " - " + regioes[i]);
                     }
                     int regiaoEscolhida = scanner.nextInt();
+                    scanner.nextLine();
                     regiao = regioes[regiaoEscolhida - 1];
-                } catch (ArrayIndexOutOfBoundsException | InputMismatchException e) {
+                } catch (Exception e) {
+                    scanner.nextLine();
                     System.out.println("Opção inválida! Tente novamente.");
-                    // scanner.nextLine();
                     regiao = null;
                 }
             } while (regiao == null);
@@ -156,10 +158,11 @@ public class GerCaixa implements IntCaixa {
                         System.out.println((i + 1) + " - " + transportadoras.get(i).getNome());
                     }
                     int transportadoraEscolhida = scanner.nextInt() - 1;
+                    scanner.nextLine();
                     transportadora = transportadoras.get(transportadoraEscolhida);
                 } catch (Exception e) {
+                    scanner.nextLine();
                     System.out.println("Opção inválida! Tente novamente.");
-                    // scanner.nextLine();
                     transportadora = null;
                 }
 
@@ -210,7 +213,9 @@ public class GerCaixa implements IntCaixa {
                         System.out.println("Quantas unidades do produto " + produto.getDescricao()
                                 + " deseja adicionar? (0 para cancelar)");
                         quantidade = scanner.nextInt();
+                        scanner.nextLine();
                     } catch (Exception e) {
+                        scanner.nextLine();
                         System.out.println("Tipo inserido não aceito, digite um número inteiro!");
                         quantidade = 0;
                     }
@@ -247,8 +252,7 @@ public class GerCaixa implements IntCaixa {
 
                 try {
                     System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
-                    scanner.nextLine();
-                    String dataCompra = scanner.next();
+                    String dataCompra = scanner.nextLine();
                     if (dataCompra.equalsIgnoreCase("HJ")) {
                         dtCompra = LocalDate.now();
                     } else {

@@ -34,9 +34,12 @@ public class GerProduto implements IntProduto {
             try {
                 System.out.print("Valor de venda = ");
                 valorVenda = scanner.nextDouble();
+                scanner.nextLine();
             } catch (Exception e) {
+                scanner.nextLine();
                 System.out.println("Tipo inserido inválido. Digite um valor real!");
                 valorVenda = 0;
+                
             }
 
         } while (valorVenda <= 0);
@@ -45,7 +48,9 @@ public class GerProduto implements IntProduto {
             try {
                 System.out.print("Valor de compra = ");
                 valorCompra = scanner.nextDouble();
+                scanner.nextLine();
             } catch (Exception e) {
+                scanner.nextLine();
                 System.out.println("Tipo inserido inválido. Digite um valor real!");
                 valorCompra = 0;
             }
@@ -82,9 +87,9 @@ public class GerProduto implements IntProduto {
         do {
             System.out.print("Informe o ID do produto a ser atualizado: ");
             procurarId = scanner.nextLine();
-            Produto produto = Produto.buscarProdutoPorId(procurarId, produtos);
+            produtoAtualizar = Produto.buscarProdutoPorId(procurarId, produtos);
 
-            if (produto != null) {
+
                 if (produtoAtualizar != null) {
                     System.out.println("Produto encontrado: " + produtoAtualizar);
 
@@ -97,7 +102,9 @@ public class GerProduto implements IntProduto {
                             try {
                                 System.out.print("Novo valor de venda: ");
                                 novoValorVenda = scanner.nextDouble();
+                                scanner.nextLine(); 
                             } catch (Exception e) {
+                                scanner.nextLine();
                                 System.out.println("Tipo inserido inválido. Digite um valor real!");
                                 novoValorVenda = 0;
                             }
@@ -120,7 +127,9 @@ public class GerProduto implements IntProduto {
                             try {
                                 System.out.print("Novo valor de compra: ");
                                 novoValorCompra = scanner.nextDouble();
+                                scanner.nextLine();
                             } catch (Exception e) {
+                                scanner.nextLine();
                                 System.out.println("Tipo inserido inválido. Digite um valor real!");
                                 novoValorCompra = 0;
                             }
@@ -139,7 +148,6 @@ public class GerProduto implements IntProduto {
                     char atualizarDescricao = scanner.next().charAt(0);
                     if (atualizarDescricao == 'S' || atualizarDescricao == 's') {
                         System.out.print("Nova descrição: ");
-                        scanner.nextLine();
                         String novaDescricao = scanner.nextLine();
                         try {
                             produtoAtualizar.setDescricao(novaDescricao);
@@ -150,10 +158,10 @@ public class GerProduto implements IntProduto {
                     System.out.println("Produto atualizado com sucesso!");
                 }
 
-            } else {
+             else {
                 System.out.println("Produto não encontrado");
             }
-        } while (!procurarId.equals("0"));
+        } while (produtoAtualizar == null);
 
     }
 

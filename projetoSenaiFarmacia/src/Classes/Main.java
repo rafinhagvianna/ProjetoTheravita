@@ -11,7 +11,6 @@ public class Main {
     static ArrayList<Funcionario> funcionarios = new ArrayList<>();
     static ArrayList<Setor> setores = new ArrayList<>();
     static ArrayList<Produto> produtos = new ArrayList<>();
-//    static ArrayList<Transportadora> transportadoras = new ArrayList<>();
     static Caixa caixa = new Caixa();
 
     static {
@@ -81,11 +80,12 @@ public class Main {
     public static void apresentarMenuFuncionarios(Scanner scanner) {
         int opcaoUsuarioFuncionario;
         do {
-            new GerFuncionario().menu();
             try {
-                scanner.nextLine();
+                new GerFuncionario().menu();
                 opcaoUsuarioFuncionario = scanner.nextInt();
+                scanner.nextLine();
             }catch (Exception e){
+                scanner.nextLine();
                 opcaoUsuarioFuncionario = 6;
             }
 
@@ -139,9 +139,10 @@ public class Main {
             new GerSalario().menu();
 
             try {
-                // scanner.nextLine();
                 opcaoUsuarioSalario = scanner.nextInt();
+                scanner.nextLine();
             }catch (InputMismatchException inputExcpt){
+                scanner.nextLine();
                 opcaoUsuarioSalario = 6;
             }
 
@@ -181,9 +182,10 @@ public class Main {
         do {
             new GerProduto().menu();
             try {
-                // scanner.nextLine();
                 opcaoUsuarioProduto = scanner.nextInt();
+                scanner.nextLine();
             }catch (InputMismatchException inputExcpt){
+                scanner.nextLine();
                 opcaoUsuarioProduto = 6;
             }
 
@@ -220,12 +222,12 @@ public class Main {
         do {
             new GerCaixa().menu();
             try {
-                // scanner.nextLine();
                 opcaoUsuarioCaixa = scanner.nextInt();
+                scanner.nextLine();
             }catch (InputMismatchException inputExcpt){
+                scanner.nextLine();
                 opcaoUsuarioCaixa = 6;
             }
-            // scanner.nextLine();
 
             switch (opcaoUsuarioCaixa) {
                 case 1:
@@ -250,8 +252,9 @@ public class Main {
                         try {
                             System.out.println("Digite o mês (1-12): ");
                             mes = scanner.nextInt();
+                            scanner.nextLine();                  
                         } catch (Exception e) {
-                            System.out.println("Tipo inserido inválido!");                      
+                            System.out.println("Tipo inserido inválido!");    
                         }
                     } while (mes < 1 || mes > 12);
 
@@ -259,8 +262,9 @@ public class Main {
                         try {
                             System.out.println("Digite o ano: ");
                             ano = scanner.nextInt();
+                            scanner.nextLine();                     
                         } catch (Exception e) {
-                            System.out.println("Tipo inserido inválido!");                      
+                            System.out.println("Tipo inserido inválido!"); 
                         }
                     } while (ano < 2000 || ano > 2050);
 
@@ -276,8 +280,9 @@ public class Main {
                         try {
                             System.out.println("Digite o ano: ");
                             anoAnual = scanner.nextInt();
+                            scanner.nextLine();                 
                         } catch (Exception e) {
-                            System.out.println("Tipo inserido inválido!");                      
+                            System.out.println("Tipo inserido inválido!");     
                         }
                     } while (anoAnual < 2000 || anoAnual > 2050);
 
@@ -314,10 +319,10 @@ public class Main {
             new GerTransportadora().menu();
             try {
                 opcaoUsuarioTransportadoras = scanner.nextInt();
+                scanner.nextLine();
             }catch (InputMismatchException inputExcpt){
                 opcaoUsuarioTransportadoras = 6;
             }
-            // scanner.nextLine();
 
             switch (opcaoUsuarioTransportadoras) {
                 case 1:

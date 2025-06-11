@@ -3,6 +3,7 @@ package Exceptions;
 import java.util.Scanner;
 
 import Classes.Funcionario;
+import Classes.Salario;
 import Classes.Setor;
 import Validators.FuncionarioValidator;
 
@@ -68,8 +69,30 @@ public class FuncionarioException extends Exception{
         try{
             System.out.print("Insira o salário base: ");
             func.getSalario().setSalario(scanner.nextDouble());
+            scanner.nextLine();
         }catch(FuncionarioException nte){
+            scanner.nextLine();
             nte.SalarioException(func);
+        }
+        catch(Exception e){
+            scanner.nextLine();
+            System.out.println("Tipo inserido inválido! Digite um número real!");
+            SalarioException(func);
+        }
+    }
+    public void SalarioException(Salario salario) {
+        try{
+            System.out.print("Insira o salário base: ");
+            salario.setSalario(scanner.nextDouble());
+            scanner.nextLine();
+        }catch(FuncionarioException nte){
+            scanner.nextLine();
+            nte.SalarioException(salario);
+        }
+        catch(Exception e){
+            scanner.nextLine();
+            System.out.println("Tipo inserido inválido! Digite um número real!");
+            SalarioException(salario);
         }
     }
 }
