@@ -82,12 +82,17 @@ public abstract class Transacoes {
 
     @Override
     public String toString() {
-        return "Transacoes{" +
-                "id='" + id + '\'' +
-                ", produtos=" + produtos +
-                ", data=" + data +
-                ", status=" + status +
-                ", valor=" + valor +
-                '}';
+        String result;
+        result ="Transacoes{" +
+                "\n  id='" + id + '\'' +
+                "\n  produtos= [";
+        for (Itens item : produtos) {
+            result +="\n    - "+ item.getQuantidade()+" "+ item.getProduto().getDescricao();
+        }
+        result +="\n  ]\n  data=" + data +
+                "\n  status=" + status +
+                "\n  valor=" + valor +
+                "\n}";
+        return result;
     }
 }
