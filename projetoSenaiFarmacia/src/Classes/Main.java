@@ -102,7 +102,7 @@ public class Main {
                     do{
                         System.out.print("Informe o ID do funcionário: ");
                         String idFuncionario = scanner.next();
-                        funcionarioEditar = new GerFuncionario().buscarFuncionarioPorId(idFuncionario, funcionarios);
+                        funcionarioEditar = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
                         if (funcionarioEditar == null) System.out.println("Funcionário não encontrado!");
                     }while(funcionarioEditar == null);
                     
@@ -137,7 +137,7 @@ public class Main {
             new GerSalario().menu();
 
             try {
-                scanner.nextLine();
+                // scanner.nextLine();
                 opcaoUsuarioSalario = scanner.nextInt();
             }catch (InputMismatchException inputExcpt){
                 opcaoUsuarioSalario = 6;
@@ -174,23 +174,12 @@ public class Main {
         } while (opcaoUsuarioSalario != 0);
     }
 
-    public static Funcionario buscarFuncionarioPorId(String id, ArrayList<Funcionario> funcionarios) {
-        for (Funcionario funcionario : funcionarios) {
-            if (funcionario.getId().equals(id)) {
-                return funcionario;
-            }
-        }
-        return null;
-    }
-
-
-
     public static void apresentarMenuProduto(Scanner scanner) {
         int opcaoUsuarioProduto;
         do {
             new GerProduto().menu();
             try {
-                scanner.nextLine();
+                // scanner.nextLine();
                 opcaoUsuarioProduto = scanner.nextInt();
             }catch (InputMismatchException inputExcpt){
                 opcaoUsuarioProduto = 6;
@@ -203,7 +192,6 @@ public class Main {
 
                 case 2:
                     new GerProduto().listarProdutos(produtos);
-                    scanner.nextLine();
                     break;
 
                 case 3:
@@ -224,19 +212,18 @@ public class Main {
         } while (opcaoUsuarioProduto != 0);
     }
 
-
     public static void apresentarMenuCaixa(Scanner scanner) {
         int opcaoUsuarioCaixa;
 
         do {
             new GerCaixa().menu();
             try {
-                scanner.nextLine();
+                // scanner.nextLine();
                 opcaoUsuarioCaixa = scanner.nextInt();
             }catch (InputMismatchException inputExcpt){
                 opcaoUsuarioCaixa = 6;
             }
-            scanner.nextLine();
+            // scanner.nextLine();
 
             switch (opcaoUsuarioCaixa) {
                 case 1:
@@ -254,19 +241,43 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println("Digite o mês (1-12): ");
-                    int mes = scanner.nextInt();
+                    int mes = 0;
+                    int ano = 0;
 
-                    System.out.println("Digite o ano: ");
-                    int ano = scanner.nextInt();
+                    do {
+                        try {
+                            System.out.println("Digite o mês (1-12): ");
+                            mes = scanner.nextInt();
+                        } catch (Exception e) {
+                            System.out.println("Tipo inserido inválido!");                      
+                        }
+                    } while (mes < 1 || mes > 12);
+
+                    do {
+                        try {
+                            System.out.println("Digite o ano: ");
+                            ano = scanner.nextInt();
+                        } catch (Exception e) {
+                            System.out.println("Tipo inserido inválido!");                      
+                        }
+                    } while (ano < 2000 || ano > 2050);
+
+                    
 
                     double lucroMensal = caixa.lucroMensal(mes, ano);
                     System.out.println("Lucro do mês: " + lucroMensal);
                     break;
 
                 case 5:
-                    System.out.println("Digite o ano: ");
-                    int anoAnual = scanner.nextInt();
+                    int anoAnual = 0;
+                    do {
+                        try {
+                            System.out.println("Digite o ano: ");
+                            anoAnual = scanner.nextInt();
+                        } catch (Exception e) {
+                            System.out.println("Tipo inserido inválido!");                      
+                        }
+                    } while (anoAnual < 2000 || anoAnual > 2050);
 
                     double lucroAnual = caixa.lucroAnual(anoAnual);
                     System.out.println("Lucro do ano: " + lucroAnual);
@@ -304,7 +315,7 @@ public class Main {
             }catch (InputMismatchException inputExcpt){
                 opcaoUsuarioTransportadoras = 6;
             }
-            scanner.nextLine();
+            // scanner.nextLine();
 
             switch (opcaoUsuarioTransportadoras) {
                 case 1:

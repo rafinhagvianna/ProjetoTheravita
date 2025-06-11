@@ -15,7 +15,6 @@ public class ProdutoValidator {
     }
     public static boolean isValidValor(double valor) {
 
-        // 1. Verifica se o CPF tem 11 dígitos
         if (valor <= 0) {
             System.out.println("O valor deve ser maior que 0!");
             return false;
@@ -24,7 +23,7 @@ public class ProdutoValidator {
         return true;
     }
     public static boolean isValidEstoque(int estoque) {        
-         if (estoque <= 0) {
+         if (estoque < 0) {
             System.out.println("O estque deve ter no mínimo 0!");
             return false;
         }
@@ -32,7 +31,7 @@ public class ProdutoValidator {
         return true;
     }
     public static boolean isValidMinimo(int estoque) {        
-         if (estoque <= 0) {
+         if (estoque < 0) {
             System.out.println("O mínimo do estque deve ser ao menos 0!");
             return false;
         }

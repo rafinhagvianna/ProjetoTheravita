@@ -28,6 +28,7 @@ public class ProdutoException extends Exception {
         try {
             return new Produto(descricao, valorVenda, valorCompra);
         } catch (ProdutoException e) {
+            System.out.println("teste");
             return null;
         }
     }
@@ -69,22 +70,5 @@ public class ProdutoException extends Exception {
             nte.MinimoException(prod);
         }
     }
-
-
-    // public void GeneroException(Funcionario func) {
-    //     try {
-    //         func.setGenero(scanner.next());
-    //     } catch (FuncionarioException nte) {
-    //         System.out.println("Gênero inválido.");
-    //     }
-    // }
-
-    // public void SalarioException(Funcionario func) {
-    //     try {
-    //         func.getSalario().setSalario(scanner.nextDouble());
-    //     } catch (FuncionarioException nte) {
-    //         System.out.println("Salário inválido.");
-    //     }
-    // }
 
 }

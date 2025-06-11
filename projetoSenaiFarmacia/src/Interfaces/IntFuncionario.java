@@ -12,5 +12,4 @@ public interface IntFuncionario {
     void listarFuncionariosPorSetor(Scanner sc, ArrayList<Setor> setores);
     void editarFuncionario(Scanner sc, Funcionario funcionarioEditar, ArrayList<Setor> setores);
     void excluirFuncionario(Scanner sc, ArrayList<Funcionario> funcionarios);
-    Funcionario buscarFuncionarioPorId(String id, ArrayList<Funcionario> funcionarios);
 }

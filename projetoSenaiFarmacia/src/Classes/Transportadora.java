@@ -54,14 +54,14 @@ public class Transportadora {
         this.cnpj = cnpj;
     }
 
-    public void getRegiao() {
-        for (Regiao r : regioes) {
-            System.out.println(r);
-        }
+    public List<Regiao> getRegiao() {
+        return this.regioes;
     }
 
     public void setRegiao(Regiao regiao) {
-        this.regioes.add(regiao);
+        if (!this.regioes.contains(regiao)) {
+            this.regioes.add(regiao);
+        }
     }
 
     public void removerRegiao(Regiao regiao) {

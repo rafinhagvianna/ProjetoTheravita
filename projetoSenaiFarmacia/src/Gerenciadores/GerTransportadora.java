@@ -9,6 +9,7 @@ import Interfaces.IntTransportadora;
 
 public class GerTransportadora implements IntTransportadora {
     Scanner sc = new Scanner(System.in);
+
     @Override
     public void menu() {
         System.out.println("Escolha uma das opções: ");
@@ -31,20 +32,40 @@ public class GerTransportadora implements IntTransportadora {
         System.out.println("Digite o CNPJ da transportadora: ");
         String cnpj = scanner.nextLine();
 
-        System.out.println("Digite a taxa da transportadora (% em cima da venda cobrado): ");
-        double taxa = scanner.nextDouble();
-        Regiao[] regioes = Regiao.values();
-        int i = 1;
-        for (Regiao r : regioes) {
-            System.out.println(i + " - " + r);
-            i++;
-        }
-        System.out.println();
-        System.out.println("Digite a região");
-        int regiaoAtendida = scanner.nextInt() - 1;
+        double taxa = -1;
+        do {
+            try {
+                System.out.print("Digite a taxa da transportadora (% em cima da venda cobrado): ");
+                taxa = scanner.nextDouble();
+            } catch (Exception e) {
+                System.out.println("Tipo inserido inválido. Digite um valor real!");
+                taxa = -1;
+            }
+
+        } while (taxa < 0);
+
+        Regiao regiao = null;
+        do {
+            try {
+                Regiao[] regioes = Regiao.values();
+                int i = 1;
+                for (Regiao r : regioes) {
+                    System.out.println(i + " - " + r);
+                    i++;
+                }
+                System.out.println();
+                System.out.println("Digite a região");
+                int regiaoEscolhida = scanner.nextInt();
+                regiao = regioes[regiaoEscolhida - 1];
+            } catch (Exception e) {
+                System.out.println("Opção inválida! Tente novamente.");
+                regiao = null;
+            }
+        } while (regiao == null);
+
         try {
             Transportadora novaTransportadora = new Transportadora(nome, cnpj, taxa);
-            novaTransportadora.setRegiao(regioes[regiaoAtendida]);
+            novaTransportadora.setRegiao(regiao);
             transportadoras.add(novaTransportadora);
             System.out.println("Transportadora cadastrada com sucesso!");
         } catch (IllegalArgumentException e) {
@@ -80,12 +101,7 @@ public class GerTransportadora implements IntTransportadora {
             System.out.println("Digite o ID da transportadora que deseja atualizar: ");
             idAtualizacao = scanner.nextLine();
 
-            for (Transportadora t : transportadoras) {
-                if (t.getId().equals(idAtualizacao)) {
-                    transportadoraEncontrada = t;
-                    break;
-                }
-            }
+            transportadoraEncontrada = Transportadora.buscarTransportadora(idAtualizacao);
 
             if (transportadoraEncontrada == null) {
                 System.out.println("ID inválido!");
@@ -97,7 +113,8 @@ public class GerTransportadora implements IntTransportadora {
 
         int opc;
         do {
-            System.out.println("Qual dado deseja modificar? \n1 - Nome\n2 - CNPJ\n3 - Taxa\n4 - Adicionar Região\n5 - Remover Região\n0 - Sair");
+            System.out.println(
+                    "Qual dado deseja modificar? \n1 - Nome\n2 - CNPJ\n3 - Taxa\n4 - Adicionar Região\n5 - Remover Região\n0 - Sair");
 
             try {
                 opc = scanner.nextInt();
@@ -120,9 +137,17 @@ public class GerTransportadora implements IntTransportadora {
                         break;
 
                     case 3:
-                        System.out.println("Digite a nova taxa da transportadora: ");
-                        double novaTaxa = scanner.nextDouble();
-                        scanner.nextLine(); // Consome a quebra de linha
+                        double novaTaxa = -1;
+                        do {
+                            try {
+                                System.out.print("Digite a taxa da transportadora (% em cima da venda cobrado): ");
+                                novaTaxa = scanner.nextDouble();
+                            } catch (Exception e) {
+                                System.out.println("Tipo inserido inválido. Digite um valor real!");
+                                novaTaxa = -1;
+                            }
+
+                        } while (novaTaxa < 0);
                         transportadoraEncontrada.setTaxa(novaTaxa);
                         System.out.println("Taxa atualizada com sucesso!");
                         break;
@@ -130,23 +155,50 @@ public class GerTransportadora implements IntTransportadora {
                     case 4:
                         System.out.println("Adicione a região: ");
 
-                        for (int i = 0; i < regioes.length; i++) {
-                            System.out.println((i + 1) + " - " + regioes[i]);
-                        }
-                        int regiaoAtendida = scanner.nextInt() - 1;
-                        scanner.nextLine(); // Consome a quebra de linha
-                        transportadoraEncontrada.setRegiao(regioes[regiaoAtendida]);
+                        Regiao regiao = null;
+                        do {
+                            try {
+                                int i = 1;
+                                for (Regiao r : regioes) {
+                                    System.out.println(i + " - " + r);
+                                    i++;
+                                }
+                                System.out.println();
+                                System.out.println("Digite a região");
+                                int regiaoEscolhida = scanner.nextInt();
+                                regiao = regioes[regiaoEscolhida - 1];
+                            } catch (Exception e) {
+                                System.out.println("Opção inválida! Tente novamente.");
+                                regiao = null;
+                            }
+                        } while (regiao == null);
+
+                        transportadoraEncontrada.setRegiao(regiao);
                         System.out.println("Região adicionada com sucesso!");
                         break;
 
                     case 5:
                         System.out.println("Remova a região: ");
-                        for (int i = 0; i < regioes.length; i++) {
-                            System.out.println((i + 1) + " - " + regioes[i]);
-                        }
-                        regiaoAtendida = scanner.nextInt() - 1;
-                        scanner.nextLine(); // Consome a quebra de linha
-                        transportadoraEncontrada.removerRegiao(regioes[regiaoAtendida]);
+                        
+                        Regiao removerRegiao = null;
+                        do {
+                            try {
+                                int i = 1;
+                                for (Regiao r : transportadoraEncontrada.getRegiao()) {
+                                    System.out.println(i + " - " + r);
+                                    i++;
+                                }
+                                System.out.println();
+                                System.out.println("Digite a região");
+                                int regiaoEscolhida = scanner.nextInt();
+                                removerRegiao = transportadoraEncontrada.getRegiao().get(regiaoEscolhida - 1);
+                            } catch (Exception e) {
+                                System.out.println("Opção inválida! Tente novamente.");
+                                removerRegiao = null;
+                            }
+                        } while (removerRegiao == null);
+
+                        transportadoraEncontrada.removerRegiao(removerRegiao);
                         System.out.println("Região removida com sucesso!");
                         break;
 
@@ -166,13 +218,9 @@ public class GerTransportadora implements IntTransportadora {
         } while (opc != 0);
     }
 
-
-
     // Método para visualizar o total de transportadoras cadastradas
-        public static void visualizarTotalTransportadoras (ArrayList < Transportadora > transportadoras) {
-            System.out.println("Total de transportadoras cadastradas: " + transportadoras.size());
-        }
-
+    public static void visualizarTotalTransportadoras(ArrayList<Transportadora> transportadoras) {
+        System.out.println("Total de transportadoras cadastradas: " + transportadoras.size());
     }
 
-
+}

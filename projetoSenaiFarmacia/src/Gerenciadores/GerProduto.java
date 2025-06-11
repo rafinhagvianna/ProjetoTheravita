@@ -1,4 +1,5 @@
 package Gerenciadores;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import Classes.*;
@@ -10,7 +11,7 @@ public class GerProduto implements IntProduto {
     static Scanner scanner = new Scanner(System.in);
 
     @Override
-    public void menu(){
+    public void menu() {
         System.out.println("Escolha uma das opções: ");
         System.out.println("---------------------------------------------");
         System.out.println("| 1 - Cadastrar produto                     |");
@@ -23,28 +24,45 @@ public class GerProduto implements IntProduto {
 
     @Override
     public void cadastraProduto(ArrayList<Produto> produtos) {
-        System.out.print("Descrição = ");
-        String descricao = scanner.nextLine();
-        System.out.print("Valor de venda = ");
-        double valorVenda = scanner.nextDouble();
-        System.out.print("Valor de compra = ");
-        double valorCompra = scanner.nextDouble();
-        scanner.nextLine();
+        String descricao = "";
+        double valorVenda = 0;
+        double valorCompra = 0;
 
-        try {
-            Produto produto;
+        System.out.print("Descrição = ");
+        descricao = scanner.nextLine();
+        do {
             try {
-                produto = new Produto(descricao, valorVenda, valorCompra);
-            } catch (ProdutoException e) {
-                produto = e.CadastroException(descricao, valorVenda, valorCompra);
+                System.out.print("Valor de venda = ");
+                valorVenda = scanner.nextDouble();
+            } catch (Exception e) {
+                System.out.println("Tipo inserido inválido. Digite um valor real!");
+                valorVenda = 0;
             }
-            produtos.add(produto);
-            System.out.println("Produto cadastrado com sucesso!");
-            System.out.println();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+
+        } while (valorVenda <= 0);
+
+        do {
+            try {
+                System.out.print("Valor de compra = ");
+                valorCompra = scanner.nextDouble();
+            } catch (Exception e) {
+                System.out.println("Tipo inserido inválido. Digite um valor real!");
+                valorCompra = 0;
+            }
+
+        } while (valorCompra <= 0);
+
+        Produto produto;
+        try {
+            produto = new Produto(descricao, valorVenda, valorCompra);
+        } catch (ProdutoException e) {
+            produto = e.CadastroException(descricao, valorVenda, valorCompra);
         }
+        produtos.add(produto);
+        System.out.println("Produto cadastrado com sucesso!");
+
     }
+
     @Override
     public void listarProdutos(ArrayList<Produto> produtos) {
         if (produtos.isEmpty()) {
@@ -58,64 +76,85 @@ public class GerProduto implements IntProduto {
 
     @Override
     public void atualizarProduto(ArrayList<Produto> produtos) {
-        System.out.print("Informe o ID do produto a ser atualizado: ");
-        String procurarId = scanner.nextLine();
-        System.out.print("Informe a descrição do produto a ser atualizado: ");
-        String descricaoProduto = scanner.nextLine();
-
 
         Produto produtoAtualizar = null;
-        for (Produto prod : produtos) {
-            if (prod.getDescricao().equalsIgnoreCase(descricaoProduto) && prod.getId().equalsIgnoreCase(procurarId)) {
-                produtoAtualizar = prod;
-                break;
-            }
-        }
+        String procurarId;
+        do {
+            System.out.print("Informe o ID do produto a ser atualizado: ");
+            procurarId = scanner.nextLine();
+            Produto produto = Produto.buscarProdutoPorId(procurarId, produtos);
 
-        if (produtoAtualizar != null) {
-            System.out.println("Produto encontrado: " + produtoAtualizar);
+            if (produto != null) {
+                if (produtoAtualizar != null) {
+                    System.out.println("Produto encontrado: " + produtoAtualizar);
 
-            System.out.print("Deseja atualizar o valor de venda? (S/N): ");
-            char atualizarValorVenda = scanner.next().charAt(0);
-            if (atualizarValorVenda == 'S' || atualizarValorVenda == 's') {
-                System.out.print("Novo valor de venda: ");
-                double novoValorVenda = scanner.nextDouble();
-                try {
-                    produtoAtualizar.setValorVenda(novoValorVenda);
-                } catch (ProdutoException e) {
-                    e.ValorVendaException(produtoAtualizar);
+                    System.out.print("Deseja atualizar o valor de venda? (S/N): ");
+                    char atualizarValorVenda = scanner.next().charAt(0);
+                    if (atualizarValorVenda == 'S' || atualizarValorVenda == 's') {
+                        double novoValorVenda = 0;
+
+                        do {
+                            try {
+                                System.out.print("Novo valor de venda: ");
+                                novoValorVenda = scanner.nextDouble();
+                            } catch (Exception e) {
+                                System.out.println("Tipo inserido inválido. Digite um valor real!");
+                                novoValorVenda = 0;
+                            }
+
+                        } while (novoValorVenda <= 0);
+
+                        try {
+                            produtoAtualizar.setValorVenda(novoValorVenda);
+                        } catch (ProdutoException e) {
+                            e.ValorVendaException(produtoAtualizar);
+                        }
+                    }
+
+                    System.out.print("Deseja atualizar o valor de compra? (S/N): ");
+                    char atualizarValorCompra = scanner.next().charAt(0);
+                    if (atualizarValorCompra == 'S' || atualizarValorCompra == 's') {
+                        double novoValorCompra = 0;
+
+                        do {
+                            try {
+                                System.out.print("Novo valor de compra: ");
+                                novoValorCompra = scanner.nextDouble();
+                            } catch (Exception e) {
+                                System.out.println("Tipo inserido inválido. Digite um valor real!");
+                                novoValorCompra = 0;
+                            }
+
+                        } while (novoValorCompra <= 0);
+
+
+                        try {
+                            produtoAtualizar.setValorCompra(novoValorCompra);
+                        } catch (ProdutoException e) {
+                            e.ValorCompraException(produtoAtualizar);
+                        }
+                    }
+
+                    System.out.print("Deseja atualizar a descrição do produto? (S/N): ");
+                    char atualizarDescricao = scanner.next().charAt(0);
+                    if (atualizarDescricao == 'S' || atualizarDescricao == 's') {
+                        System.out.print("Nova descrição: ");
+                        scanner.nextLine();
+                        String novaDescricao = scanner.nextLine();
+                        try {
+                            produtoAtualizar.setDescricao(novaDescricao);
+                        } catch (ProdutoException e) {
+                            e.DescricaoException(produtoAtualizar);
+                        }
+                    }
+                    System.out.println("Produto atualizado com sucesso!");
                 }
-            }
 
-            System.out.print("Deseja atualizar o valor de compra? (S/N): ");
-            char atualizarValorCompra = scanner.next().charAt(0);
-            if (atualizarValorCompra == 'S' || atualizarValorCompra == 's') {
-                System.out.print("Novo valor de compra: ");
-                double novoValorCompra = scanner.nextDouble();
-                try {
-                    produtoAtualizar.setValorCompra(novoValorCompra);
-                } catch (ProdutoException e) {
-                    e.ValorCompraException(produtoAtualizar);
-                }
+            } else {
+                System.out.println("Produto não encontrado");
             }
+        } while (!procurarId.equals("0"));
 
-            System.out.print("Deseja atualizar a descrição do produto? (S/N): ");
-            char atualizarDescricao = scanner.next().charAt(0);
-            if (atualizarDescricao == 'S' || atualizarDescricao == 's') {
-                System.out.print("Nova descrição: ");
-                scanner.nextLine();
-                String novaDescricao = scanner.nextLine();
-                try {
-                    produtoAtualizar.setDescricao(novaDescricao);
-                } catch (ProdutoException e) {
-                    e.DescricaoException(produtoAtualizar);
-                }
-            }
-            System.out.println("Produto atualizado com sucesso!");
-        } else {
-            System.out.println("Produto não encontrado!");
-            System.out.println("Descrição ou ID digitado incorretamente.");
-        }
     }
 
     public void diponibilidadeProduto(ArrayList<Produto> produtos) {
