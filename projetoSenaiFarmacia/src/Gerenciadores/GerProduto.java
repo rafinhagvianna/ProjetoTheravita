@@ -87,9 +87,9 @@ public class GerProduto implements IntProduto {
         do {
             System.out.print("Informe o ID do produto a ser atualizado: ");
             procurarId = scanner.nextLine();
-            Produto produto = Produto.buscarProdutoPorId(procurarId, produtos);
+            produtoAtualizar = Produto.buscarProdutoPorId(procurarId, produtos);
 
-            if (produto != null) {
+
                 if (produtoAtualizar != null) {
                     System.out.println("Produto encontrado: " + produtoAtualizar);
 
@@ -158,10 +158,10 @@ public class GerProduto implements IntProduto {
                     System.out.println("Produto atualizado com sucesso!");
                 }
 
-            } else {
+             else {
                 System.out.println("Produto não encontrado");
             }
-        } while (!procurarId.equals("0"));
+        } while (produtoAtualizar == null);
 
     }
 

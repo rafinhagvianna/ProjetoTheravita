@@ -1,9 +1,11 @@
 package Gerenciadores;
 
+import Classes.Caixa;
 import Classes.Compra;
 import Classes.Venda;
 import Enums.Status;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +18,7 @@ public class GerGestao {
         this.vendas = vendas;
     }
 
-    public void apresentarMenuGestao(Scanner scanner) {
+    public void apresentarMenuGestao(Scanner scanner , Caixa caixa) {
         int opcaoUsuarioGestao;
         do {
             System.out.println("\nEscolha uma das opções: ");
@@ -33,7 +35,7 @@ public class GerGestao {
                     consultarNegocios();
                     break;
                 case 2:
-                    atualizarStatus(scanner);
+                    atualizarStatus(scanner,caixa);
                     break;
                 case 0:
                     System.out.println("Retornando ao menu principal...");
@@ -55,7 +57,7 @@ public class GerGestao {
                 statusCompra = true;
             }
         }
-        if (statusCompra) {
+        if (!statusCompra) {
             System.out.println("Não há compras em andamentos.");
         }
 
@@ -71,23 +73,76 @@ public class GerGestao {
         }
     }
 
-    private void atualizarStatus(Scanner scanner) {
-        System.out.print("Digite o índice da compra a ser finalizada: ");
-        int indiceCompra = scanner.nextInt();
-        if (indiceCompra >= 0 && indiceCompra <= compras.size()) {
-            compras.get(indiceCompra).setStatus(Status.FECHADO);
-            System.out.println("Compra #" + indiceCompra + " finalizada.");
-        } else {
-            System.out.println("Índice de compra inválido.");
-        }
+    private void atualizarStatus(Scanner scanner, Caixa caixa) {
+        System.out.println("Insira o tipo de transação que deseja atualizar: ");
+        System.out.println("1 - Compra");
+        System.out.println("2 - Venda");
+        int opc = scanner.nextInt();
+        scanner.nextLine();
 
-        System.out.print("Digite o índice da venda a ser finalizada: ");
-        int indiceVenda = scanner.nextInt();
-        if (indiceVenda >= 0 && indiceVenda <= vendas.size()) {
-            vendas.get(indiceVenda).setStatus(Status.FECHADO);
-            System.out.println("Venda #" + indiceVenda + " finalizada.");
+        System.out.println("Insira a data da transação desejada (AAAA-MM-DD): ");
+        LocalDate data = LocalDate.parse(scanner.nextLine());
+
+        if (opc == 1) {
+            ArrayList<Compra> comprasPorData = caixa.filtrarCompraPelaData(data);
+            comprasPorData.forEach(System.out::println);
+
+            System.out.println("Insira o ID da compra que deseja atualizar: ");
+            String id = scanner.nextLine();
+
+            System.out.println("Escolha para qual status deseja atualizar: ");
+            System.out.println("1 - CONCLUIR");
+            System.out.println("2 - CANCELAR");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            Compra compraSelecionada = comprasPorData.stream()
+                    .filter(c -> c.getId().equals(id))
+                    .findFirst()
+                    .orElse(null);
+
+            if (compraSelecionada != null) {
+                if (opcao == 1) {
+                    compraSelecionada.setStatus(Status.FECHADO);
+                } else if (opcao == 2) {
+                    compraSelecionada.setStatus(Status.CANCELADO);
+                } else {
+                    System.out.println("Opção inválida. Tente novamente.");
+                }
+            } else {
+                System.out.println("ID não encontrado.");
+            }
+        } else if (opc == 2) {
+            ArrayList<Venda> vendasPorData = caixa.filtrarVendaPelaData(data);
+            vendasPorData.forEach(System.out::println);
+
+            System.out.println("Insira o ID da venda que deseja atualizar: ");
+            String id = scanner.nextLine();
+
+            System.out.println("Escolha para qual status deseja atualizar: ");
+            System.out.println("1 - CONCLUIR");
+            System.out.println("2 - CANCELAR");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            Venda vendaSelecionada = vendasPorData.stream()
+                    .filter(v -> v.getId().equals(id))
+                    .findFirst()
+                    .orElse(null);
+
+            if (vendaSelecionada != null) {
+                if (opcao == 1) {
+                    vendaSelecionada.setStatus(Status.FECHADO);
+                } else if (opcao == 2) {
+                    vendaSelecionada.setStatus(Status.CANCELADO);
+                } else {
+                    System.out.println("Opção inválida. Tente novamente.");
+                }
+            } else {
+                System.out.println("ID não encontrado.");
+            }
         } else {
-            System.out.println("Índice de venda inválido.");
+            System.out.println("Opção inválida. Tente novamente.");
         }
     }
 }

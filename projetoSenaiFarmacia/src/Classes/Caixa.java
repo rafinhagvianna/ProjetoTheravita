@@ -109,9 +109,9 @@ public class Caixa {
                 vendasFiltrada.add(venda);
             }
         }
-
         return vendasFiltrada;
-    } 
+    }
+
     public ArrayList<Compra> filtrarCompraPelaData(LocalDate date){
         ArrayList<Compra> comprasFiltrada = new ArrayList<>();
 
@@ -120,7 +120,6 @@ public class Caixa {
                 comprasFiltrada.add(compra);
             }
         }
-
         return comprasFiltrada;
     } 
 }

@@ -53,12 +53,4 @@ public class Venda extends Transacoes {
         total += (transportadora.getTaxa()/100) * total;
         return total;
     }
-
-    public static void emAberto(ArrayList<Venda> vendas) {
-        for (Venda venda : vendas) {
-            if (venda.getStatus().equals(Status.ABERTO)) {
-                System.out.println("Venda em aberto: " + venda.getId());
-            }
-        }
-    }
 }
