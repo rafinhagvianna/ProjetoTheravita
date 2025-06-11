@@ -1,0 +1,167 @@
+@startuml
+class Produto {
+    -int idBase;
+    -String descricao;
+    -String id;
+    -double valorVenda;
+    -double valorCompra;
+    -Estoque estoqueProduto
+
+    +getters()
+    +setters()
+    +String toString()
+    +boolean verificaEstoque(int qtd)
+    +Produto buscarProdutoPorId(String id, ArrayList<Produto> produtos)
+}
+
+Produto -- Estoque
+
+class Estoque{
+    -Produto produto;
+    -int estoque;
+    -int minimo;
+
+    +getters()
+    +setters()
+    +getMinimo()
+    +setMinimo(int minimo)
+    +boolean verificarEstoque()
+    realizaTransicao(int quantidade)
+}
+
+Funcionario -- Setor
+Funcionario -- Salario
+
+class Funcionario{
+    -String nome;
+    -String cpf;
+    -String id;
+    -String genero;
+    - Setor setor;
+    - Salario salario;
+
+    +getters()
+    +setters()
+    +String toString()
+    +dadosFuncionario()
+    +Funcionario buscarFuncionarioPorId(String id, ArrayList<Funcionario> funcionarios)
+}
+
+class Setor{
+    - String id;
+    - Setores nome;
+    - ArrayList<Funcionario> funcionarios;
+
+    +getters()
+    +setters()
+    +int funcionariosAtivos()
+    +int totalFuncionarios(ArrayList<Setor> setores)
+    +removerFuncionario(Funcionario funcionario)
+    +adicionarFuncionario(Funcionario funcionario)
+
+}
+
+class Salario{
+    - double salario;
+    - double saude;
+    - double valeRefAliment;
+    - double odonto;
+    - Funcionario funcionario;
+
+    +getters()
+    +setters()
+    +defineBeneficios()
+    +double calculaSalario()
+    +double calcularBonificacao(double lucroAnual, double nFuncionarios) // Não está sendo usado
+    +double calcularBonificacao(Caixa caixa, ArrayList<Setor> setores)
+}
+
+
+Venda --|> Transacoes
+Compra --|> Transacoes
+abstract class Transacoes{
+    - String id;
+    - ArrayList<Itens> produtos;
+    - LocalDate data;
+    - Funcionario funcionario;
+    - Status status;
+    - double valor;
+    - int proxId;
+
+    +getters()
+    +setters()
+    +boolean verificaEstoque(int qtd)
+    +double calculaTotal() {abstract}
+    +toString()
+}
+
+Venda --> Transportadora
+class Venda{
+    -Transportadora transportadora;
+
+    +adicionarItem(Itens item)
+    +removerItem(Itens item)
+    +double calculaTotal()
+}
+
+
+class Compra{
+    +double calculaTotal()
+}
+
+Itens --> Produto
+
+class Itens{
+    -int quantidade;
+    -Produto produto;
+
+    +getters()
+    +setters()
+    +double valorVenda()
+    +double valorCompra()
+}
+
+Caixa --> Venda
+Caixa --> Compra
+class Caixa{
+    - double saldo;
+    - ArrayList<Venda> entrada;
+    - ArrayList<Compra> saida;
+
+    +getters()
+    +setters()
+    +double totalCaixa()
+    +double lucroMensal(int mes, int ano)
+    +double lucroAnual(int ano)ArrayList<Venda> filtrarVendaPelaData(LocalDate date)
+    +ArrayList<Venda> filtrarVendaPelaData(LocalDate date)
+    +ArrayList<Compra> filtrarCompraPelaData(LocalDate date)
+}
+
+class Transportadora{
+    - -int idBase-
+    - String nome;
+    - String id;
+    - String cnpj;
+    - List<Regiao> regioes;
+    - double taxa;
+    - ArrayList<Transportadora> transportadoras;
+
+    +getters()
+    +setters()
+    +removerRegiao(Regiao regiao)
+    +boolean atendeRegiao(Regiao regiaoBuscada)
+    +Transportadora buscarTransportadora(String cnpj)
+}
+
+class Main{
+
+    +main()
+    +apresentarMenuFuncionarios(Scanner scanner)
+    +apresentarMenuSalarios(Scanner scanner, ArrayList<Funcionario> funcionarios)
+    +apresentarMenuProduto(Scanner scanner)
+    +apresentarMenuCaixa(Scanner scanner)
+    +apresentarMenuTransportadoras(Scanner scanner, ArrayList<Transportadora> transportadoras)
+    +apresentarMenuGestao(Scanner scanner)
+}
+
+@enduml
