@@ -45,10 +45,11 @@ Principais funcionalidades:
 # DIAGRAMA DE CLASSES #
 
 
-![DiagramaClasses](https://github.com/user-attachments/assets/53420f83-d02a-4c37-8713-bce5ae139df8)
+![image](https://github.com/user-attachments/assets/a496b6ff-44a8-4160-bfea-4dc13b6217ee)
+[Diagrama de Classes](https://github.com/user-attachments/files/20729387/Diagrama.de.Classes.pdf)
 
-<a target:_blank href="https://lucid.app/lucidchart/4dadb130-d460-4170-ab61-7ca0cf6d8236/edit?viewport_loc=-1917%2C-1356%2C2552%2C2935%2C0_0&invitationId=inv_fba2bebb-2d65-4097-894a-9f53bdc07da0" > Diagrama de classes </a>
-<br>
+
+
  
  ## Requisitos Funcionais
  <br>
