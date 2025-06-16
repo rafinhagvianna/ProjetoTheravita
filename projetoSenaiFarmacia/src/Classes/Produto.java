@@ -82,8 +82,8 @@ public class Produto {
     public String toString() {
         return  "Nome do produto = " + descricao +
                 ", id = " + id +
-                ", Valor de venda = R$" + valorVenda +
-                ", Valor de compra = R$" + valorCompra +
+                ", Valor de venda = R$" + String.format("%.2f, ", valorVenda) +
+                ", Valor de compra = R$" + String.format("%.2f, ", valorCompra) +
                 ", Estoque = " + (estoqueProduto != null ? estoqueProduto.getEstoque() : "N/A");
     }
 

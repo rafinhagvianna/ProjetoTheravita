@@ -31,17 +31,14 @@ public class Venda extends Transacoes {
         this.transportadora = transportadora;
     }
 
-    // Adiciona um item à venda
     public void adicionarItem(Itens item) {
         getProdutos().add(item);
     }
 
-    // Remove um item da venda
     public void removerItem(Itens item) {
         getProdutos().remove(item);
     }
 
-    // Calcula o total da venda
     public double calculaTotal() {
         double total = 0;
         for (Itens item : getProdutos()) {

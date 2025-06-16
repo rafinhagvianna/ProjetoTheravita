@@ -93,13 +93,13 @@ public class Funcionario {
     public void dadosFuncionario(){
         System.out.println("Funcionário: "+ nome);
         System.out.println("Setor: "+ setor.getNome());
-        System.out.println("Salario base: "+ salario.getSalario());
-        System.out.println("Descontos (IR e INSS): R$ " + (salario.getSalario() - salario.calculaSalario()));
-        System.out.println("Salario final: "+ salario.calculaSalario());
+        System.out.println("Salario base: "+ String.format("%.2f",salario.getSalario()));
+        System.out.println("Descontos (IR e INSS): R$ " + String.format("%.2f", (salario.getSalario() - salario.calculaSalario())));
+        System.out.println("Salario final: "+ String.format("%.2f",salario.calculaSalario()));
         System.out.println("Beneficios");
-        System.out.println(" - Plano de saúde: "+ salario.getSaude());
-        System.out.println(" - Plano odontológico: "+ salario.getOdonto());
-        System.out.println(" - Vale refeição/alimentação: "+ salario.getValeRefAliment());
+        System.out.println(" - Plano de saúde: "+ String.format("%.2f",salario.getSaude()));
+        System.out.println(" - Plano odontológico: "+ String.format("%.2f",salario.getOdonto()));
+        System.out.println(" - Vale refeição/alimentação: "+ String.format("%.2f",salario.getValeRefAliment()));
     }
 
     @Override
@@ -110,7 +110,7 @@ public class Funcionario {
                 ", id='" + id + '\'' +
                 ", genero='" + genero + '\'' +
                 ", setor=" + setor.getNome() +
-                ", salario=" + salario.getSalario() +
+                ", salario=" + String.format("%.2f", salario.getSalario()) +
                 '}';
     }
 
