@@ -42,6 +42,11 @@ Principais funcionalidades:
 - Paradigma Orientado a Objetos
 <br>
 
+
+# Slides #
+
+https://www.canva.com/design/DAGqhFFTsGE/oKqXgczj_wuyyFDVWfIDGQ/view?utm_content=DAGqhFFTsGE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h3256d9c24d
+
 # DIAGRAMA DE CLASSES #
 
 
