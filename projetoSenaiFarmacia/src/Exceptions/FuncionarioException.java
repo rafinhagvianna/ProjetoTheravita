@@ -13,6 +13,7 @@ public class FuncionarioException extends Exception {
 
     public Funcionario CadastroException(String nome, String cpf, String genero, Setor setorSelecionado) {
 
+
         while (!FuncionarioValidator.isValidNome(nome)) {
             System.out.println("Insira o nome completo:");
             nome = scanner.next();
@@ -22,9 +23,10 @@ public class FuncionarioException extends Exception {
             cpf = scanner.next();
         }
         while (!FuncionarioValidator.isValidGenero(genero)) {
+
             System.out.println("Insira o gênero:");
             genero = scanner.next();
-        }
+        }while (!FuncionarioValidator.isValidGenero(genero));
 
         try {
             return new Funcionario(nome, cpf, genero, setorSelecionado, null);

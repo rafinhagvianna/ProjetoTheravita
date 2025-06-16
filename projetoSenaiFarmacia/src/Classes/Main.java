@@ -31,18 +31,20 @@ public class Main {
         char opcaoInicialUsuario;
         do {
             Scanner scanner = new Scanner(System.in);
-            System.out.println();
-            System.out.println("ESCOLHA UMA DAS OPÇÕES: ");
-            System.out.println();
-            System.out.println("FUNCIONÁRIOS - (F)");
-            System.out.println("SALÁRIO E BENEFÍCIOS - (S)");
-            System.out.println("PRODUTO - (P)");
-            System.out.println("CAIXA - (C)");
-            System.out.println("TRANSPORTADORAS - (T)");
-            System.out.println("GESTÃO DE NEGÓCIOS - (G)");
-            System.out.println();
-            System.out.println("SAIR - (E)");
-            System.out.println();
+            System.out.println("______________________________");
+            System.out.println("|  ESCOLHA UMA DAS OPÇÕES:   |");
+            System.out.println("|____________________________|");
+            System.out.println("|____________________________|");
+            System.out.println("|     FUNCIONÁRIOS - (F)     |");
+            System.out.println("|  SALÁRIO E BENEFÍCIOS - (S)|");
+            System.out.println("|      PRODUTO - (P)         |");
+            System.out.println("|        CAIXA - (C)         |");
+            System.out.println("|   TRANSPORTADORAS - (T)    |");
+            System.out.println("|   GESTÃO DE NEGÓCIOS - (G) |");
+            System.out.println("|____________________________|");
+            System.out.println("|____________________________|");
+            System.out.println("|         SAIR - (E)         |");
+            System.out.println("|____________________________|");
 
             opcaoInicialUsuario = scanner.next().toUpperCase().charAt(0);
 
@@ -101,7 +103,7 @@ public class Main {
                     
                     do{
                         System.out.print("Informe o ID do funcionário: ");
-                        String idFuncionario = scanner.next();
+                        String idFuncionario = scanner.nextLine();
                         funcionarioEditar = Funcionario.buscarFuncionarioPorId(idFuncionario, funcionarios);
                         if (funcionarioEditar == null) System.out.println("Funcionário não encontrado!");
                     }while(funcionarioEditar == null);
@@ -120,7 +122,7 @@ public class Main {
                     break;
 
                 case 0:
-                    System.out.println("Retornando ao menu principal.");
+                    System.out.println("Retornando ao menu principal...");
                     break;
 
                 default:
@@ -166,7 +168,7 @@ public class Main {
                     break;
 
                 case 0:
-                    System.out.println("Retornando ao menu principal.");
+                    System.out.println("Retornando ao menu principal...");
                     break;
 
                 default:
@@ -205,7 +207,7 @@ public class Main {
                     break;
 
                 case 0:
-                    System.out.println("Retornando ao menu principal.");
+                    System.out.println("Retornando ao menu principal...");
                     break;
 
                 default:
@@ -252,6 +254,7 @@ public class Main {
                             mes = scanner.nextInt();
                             scanner.nextLine();                  
                         } catch (Exception e) {
+                            scanner.nextLine();                  
                             System.out.println("Tipo inserido inválido!");    
                         }
                     } while (mes < 1 || mes > 12);
@@ -262,6 +265,7 @@ public class Main {
                             ano = scanner.nextInt();
                             scanner.nextLine();                     
                         } catch (Exception e) {
+                            scanner.nextLine();                     
                             System.out.println("Tipo inserido inválido!"); 
                         }
                     } while (ano < 2000 || ano > 2050);
@@ -280,6 +284,7 @@ public class Main {
                             anoAnual = scanner.nextInt();
                             scanner.nextLine();                 
                         } catch (Exception e) {
+                            scanner.nextLine();                 
                             System.out.println("Tipo inserido inválido!");     
                         }
                     } while (anoAnual < 2000 || anoAnual > 2050);
@@ -328,15 +333,15 @@ public class Main {
                     break;
 
                 case 2:
-                    GerTransportadora.listarTransportadoras(transportadoras);
+                    new GerTransportadora().listarTransportadoras(transportadoras);
                     break;
 
                 case 3:
-                    GerTransportadora.atualizarTransportadora(scanner, transportadoras);
+                    new GerTransportadora().atualizarTransportadora(scanner, transportadoras);
                     break;
 
                 case 4:
-                    GerTransportadora.visualizarTotalTransportadoras(transportadoras);
+                    new GerTransportadora().visualizarTotalTransportadoras(transportadoras);
                     break;
 
                 case 0:

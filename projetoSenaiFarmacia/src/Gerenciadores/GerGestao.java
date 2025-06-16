@@ -2,14 +2,17 @@ package Gerenciadores;
 
 import Classes.Caixa;
 import Classes.Compra;
+import Classes.Itens;
 import Classes.Venda;
 import Enums.Status;
+import Interfaces.IntGestao;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GerGestao {
+public class GerGestao implements IntGestao {
     private ArrayList<Compra> compras;
     private ArrayList<Venda> vendas;
 
@@ -18,7 +21,7 @@ public class GerGestao {
         this.vendas = vendas;
     }
 
-    public void apresentarMenuGestao(Scanner scanner , Caixa caixa) {
+    public void apresentarMenuGestao(Scanner scanner, Caixa caixa) {
         int opcaoUsuarioGestao;
         do {
             System.out.println("\nEscolha uma das opções: ");
@@ -35,7 +38,7 @@ public class GerGestao {
                     consultarNegocios();
                     break;
                 case 2:
-                    atualizarStatus(scanner,caixa);
+                    atualizarStatus(scanner, caixa);
                     break;
                 case 0:
                     System.out.println("Retornando ao menu principal...");
@@ -47,7 +50,7 @@ public class GerGestao {
         } while (opcaoUsuarioGestao != 0);
     }
 
-    private void consultarNegocios() {
+    public void consultarNegocios() {
         boolean statusCompra = false, statusVenda = false;
 
         System.out.println("\n--- Compras em andamento ---");
@@ -64,24 +67,39 @@ public class GerGestao {
         System.out.println("\n--- Vendas em andamento ---");
         for (Venda venda : vendas) {
             if (venda.getStatus() == Status.ABERTO) {
-                System.out.println("Compra #" + venda.getId() + " - " + venda);
+                System.out.println("Venda #" + venda.getId() + " - " + venda);
                 statusVenda = true;
             }
         }
         if (!statusVenda) {
-            System.out.println("Não há compras em andamentos.");
+            System.out.println("Não há vendas em andamentos.");
         }
     }
 
-    private void atualizarStatus(Scanner scanner, Caixa caixa) {
+    public void atualizarStatus(Scanner scanner, Caixa caixa) {
         System.out.println("Insira o tipo de transação que deseja atualizar: ");
         System.out.println("1 - Compra");
         System.out.println("2 - Venda");
         int opc = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Insira a data da transação desejada (AAAA-MM-DD): ");
-        LocalDate data = LocalDate.parse(scanner.nextLine());
+        LocalDate data = null;
+
+        do {
+            try {
+                System.out.println("Digite a data da venda (AAAA-MM-DD) ou HJ para dia de hoje: ");
+                String dtPesquisa = scanner.nextLine();
+
+                if (dtPesquisa.equalsIgnoreCase("HJ")) {
+                    data = LocalDate.now();
+                } else {
+                    data = LocalDate.parse(dtPesquisa);
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Formato de data não aceito!");
+                data = null;
+            }
+        } while (data == null);
 
         if (opc == 1) {
             ArrayList<Compra> comprasPorData = caixa.filtrarCompraPelaData(data);
@@ -106,6 +124,9 @@ public class GerGestao {
                     compraSelecionada.setStatus(Status.FECHADO);
                 } else if (opcao == 2) {
                     compraSelecionada.setStatus(Status.CANCELADO);
+                    for (Itens item : compraSelecionada.getProdutos()) {
+                        item.getProduto().getEstoqueProduto().realizaTransicao(-item.getQuantidade());
+                    }
                 } else {
                     System.out.println("Opção inválida. Tente novamente.");
                 }
@@ -135,6 +156,9 @@ public class GerGestao {
                     vendaSelecionada.setStatus(Status.FECHADO);
                 } else if (opcao == 2) {
                     vendaSelecionada.setStatus(Status.CANCELADO);
+                    for (Itens item : vendaSelecionada.getProdutos()) {
+                        item.getProduto().getEstoqueProduto().realizaTransicao(item.getQuantidade());
+                    }
                 } else {
                     System.out.println("Opção inválida. Tente novamente.");
                 }
