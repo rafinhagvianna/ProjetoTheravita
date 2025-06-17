@@ -45,7 +45,7 @@ Principais funcionalidades:
 
 # Slides #
 
-https://www.canva.com/design/DAGqhFFTsGE/oKqXgczj_wuyyFDVWfIDGQ/view?utm_content=DAGqhFFTsGE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h3256d9c24d
+https://www.canva.com/design/DAGqhFFTsGE/DcCIIW6QIAZ0YbAZsSZVjQ/edit?utm_content=DAGqhFFTsGE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 # DIAGRAMA DE CLASSES #
 
