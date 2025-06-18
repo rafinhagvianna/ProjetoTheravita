@@ -51,6 +51,8 @@ Principais funcionalidades:
 
 - [Repositório Integração de Banco de Dados](https://github.com/Lfdomenico/ProjetoSenaiBD.git)
 
+- [Link para o Postman](https://www.postman.com/theravita/workspace/theravita/request/30232619-f4113e28-ad1b-4474-8af6-b5a9d8ccc601?action=share&creator=30232619&ctx=documentation)
+
 <br>
 
 # [SLIDES](https://www.canva.com/design/DAGqhFFTsGE/DcCIIW6QIAZ0YbAZsSZVjQ/edit?utm_content=DAGqhFFTsGE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) #
