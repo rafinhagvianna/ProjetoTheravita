@@ -1,4 +1,6 @@
-# Sistema de Gestão para Empresa Farmacêutica
+# Sistema de Gestão para Empresa Farmacêutica   ![image](https://github.com/user-attachments/assets/9440b2ae-e5e9-4a5c-ac1d-f65eea3db02d)
+
+![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=3DDC84&width=435&lines=Projeto+Theravita;)
 
 ### Integrantes:
 
@@ -7,10 +9,6 @@
 - Luiz Fernando Moreira Domênico
 - Rafael de Godoy Vianna
 - Rafael de Palma Francisco
-
-https://github.com/Rafael-Francisco21/ProjetoSenaiFramework.git
-
-https://github.com/gabrielbachega1/front-theravita.git
 
 ## Descrição
 <br>
@@ -45,16 +43,28 @@ Principais funcionalidades:
 - Paradigma Orientado a Objetos
 <br>
 
+## Repositórios Extras
 
-# Slides #
+- [Repositório Framework](https://github.com/Rafael-Francisco21/ProjetoSenaiFramework.git)
 
-https://www.canva.com/design/DAGqhFFTsGE/DcCIIW6QIAZ0YbAZsSZVjQ/edit?utm_content=DAGqhFFTsGE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+- [Repositório Front-end](https://github.com/gabrielbachega1/front-theravita.git)
 
-# DIAGRAMA DE CLASSES #
+- [Repositório Integração de Banco de Dados](https://github.com/Lfdomenico/ProjetoSenaiBD.git)
+
+<br>
+
+# [SLIDES](https://www.canva.com/design/DAGqhFFTsGE/DcCIIW6QIAZ0YbAZsSZVjQ/edit?utm_content=DAGqhFFTsGE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) #
+
+![image](https://github.com/user-attachments/assets/c16cbcb2-90e2-440b-be71-4fd526a3e524)
+
+
+
+
+# [DIAGRAMA DE CLASSES](https://github.com/user-attachments/files/20729387/Diagrama.de.Classes.pdf) #
 
 
 ![image](https://github.com/user-attachments/assets/a496b6ff-44a8-4160-bfea-4dc13b6217ee)
-[Diagrama de Classes](https://github.com/user-attachments/files/20729387/Diagrama.de.Classes.pdf)
+
 
 
 
