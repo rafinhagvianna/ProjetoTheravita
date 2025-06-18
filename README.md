@@ -8,6 +8,8 @@
 - Rafael de Godoy Vianna
 - Rafael de Palma Francisco
 
+https://github.com/Rafael-Francisco21/ProjetoSenaiFramework.git
+https://github.com/gabrielbachega1/front-theravita.git
 
 ## Descrição
 <br>
