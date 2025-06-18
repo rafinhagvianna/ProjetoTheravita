@@ -39,9 +39,23 @@ Principais funcionalidades:
 
 ## Tecnologias Utilizadas
 
-- Linguagem de Programação: Java 
-- Paradigma Orientado a Objetos
-<br>
+#### BackEnd
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=java,mysql" />
+  </a>
+</p>
+
+#### FrontEnd
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=html,css,js" />
+  </a>
+</p>
+
+#### Framework
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=spring,postman" />
+  </a>
+</p>
 
 ## Repositórios Extras
 
